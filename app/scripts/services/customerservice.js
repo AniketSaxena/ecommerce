@@ -12,8 +12,8 @@ angular.module('chocoholicsApp')
     // Service logic
     // ...
 
-    const ENDPOINT = '/check/'
-    var route = '/customer'
+    const ENDPOINT = '/check/';
+    var route = '/customer';
 
     // Public API here
     return {

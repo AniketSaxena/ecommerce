@@ -46,8 +46,8 @@ angular
         var productState = {
             name: 'main.product',
             url: '/main/product/:id',
-            controller:'ProductCtrl',
-            controllerAs:'product',
+            controller: 'ProductCtrl',
+            controllerAs: 'product',
             templateUrl: '/views/product.html'
         };
         var cartState = {
@@ -64,7 +64,15 @@ angular
         $stateProvider.state(productState);
         $urlRouterProvider.otherwise('main/home');
         $urlRouterProvider.when('main/shop');
-
-        localStorageServiceProvider
-        .setPrefix('chocoholicsApp');
-    });
+        localStorageServiceProvider.setStorageType('localStorage');
+        
+    })
+    .run(function($http , localStorageService){
+        var token = localStorageService.get('token');
+        if (token) {
+            $http.defaults.headers.common['x-access-token'] = token;
+            $http.defaults.headers.post['x-access-token'] = token;
+            $http.defaults.headers.put['x-access-token'] = token;
+        }
+    })
+;

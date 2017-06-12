@@ -12,7 +12,6 @@ angular.module('chocoholicsApp')
         // ...
         const ENDPOINT = '/order/';
         var vendor = ENV.vendorKey;
-        var orderItem = [];
         // Public API here
         return {
 
@@ -30,16 +29,15 @@ angular.module('chocoholicsApp')
             addOrderItem: function(items) {
                 return $http.post(ENV.serverURL + ENDPOINT + 'add', { items: items });
             },
-
-            // linkOrder: function(orderId, itemId) {
-            //     return $http.post(ENV.serverURL + ENDPOINT + 'linkOrder', {
-            //         orderId: orderId,
-            //         orderItemId: itemId
-            //     });
-            // },
-            // removeOrderItem: function(itemId) {
-            //     return $http.delete(ENV.serverURL + ENDPOINT + 'item/' + itemId); /*** need help ***/
-            // },
+            linkOrder: function(orderId, itemId) {
+                return $http.post(ENV.serverURL + ENDPOINT + 'linkOrder', {
+                    orderId: orderId,
+                    orderItemId: itemId
+                });
+            },
+            removeOrderItem: function(itemId) {
+                return $http.delete(ENV.serverURL + ENDPOINT + 'item/' + itemId); /*** need help ***/
+            },
             // updateOrderItems: function(itemId, quantity, discount, discountCode, remarks, orderId) {
             //     var body = {
             //         quantity: parseInt(quantity),

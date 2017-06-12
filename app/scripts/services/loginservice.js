@@ -15,7 +15,7 @@ angular.module('chocoholicsApp')
         // Public API here
         return {
             loginUser: function(user) {
-                return $http.post(ENV.serverURL + route + ENDPOINT + 'login/' + ENV.vendorKey, { phone: user.phone , password: user.password , brand: user.brand, type: ENV.type} , brand: ENV.brand);
+                return $http.post(ENV.serverURL + route + ENDPOINT + 'login/' + ENV.vendorKey, { phone: user.phone , password: user.password , brand:  ENV.brand, type: ENV.type});
             }
         };
     });
