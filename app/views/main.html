@@ -1,0 +1,57 @@
+<!-- Top Navigation Contents start here -->
+<div class="header">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ui-sref="main.home">chocoholics</a>
+            </div>
+            <div class="collapse navbar-collapse" id="js-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a ui-sref="main.home">Home</a></li>
+                    <li><a ui-sref="main.shop">Products</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a ui-sref="main.cart">Cart</a>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-default navbar-btn" ng-click="main.open('sm')">login</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Top navigation contents end here -->
+<!-- Modal Definition -->
+<!-- End of modal -->
+<div class="container">
+    <ui-view></ui-view>
+</div>
+<!-- Start of footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline">
+                    <li>
+                        <a href="">your twitter account</a>
+                    </li>
+                    <li>
+                        <a href="">your facebook account</a>
+                    </li>
+                    <li>
+                        <a href="">your instagram account</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End of footer -->
+</footer>

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <!-- col for image -->
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <img ng-src="{{product.product.mediumImage}}" class="image-responsive" srcset="{{product.product.smallImage}} 1x,{{product.product.mediumImage}} 2x,{{product.product.largeImage}} 3x"></img>
+        </div>
+        <!-- col for basic details -->
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <h2 id="product-name"><b>{{product.product.name}}</b></h2>
+            <h3>{{product.product.subtitle}}</h3>
+            <h2>{{product.product.rate | currency : "&#8377;"}}</h2>
+            <button type="button" class="btn btn-primary btn-lg">Add to cart</button>
+            <h4>Product Description:</h4>
+            <p>{{product.product.description}}</p>
+        </div>
+    	
+    </div>
+</div>

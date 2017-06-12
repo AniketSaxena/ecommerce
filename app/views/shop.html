@@ -1,0 +1,43 @@
+<div class="container">
+    <!-- Upper navigation for categories -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="nav nav-pills nav-justified">
+                <li role="presentation">
+                    <a ui-sref="#" ui-sref-active="active">All</a>
+                </li>
+                <li role="presentation">
+                    <a ui-sref="#" ui-sref-active="active">Beverages</a>
+                </li>
+                <li role="presentation">
+                    <a ui-sref="#" ui-sref-active="active">Dishes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- End of navigation categories -->
+    <div class="row" id="item">
+        <div infinite-scroll="shop.loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="busy" infinite-scroll-use-document-bottom="true">
+            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in shop.products">
+                <div class="panel panel-default product-preview-panel">
+                    <div class="panel-header">
+                    </div>
+                    <div class="panel-body">
+                        <a ui-sref="main.product({id:product.id})">
+                            <h4>{{product.name}}</h4>
+                        </a>
+                        <p>{{product.subtitle}}</p>
+                        <div class="cost-holder">
+                            <div class="cost">
+                                <p> {{product.rate | currency : "&#8377;"}}</p>
+                            </div>
+                            <button type="button" class="btn btn-default" title="Buy" ng-click="shop.addItem(product.id)">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Buy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Pager Start -->
+        </div>
+    </div>

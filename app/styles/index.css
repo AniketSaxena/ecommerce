@@ -1,0 +1,71 @@
+body{
+	background-color:  #FAFAFA;
+}
+
+.jumbotron{
+	background-color: white;
+}
+
+
+
+.panel.panel-default{
+	margin-top: 30px;
+	border: 1px solid rgba(0,0,0,0.2);
+	border-radius: 4px;
+	transition:0.2s ease-in;
+}
+.panel:hover{
+	transform: translateY(-5px);
+	transition:0.2s;
+	box-shadow: 0 2px 2px 0px rgba(0,0,0,0.15);
+
+}
+#panel-header{
+	height: 230px;
+	background-image: url("/images/download.jpg"); 	
+	background-size: cover;
+}
+
+#panel-body{
+	font-family: 'Droid Sans', sans-serif;
+	font-weight: bold;
+}
+
+.cost-holder{
+	position: relative;
+	margin-top: 10px;
+	height: 20px;
+}
+
+.cost-holder p{
+	font-family: 'Droid Sans', sans-serif;
+	margin-top: 10px;
+	position: relative;
+	float: left;
+	font-size: 16px;
+}
+
+.cost-holder button{
+	overflow: hidden;
+	font-family: 'Droid Sans', sans-serif;
+	position: relative;
+	float: right;
+	border: solid;
+	border-color: grey;
+	border-width: 2px;
+	background-position: 0px 0px;
+	transition: all 0.2s ease-in;
+	width: 38px;
+}
+
+.cost-holder button:hover{
+	width:72px;
+	transition: all 0.2s;
+}
+
+.cost-holder button span{
+	margin-right: 4px;
+}
+.about{
+	padding: 20px; 
+}
