@@ -7,21 +7,23 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('CartCtrl', function(productService) {
+    .controller('CartCtrl', function(orderService,localStorageService) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma'
         ];
         var vm = this;
+        var orderId;
+        orderId = localStorageService.get('ObjectId');
         this.busy = false;
-        this.products = [];
+        this.items = [];
         this.loadMore = function() {
             if (vm.busy) {
                 return;
             }
             vm.busy = true;
-            productService.getProducts(vm.counter, 10)
+            orderService.getOrderItems(orderId)
                 .then(function(response) {
                     console.log(response.data);
                     angular.forEach(response.data, function(element) {
@@ -41,6 +43,7 @@ angular.module('chocoholicsApp')
         //  console.log(response);
         //}).catch(function(error){
         //  console.log(error);
-        //})
-       // }
+        //});
+       // };
+       //
     });

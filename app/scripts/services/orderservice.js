@@ -15,17 +15,17 @@ angular.module('chocoholicsApp')
         // Public API here
         return {
 
-            // createOrder: function() {
-            //     var order = [];
-            //     var body = {
-            //         mode: ENV.mode,
-            //         style: ENV.style,
-            //         type: ENV.type,
-            //         owner: ENV.owner
-            //     };
-            //     console.log('creating online order');
-            //     return $http.post(ENV.serverURL + ENDPOINT + 'order/' + vendor, body);
-            // },
+            createOrder: function() {
+                var order = [];
+                var body = {
+                    mode: ENV.mode,
+                    style: ENV.style,
+                    type: ENV.type,
+                    owner: ENV.owner
+                };
+                console.log('creating online order');
+                return $http.post(ENV.serverURL + ENDPOINT + 'order/' + vendor, body);
+            },
             addOrderItem: function(items) {
                 return $http.post(ENV.serverURL + ENDPOINT + 'add', { items: items });
             },
@@ -35,9 +35,12 @@ angular.module('chocoholicsApp')
                     orderItemId: itemId
                 });
             },
-            removeOrderItem: function(itemId) {
-                return $http.delete(ENV.serverURL + ENDPOINT + 'item/' + itemId); /*** need help ***/
+            getOrderItems : function(orderId){
+                return $http.get(ENV.serverURL+ENDPOINT+'items/'+itemId);
             },
+            // removeOrderItem: function(itemId) {
+            //     return $http.delete(ENV.serverURL + ENDPOINT + 'item/' + itemId); /*** need help ***/
+            // },
             // updateOrderItems: function(itemId, quantity, discount, discountCode, remarks, orderId) {
             //     var body = {
             //         quantity: parseInt(quantity),
@@ -70,6 +73,9 @@ angular.module('chocoholicsApp')
             //         console.log(complete);
             //         queryParams.complete = complete;
             //     }
+            // }
+            // getOrder: function(orderId){
+            //     return $http.get(ENV.serverURL+ENDPOINT+'order/'+ orderId);
             // }
         };
     });
