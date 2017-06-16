@@ -16,7 +16,6 @@ angular.module('chocoholicsApp')
         return {
 
             createOrder: function() {
-                var order = [];
                 var body = {
                     mode: ENV.mode,
                     style: ENV.style,
@@ -36,11 +35,11 @@ angular.module('chocoholicsApp')
                 });
             },
             getOrderItems : function(orderId){
-                return $http.get(ENV.serverURL+ENDPOINT+'items/'+itemId);
+                return $http.get(ENV.serverURL+ENDPOINT+'items/'+orderId);
             },
-            // removeOrderItem: function(itemId) {
-            //     return $http.delete(ENV.serverURL + ENDPOINT + 'item/' + itemId); /*** need help ***/
-            // },
+            removeOrderItem: function(id) {
+                return $http.delete(ENV.serverURL + ENDPOINT + 'item/' + id); /*** need help ***/
+            },
             // updateOrderItems: function(itemId, quantity, discount, discountCode, remarks, orderId) {
             //     var body = {
             //         quantity: parseInt(quantity),

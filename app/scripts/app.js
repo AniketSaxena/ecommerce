@@ -23,7 +23,7 @@ angular
         'config',
         'LocalStorageModule'
     ])
-    .config(function($routeProvider, $stateProvider, $urlRouterProvider, localStorageServiceProvider) {
+    .config(function($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
         var mainState = {
             name: 'main',
             url: '/main',

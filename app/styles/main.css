@@ -79,3 +79,6 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+  .modal input{
+    margin-top: 10px;
+  }

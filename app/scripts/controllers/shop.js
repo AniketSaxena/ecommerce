@@ -55,15 +55,14 @@ angular.module('chocoholicsApp')
             items.push(item);
             orderService.addOrderItem(items)
                 .then(function(response) {
-                    console.log(response.data);
-                    orderItemId = response.data;
-                    orderService.linkOrder(orderId, orderItemId)
-                        .then(function(response) {
-                            console.log(response);
-                            //  orderId = reponse.data;
-                        }).catch(function(error) {
-                            console.log(error);
-                        });
+                        console.log(response.data);
+                        orderItemId = response.data;
+                        return orderService.linkOrder(orderId, orderItemId);
+                })
+                .then(function(response) {
+                    console.log(response);
+                    //  orderId = reponse.data;
+
                 }).catch(function(error) {
                     console.error(error);
                 });

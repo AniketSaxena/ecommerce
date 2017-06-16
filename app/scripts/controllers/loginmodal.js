@@ -15,7 +15,6 @@ angular.module('chocoholicsApp')
         ];
         var vm;
         var val;
-        var objId;
         vm = this;
         this.user = {};
         console.log(localStorageService);
@@ -24,22 +23,25 @@ angular.module('chocoholicsApp')
             loginService.loginUser(vm.user)
                 .then(function(response) {
                     console.log(response.data.token);
-                    val = response.data.token;
-                    localStorageService.set('token', val);
-                    console.log(localStorageService.get('token'));
-                    $http.defaults.headers.common['x-access-token'] = val;
-                    $http.defaults.headers.post['x-access-token'] = val;
-                    $http.defaults.headers.put['x-access-token'] = val;
-                    orderService.createOrder()
-                        .then(function(response) {
-                            console.log(response);
-                            objId = response.data.objectId;
-                            localStorageService.set('ObjectId', objId);
-                            console.log(localStorageService.get('ObjectId'));
-                            $uibModalInstance.dismiss('User Logged In');
-                        }).catch(function(error) {
-                            console.log(error);
-                        });
+                    localStorageService.set('id', response.data.customer.objectId);
+                    console.log(localStorageService.get('id'));
+                    localStorageService.set('name', response.data.name.first + ' ' + response.data.name.last||'');
+                    console.log(localStorageService.get('name'));
+                    localStorageService.set('phone', response.data.customer.phone);
+                    console.log(localStorageService.get('phone'));
+                    localStorageService.set('email', response.data.email);
+                    console.log(localStorageService.get('email'));
+                    return orderService.createOrder();
+                })
+                .then(function(response) {
+                    console.log(response);
+                    
+                    $uibModalInstance.close('User Logged In');
+                })
+                .catch(function(error) {
+                    console.log(error);
+                    $uibModalInstance.dismiss('caught an error');
+                    vm.register(vm.register.phone);
                 });
         };
         this.checkUser = function() {
@@ -64,12 +66,11 @@ angular.module('chocoholicsApp')
                 controller: 'RegistermodalCtrl',
                 ControllerAs: 'register',
                 resolve: {
-                    phone: function(){
+                    phone: function() {
                         return phone;
                     }
                 }
             });
-
         };
         this.cancel = function() {
             $uibModalInstance.dismiss('cancel');

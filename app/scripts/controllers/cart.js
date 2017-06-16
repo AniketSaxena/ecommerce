@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('CartCtrl', function(orderService,localStorageService) {
+    .controller('CartCtrl', function(orderService, localStorageService) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -16,20 +16,20 @@ angular.module('chocoholicsApp')
         var vm = this;
         var orderId;
         orderId = localStorageService.get('ObjectId');
-        this.busy = false;
         this.items = [];
-        this.loadMore = function() {
-            if (vm.busy) {
-                return;
-            }
-            vm.busy = true;
+        this.loadItems = function() {
+            console.log('show the loader');
+            vm.items = [];
             orderService.getOrderItems(orderId)
                 .then(function(response) {
                     console.log(response.data);
-                    angular.forEach(response.data, function(element) {
-                        vm.products.push(element);
-                        vm.busy = false;
-                    });
+                    vm.items = response.data;
+                    // angular.forEach(response.data, function(element) {
+                    //     vm.items.push(element);
+                    // });
+
+                    console.log('hide the loader');
+
 
                 }).catch(function(error) {
                     console.error(error);
@@ -37,13 +37,17 @@ angular.module('chocoholicsApp')
             vm.counter++;
             console.log('entering page number ' + vm.counter);
         };
-        //this.removeItem: function(itemId){
-        //  orderService.removeOrderItem(itemId)
-        //.then(function(response){
-        //  console.log(response);
-        //}).catch(function(error){
-        //  console.log(error);
-        //});
-       // };
-       //
+
+        this.removeItem = function(index) {
+            vm.items.splice(index, 1);
+            orderService.removeOrderItem(vm.items[index].id)
+                .then(function(response) {
+                    console.log(response);
+                    // ngToast.create('removed!');
+                    // vm.loadItems();
+                }).catch(function(error) {
+                    console.log(error);
+                });
+        };
+        this.loadItems();
     });

@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('ProductCtrl', function($stateParams, productService, orderService) {
+    .controller('ProductCtrl', function($stateParams, productService) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
