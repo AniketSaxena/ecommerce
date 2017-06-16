@@ -21,7 +21,8 @@ angular
         'ui.bootstrap',
         'infinite-scroll',
         'config',
-        'LocalStorageModule'
+        'LocalStorageModule',
+        'ngToast'
     ])
     .config(function($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
         var mainState = {
@@ -57,11 +58,19 @@ angular
             controller: 'CartCtrl',
             controllerAs: 'cart'
         };
+        var accountState = {
+            name: 'main.account',
+            url: '/account',
+            templateUrl: '/views/account.html',
+            controller: 'AccountCtrl',
+            controllerAs: 'account'
+        }
         $stateProvider.state(mainState);
         $stateProvider.state(homeState);
         $stateProvider.state(shopState);
         $stateProvider.state(cartState);
         $stateProvider.state(productState);
+        $stateProvider.state(accountState);
         $urlRouterProvider.otherwise('main/home');
         $urlRouterProvider.when('main/shop');
         localStorageServiceProvider.setStorageType('localStorage');

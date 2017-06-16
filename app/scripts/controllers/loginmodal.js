@@ -23,25 +23,25 @@ angular.module('chocoholicsApp')
             loginService.loginUser(vm.user)
                 .then(function(response) {
                     console.log(response.data.token);
-                    localStorageService.set('id', response.data.customer.objectId);
-                    console.log(localStorageService.get('id'));
                     localStorageService.set('name', response.data.name.first + ' ' + response.data.name.last||'');
                     console.log(localStorageService.get('name'));
                     localStorageService.set('phone', response.data.customer.phone);
                     console.log(localStorageService.get('phone'));
                     localStorageService.set('email', response.data.email);
                     console.log(localStorageService.get('email'));
-                    return orderService.createOrder();
+                    if(localStorageService.get('id')){
+                        $uibModalInstance.close();
+                     }else{
+                        return orderService.createOrder();
+                     }
                 })
                 .then(function(response) {
                     console.log(response);
-                    
+                    localStorageService.set('id',response.data.objectId)
                     $uibModalInstance.close('User Logged In');
                 })
                 .catch(function(error) {
                     console.log(error);
-                    $uibModalInstance.dismiss('caught an error');
-                    vm.register(vm.register.phone);
                 });
         };
         this.checkUser = function() {
@@ -73,6 +73,6 @@ angular.module('chocoholicsApp')
             });
         };
         this.cancel = function() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.close('cancel');
         };
     });

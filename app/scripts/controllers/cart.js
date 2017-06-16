@@ -15,7 +15,7 @@ angular.module('chocoholicsApp')
         ];
         var vm = this;
         var orderId;
-        orderId = localStorageService.get('ObjectId');
+        orderId = localStorageService.get('id');
         this.items = [];
         this.loadItems = function() {
             console.log('show the loader');

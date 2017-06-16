@@ -15,6 +15,8 @@ angular.module('chocoholicsApp')
         ];
         var id;
         var vm = this;
+        var items;
+        items = localStorageService.get('quantity');
         this.open = function() {
             var modalInstance = $uibModal.open({
                 templateUrl: '/views/loginmodal.html',
@@ -28,11 +30,10 @@ angular.module('chocoholicsApp')
             });
         };
         this.logout = function() {
-            localStorageService.remove('id');
             localStorageService.remove('name');
             localStorageService.remove('phone');
             localStorageService.remove('email');
-            window.location.reload();
+            vm.isLoggedIn = false;
         };
         
         // Run this functin to check if the user is already logged in
@@ -42,7 +43,7 @@ angular.module('chocoholicsApp')
                 vm.customerName = localStorageService.get('name');
                 vm.customerEmail = localStorageService.get('email');
             }else{
-
+              
             }
         };
 
