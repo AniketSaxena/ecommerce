@@ -17,6 +17,16 @@ angular.module('chocoholicsApp')
         var items = [];
         var orderItemId;
         var orderId;
+
+        // //for quantity
+        var quantityCounter = 0;
+        var quantityObject = {
+            id: '',
+            quantity: 0
+        };
+        //end
+
+
         this.counter = 0;
         this.busy = false;
         vm.products = [];
@@ -45,26 +55,61 @@ angular.module('chocoholicsApp')
             vm.counter++;
             console.log('entering page number ' + vm.counter);
         };
-        this.addItem = function(productId) {
-            console.log(productId);
+        this.addItem = function(index) {
+            vm.products[index].adding = true;
+            //console.log(vm.products[index].id);
             var item = {
-                itemId: productId,
+                itemId: vm.products[index].id,
                 quantity: 1
             };
-            // items = [];
+            items = []
             items.push(item);
             orderService.addOrderItem(items)
                 .then(function(response) {
-                        console.log(response.data);
-                        orderItemId = response.data;
-                        return orderService.linkOrder(orderId, orderItemId);
+                    console.log(response.data);
+                    orderItemId = response.data;
+
+                    //for quantity
+                    localStorageService.set('productId_'+vm.products[index].id , vm.products[index].id);
+                    if (localStorageService.get('quantity_'+vm.products[index].id)){
+                        vm.quantityCounter = localStorageService.get('quantity_'+vm.products[index].id);
+                        vm.quantityCounter = vm.quantityCounter + 1;
+                        localStorageService.set('quantity_'+vm.products[index].id, vm.quantityCounter);
+                        //vm.quantityObject.quantity = localStorageService.get('index'+index+'quantity');
+                        //console.log(vm.quantityAmount[index]);
+                    } else {
+                        localStorageService.set('quantity_'+vm.products[index].id, item.quantity);
+                        //vm.quantityAmount[index] = localStorageService.get('index'+index+'quantity');
+                        //console.log(vm.quantityAmount[index]);
+                    }
+                    //end
+
+                    return orderService.linkOrder(orderId, orderItemId);
                 })
                 .then(function(response) {
                     console.log(response);
+                    vm.products[index].adding = false;
+
                     //  orderId = reponse.data;
                 }).catch(function(error) {
                     console.error(error);
+                    vm.products[index].adding = false;
+
                 });
         };
-        this.loadMore();
+
+        //for testing
+
+        localStorageService.remove('productId_2h3Q6rpSQg');
+        localStorageService.remove('productId_Tx68IlBANM');
+        localStorageService.remove('productId_W6NRzAYPw4');
+        localStorageService.remove('productId_o7kQYoVvBI');
+        localStorageService.remove('quantity_Tx68IlBANM');
+        localStorageService.remove('quantity_W6NRzAYPw4');
+        localStorageService.remove('quantity_2h3Q6rpSQg');
+        localStorageService.remove('quantity_o7kQYoVvBI');
+        // localStorageService.remove('productId_undefined');
+        // localStorageService.remove('quantity_undefined');
+
+
     });

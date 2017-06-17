@@ -39,8 +39,10 @@ angular.module('chocoholicsApp')
         };
 
         this.removeItem = function(index) {
+            var item = vm.items[index];
             vm.items.splice(index, 1);
-            orderService.removeOrderItem(vm.items[index].id)
+
+            orderService.removeOrderItem(item.id)
                 .then(function(response) {
                     console.log(response);
                     // ngToast.create('removed!');

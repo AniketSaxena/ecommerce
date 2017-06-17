@@ -15,7 +15,9 @@ angular.module('chocoholicsApp')
       'Karma'
     ];
     var name;
-    console.log('hello account page');
-    name = localStorageService.get('name');
-    console.log(name);
+    var phone;
+    var email;
+    this.name = localStorageService.get('name');
+    this.phone = localStorageService.get('phone');
+    this.email = localStorageService.get('email');
   });
