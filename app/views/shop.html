@@ -31,6 +31,9 @@
                             <div class="cost">
                                 <p> {{product.rate | currency : "&#8377;"}}</p>
                             </div>
+                            <div>
+                                <small>{{product.quantity}} in cart</small>
+                            </div>
                             <button type="button" class="btn btn-default" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding">
                                 <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
                                 <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true" ></span> Buy

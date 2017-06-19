@@ -22,15 +22,10 @@ angular.module('chocoholicsApp')
             vm.items = [];
             orderService.getOrderItems(orderId)
                 .then(function(response) {
-                    console.log(response.data);
-                    vm.items = response.data;
-                    // angular.forEach(response.data, function(element) {
-                    //     vm.items.push(element);
-                    // });
-
-                    console.log('hide the loader');
-
-
+                    angular.forEach(response.data, function(element) {
+                        vm.items.push(element);
+                    });
+                    console.log(vm.items);
                 }).catch(function(error) {
                     console.error(error);
                 });

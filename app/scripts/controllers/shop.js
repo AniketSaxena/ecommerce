@@ -17,16 +17,7 @@ angular.module('chocoholicsApp')
         var items = [];
         var orderItemId;
         var orderId;
-
-        // //for quantity
-        var quantityCounter = 0;
-        var quantityObject = {
-            id: '',
-            quantity: 0
-        };
-        //end
-
-
+        var quantityObj = {};
         this.counter = 0;
         this.busy = false;
         vm.products = [];
@@ -37,79 +28,78 @@ angular.module('chocoholicsApp')
                 return;
             }
             vm.busy = true;
-            /* HTTP here */
             productService.getProducts(vm.counter, 12)
                 .then(function(response) {
-                    console.log(response.data);
+                    // console.log(response.data);
                     angular.forEach(response.data, function(element) {
+                        element.quantity = 0;
                         vm.products.push(element);
                         vm.busy = false;
                     });
-                }).catch(function(error) {
+                    return orderService.getOrderItems(orderId);
+                })
+                .then(function(response) {
+                    _.each(response.data, function(item) {
+                        _.each(vm.products, function(product) {
+                            if (product.id === item.itemId) {
+                                product.quantity = item.quantity;
+                                product.addedId = item.id;
+                            }
+                        });
+                    });
+                    // console.log(vm.products);
+                })
+                .catch(function(error) {
                     console.error(error);
                 });
-            /* HTTP ends here */
-            // this.push = function(product) {
-            //     $rootScope.$broadcast('productdetails', product);
-            // };
             vm.counter++;
-            console.log('entering page number ' + vm.counter);
+            // console.log('entering page number ' + vm.counter);
         };
         this.addItem = function(index) {
             vm.products[index].adding = true;
-            //console.log(vm.products[index].id);
             var item = {
                 itemId: vm.products[index].id,
                 quantity: 1
             };
-            items = []
+            items = [];
             items.push(item);
-            orderService.addOrderItem(items)
+            console.log(vm.products[index]);
+            if (vm.products[index].quantity !== 0) {
+                vm.products[index].quantity++;
+                orderService.updateOrderItem(vm.products[index].addedId, vm.products[index].quantity, null, null, null, orderId)
+                    .then(function(response) {
+                        console.log(response);
+                        vm.products[index].adding = false;
+                        console.log(vm.products[index].quantity);
+                    }).catch(function(error) {
+                        console.log(error);
+                        vm.products[index].adding = false;
+                    });
+            } else {
+                orderService.addOrderItem(items)
+                    .then(function(response) {
+                        // console.log(response.data);
+                        vm.products[index].quantity++;
+                        orderItemId = response.data;
+                        return orderService.linkOrder(orderId, orderItemId);
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                        vm.products[index].adding = false;
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                        vm.products[index].adding = false;
+                    });
+            }
+        };
+        this.getItems = function(orderId) {
+            orderService.getOrderItems(orderId)
                 .then(function(response) {
-                    console.log(response.data);
-                    orderItemId = response.data;
-
-                    //for quantity
-                    localStorageService.set('productId_'+vm.products[index].id , vm.products[index].id);
-                    if (localStorageService.get('quantity_'+vm.products[index].id)){
-                        vm.quantityCounter = localStorageService.get('quantity_'+vm.products[index].id);
-                        vm.quantityCounter = vm.quantityCounter + 1;
-                        localStorageService.set('quantity_'+vm.products[index].id, vm.quantityCounter);
-                        //vm.quantityObject.quantity = localStorageService.get('index'+index+'quantity');
-                        //console.log(vm.quantityAmount[index]);
-                    } else {
-                        localStorageService.set('quantity_'+vm.products[index].id, item.quantity);
-                        //vm.quantityAmount[index] = localStorageService.get('index'+index+'quantity');
-                        //console.log(vm.quantityAmount[index]);
-                    }
-                    //end
-
-                    return orderService.linkOrder(orderId, orderItemId);
-                })
-                .then(function(response) {
-                    console.log(response);
-                    vm.products[index].adding = false;
-
-                    //  orderId = reponse.data;
+                    // console.log(response);
                 }).catch(function(error) {
-                    console.error(error);
-                    vm.products[index].adding = false;
-
+                    console.log(error);
                 });
         };
-
-        //for testing
-
-        localStorageService.remove('productId_2h3Q6rpSQg');
-        localStorageService.remove('productId_Tx68IlBANM');
-        localStorageService.remove('productId_W6NRzAYPw4');
-        localStorageService.remove('productId_o7kQYoVvBI');
-        localStorageService.remove('quantity_Tx68IlBANM');
-        localStorageService.remove('quantity_W6NRzAYPw4');
-        localStorageService.remove('quantity_2h3Q6rpSQg');
-        localStorageService.remove('quantity_o7kQYoVvBI');
-        // localStorageService.remove('productId_undefined');
-        // localStorageService.remove('quantity_undefined');
-
-
+        this.getItems(orderId);
     });

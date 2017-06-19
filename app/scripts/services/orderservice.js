@@ -40,16 +40,16 @@ angular.module('chocoholicsApp')
             removeOrderItem: function(id) {
                 return $http.delete(ENV.serverURL + ENDPOINT + 'item/' + id); /*** need help ***/
             },
-            // updateOrderItems: function(itemId, quantity, discount, discountCode, remarks, orderId) {
-            //     var body = {
-            //         quantity: parseInt(quantity),
-            //         discount: parseFloat(discount),
-            //         discountCode: discountCode,
-            //         remarks: remarks,
-            //         orderId: orderId
-            //     };
-            //     return $http.put(ENV.serverURL + ENDPOINT + 'item/' + itemId, body);
-            // },
+            updateOrderItem: function(itemId, quantity, discount, discountCode, remarks, orderId) {
+                var body = {
+                    quantity: parseInt(quantity),
+                    discount: parseFloat(discount),
+                    discountCode: discountCode,
+                    remarks: remarks,
+                    orderId: orderId
+                };
+                return $http.put(ENV.serverURL + ENDPOINT + 'item/' + itemId, body);
+            },
             // generateLink: function(data) {
             //     /*** What is payPath ***/
             //     return $http.post(ENV.serverURL + ENV.payPath + '/generate', data);
