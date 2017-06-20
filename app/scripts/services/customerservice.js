@@ -7,7 +7,7 @@
  * Factory in the chocoholicsApp.
  */
 angular.module('chocoholicsApp')
-    .factory('customerService', function(ENV, $http, $q, loginService, orderService) {
+    .factory('customerService', function(ENV, $http, $q, loginService, orderService, localStorageService) {
         // Service logic
         // ...
         var route = '/customer';
@@ -33,16 +33,40 @@ angular.module('chocoholicsApp')
                         console.log('reached orderService');
                         return orderService.createOrder();
                     })
+                    .then(function(response) {
+                        console.log(response.data);
+                        var info = {
+                            orderId: localStorageService.get('id'),
+                            userId: localStorageService.get('userId'),
+                            style: ENV.style
+                        }
+                        return orderService.updateInfo(info)
+                    })
                     .then(function(response){
-                       console.log(response.data);
-                       deferred.resolve();
+                        console.log(response);
+                        deferred.resolve();
                     })
                     .catch(function(error) {
                         console.error(error);
                         deferred.reject(error);
                     });
-
                 return deferred.promise;
-            }
+            },
+              
+            // addAddress: function(newAddress , id){
+            //     return $http.post(ENV.serverURL + route + '/addAddress/' + id , {
+            //         flatBldgName: newAddress.flatBldgName,
+            //         street: newAddress.street,
+            //         landmark: newAddress.landmark,
+            //         pincode: newAddress.pincode,
+            //         city: newAddress.city,
+            //         state: newAddress.state
+            //     });
+            // },
+
+            // getAddress: function(id){
+            //     return $http.get(ENV.serverURL + route + '/getAddress/' + id);
+            // }
+            
         };
     });

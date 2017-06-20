@@ -36,10 +36,27 @@ angular.module('chocoholicsApp')
                      }
                 })
                 .then(function(response) {
-                    console.log(response);
-                    localStorageService.set('id',response.data.objectId)
+                    console.log(response.data);
+                    localStorageService.set('id',response.data.objectId);
                     $uibModalInstance.close('User Logged In');
+                    console.log(localStorageService.get('id'));
+                    console.log(response.data.objectId);
+
+                    //added now
+
+                    var info = {
+                        orderId: localStorageService.get('id'),
+                        userId: localStorageService.get('userId'),
+                        style: ENV.style
+                    };
+                    return orderService.updateInfo(info);
                 })
+                .then(function(response){
+                    console.log(response);
+                })
+
+                // till here
+
                 .catch(function(error) {
                     console.log(error);
                 });
@@ -53,6 +70,7 @@ angular.module('chocoholicsApp')
                         if (response.data.code === 668 || response.data.code === 1001) {
                             $uibModalInstance.dismiss('error 668');
                             vm.register(vm.user.phone);
+
                         }
                     }).catch(function(error) {
                         console.log(error);

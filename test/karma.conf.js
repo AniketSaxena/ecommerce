@@ -37,6 +37,7 @@ module.exports = function(config) {
       'bower_components/angular-local-storage/dist/angular-local-storage.js',
       'bower_components/ngToast/dist/ngToast.js',
       'bower_components/underscore/underscore.js',
+      'bower_components/parse/parse.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

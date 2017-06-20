@@ -64,7 +64,7 @@ angular
             templateUrl: '/views/account.html',
             controller: 'AccountCtrl',
             controllerAs: 'account'
-        }
+        };
         $stateProvider.state(mainState);
         $stateProvider.state(homeState);
         $stateProvider.state(shopState);

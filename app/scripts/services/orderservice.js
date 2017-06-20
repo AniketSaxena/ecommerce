@@ -7,7 +7,7 @@
  * Factory in the chocoholicsApp.
  */
 angular.module('chocoholicsApp')
-    .factory('orderService', function($q, $http, ENV) {
+    .factory('orderService', function($q, $http, ENV, commonService) {
         // Service logic
         // ...
         const ENDPOINT = '/order/';
@@ -54,27 +54,32 @@ angular.module('chocoholicsApp')
             //     /*** What is payPath ***/
             //     return $http.post(ENV.serverURL + ENV.payPath + '/generate', data);
             // },
-            // getOrders: function(skip , limit, state, user, complete) {
-            //     var orders = [];
-            //     if(skip){
-            //         queryParams.skip = parseInt(skip);
-            //     }
-            //     if (limit) {
-            //         queryParams.limit = parseInt(limit);
-            //     }
-            //     if (state) {
-            //         queryParams.state = state;
-            //     }
-            //     if (user) {
-            //         queryParams.user = user;
-            //     }
-            //     if (complete) {
-            //         console.log(complete);
-            //         queryParams.complete = complete;
-            //     }
-            // }
+            getOrders: function(skip, limit, userId) {
+                var  url = ENV.serverURL + ENDPOINT + 'updateInfo/';
+                var queryParams = {};
+                if(skip){
+                    queryParams.skip = parseInt(skip);
+                }
+                if(limit){
+                    queryParams.limit = parseInt(limit);
+                }
+                if(userId){
+                    queryParams.userId = userId;
+                }
+                var queryData = commonService.serialize(queryParams);
+                console.log(queryData);
+
+                if(queryData){
+                    url = url + '?' + queryData;
+                }
+
+               return $http.get(ENV.serverURL + ENDPOINT + 'orders/' + ENV.vendorKey);
+            },
             // getOrder: function(orderId){
             //     return $http.get(ENV.serverURL+ENDPOINT+'order/'+ orderId);
             // }
+            updateInfo: function(info){
+               return $http.post(url, info) ;
+            }
         };
     });

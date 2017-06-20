@@ -25,18 +25,15 @@ angular.module('chocoholicsApp')
                     angular.forEach(response.data, function(element) {
                         vm.items.push(element);
                     });
-                    console.log(vm.items);
                 }).catch(function(error) {
                     console.error(error);
                 });
             vm.counter++;
             console.log('entering page number ' + vm.counter);
         };
-
         this.removeItem = function(index) {
             var item = vm.items[index];
             vm.items.splice(index, 1);
-
             orderService.removeOrderItem(item.id)
                 .then(function(response) {
                     console.log(response);
@@ -44,6 +41,36 @@ angular.module('chocoholicsApp')
                     // vm.loadItems();
                 }).catch(function(error) {
                     console.log(error);
+                });
+        };
+        this.increaseItem = function(index) {
+            vm.items[index].changing = true;
+            vm.items[index].quantity = vm.items[index].quantity + 1;
+            orderService.updateOrderItem(vm.items[index].id, vm.items[index].quantity, null, null, null, orderId)
+                .then(function(response) {
+                    console.log(response);
+                    vm.items[index].changing = false;
+                    if (vm.items[index].quantity >= 2) {
+                        vm.items[index].min = false;
+                    }
+                }).catch(function(error) {
+                    console.log(error);
+                    vm.items[index].changing = false;
+                });
+        };
+        this.decreaseItem = function(index) {
+            vm.items[index].changing = true;
+            vm.items[index].quantity = vm.items[index].quantity - 1;
+            orderService.updateOrderItem(vm.items[index].id, vm.items[index].quantity, null, null, null, orderId)
+                .then(function(response) {
+                    console.log(response);
+                    if (vm.items[index].quantity <= 1) {
+                        vm.items[index].min = true;
+                    }
+                    vm.items[index].changing = false;
+                }).catch(function(error) {
+                    console.log(error);
+                    vm.items[index].changing = false;
                 });
         };
         this.loadItems();

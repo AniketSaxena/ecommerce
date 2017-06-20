@@ -5,21 +5,24 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="item in cart.items">
         <div class="panel panel-default">
             <div class="panel-body">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <img src="../../images/download.jpg">
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div>{{item.name}}</div>
-                    <div>{{item.cost | currency : "&#8377;"}}</div>
+                    <div>{{item.cost*item.quantity | currency : "&#8377;"}}</div>
                     <div>
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-minus">
+                        <button type="button" class="btn btn-default" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
+                            <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}">
                             </span>
+                            <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
                         </button>
                         Quantity: {{item.quantity}}
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus">
+                        <button type="button" class="btn btn-default" ng-click="cart.increaseItem($index)" ng-disabled="item.changing">
+                            <span ng-class="{ 'glyphicon glyphicon-plus' : !item.changing}">
                             </span>
+                            <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true">
+                            </i>
                         </button>
                     </div>
                 </div>
