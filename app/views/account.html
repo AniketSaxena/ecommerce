@@ -41,8 +41,13 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="order in account.orders">
                         <div class="form-group">
-                            <label></label>
+                            <h4>Order: {{order.id}}</h4>
+                            <label>Status:</label>
                             <p>{{order.state}}</p>
+                            <label>Bill Number:</label>
+                            <p>{{order.billNo}}</p>
+                            <label>Date of Order:</label>
+                            <p>{{order.createdAt}}</p>
                         </div>
                     </div>
                 </div>

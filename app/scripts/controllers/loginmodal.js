@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('LoginmodalCtrl', function($uibModal, $uibModalInstance, $scope, $http, $rootScope, loginService, orderService, customerService, localStorageService) {
+    .controller('LoginmodalCtrl', function($uibModal, $uibModalInstance, $scope, $http, $rootScope, loginService, orderService, customerService, localStorageService, ENV) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -49,10 +49,13 @@ angular.module('chocoholicsApp')
                         userId: localStorageService.get('userId'),
                         style: ENV.style
                     };
+                    console.log(info);
+
                     return orderService.updateInfo(info);
                 })
                 .then(function(response){
                     console.log(response);
+                    console.log(response.data);
                 })
 
                 // till here
@@ -93,4 +96,8 @@ angular.module('chocoholicsApp')
         this.cancel = function() {
             $uibModalInstance.close('cancel');
         };
+
+
+
+        localStorageService.remove('id');
     });

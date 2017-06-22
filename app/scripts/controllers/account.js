@@ -63,12 +63,9 @@ angular.module('chocoholicsApp')
       this.getOrderHistory = function(skip, limit, user){
         orderService.getOrders(skip, limit, user)
         .then(function(response){
+          console.log(response);
           angular.forEach(response.data, function(element) {
             vm.orders.push(element);
-          });
-
-          _.each(vm.orders ,function(order){
-            console.log(order.state);
           });
           console.log(vm.orders);
         }).catch(function(error){

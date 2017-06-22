@@ -15,6 +15,20 @@ angular.module('chocoholicsApp')
         ];
         var vm = this;
         var orderId;
+
+        // CHECKOUT
+        // var name;
+        // var phone;
+        // var email;
+        // var address;
+        // this.amount = 0;
+
+        // this.name = localStorageService.get('name');
+        // this.phone = localStorageService.get('phone');
+
+        // // this.address = localStorageService.get('address');
+        // this.address = 'ahiohei';
+
         orderId = localStorageService.get('id');
         this.items = [];
         this.loadItems = function() {
@@ -73,5 +87,15 @@ angular.module('chocoholicsApp')
                     vm.items[index].changing = false;
                 });
         };
+
+        // CHECKOUT 
+        // this.checkout = function(){
+        //     orderService.generateLink(vm.name, vm.phone, vm.email, vm.amount, vm.address)
+        //     .then(function(response){
+        //         console.log(response);
+        //     }).catch(function(error){
+        //         console.log(error);
+        //     });
+        // };
         this.loadItems();
     });

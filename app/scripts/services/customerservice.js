@@ -35,12 +35,16 @@ angular.module('chocoholicsApp')
                     })
                     .then(function(response) {
                         console.log(response.data);
+
+                        //from here
                         var info = {
                             orderId: localStorageService.get('id'),
                             userId: localStorageService.get('userId'),
                             style: ENV.style
-                        }
-                        return orderService.updateInfo(info)
+                        };
+                        return orderService.updateInfo(info);
+
+                        //till here
                     })
                     .then(function(response){
                         console.log(response);

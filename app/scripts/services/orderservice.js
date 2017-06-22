@@ -50,12 +50,12 @@ angular.module('chocoholicsApp')
                 };
                 return $http.put(ENV.serverURL + ENDPOINT + 'item/' + itemId, body);
             },
-            // generateLink: function(data) {
-            //     /*** What is payPath ***/
-            //     return $http.post(ENV.serverURL + ENV.payPath + '/generate', data);
-            // },
-            getOrders: function(skip, limit, userId) {
-                var  url = ENV.serverURL + ENDPOINT + 'updateInfo/';
+            generateLink: function(data) {
+               /*** What is payPath ***/
+                return $http.post(ENV.serverURL + ENV.payPath + '/generate', data);
+            },
+            getOrders: function(skip, limit, user) {
+                var  url = ENV.serverURL + ENDPOINT + 'orders/' + ENV.vendorKey;
                 var queryParams = {};
                 if(skip){
                     queryParams.skip = parseInt(skip);
@@ -63,22 +63,25 @@ angular.module('chocoholicsApp')
                 if(limit){
                     queryParams.limit = parseInt(limit);
                 }
-                if(userId){
-                    queryParams.userId = userId;
+                if(user){
+                    queryParams.user = user;
                 }
                 var queryData = commonService.serialize(queryParams);
                 console.log(queryData);
 
                 if(queryData){
                     url = url + '?' + queryData;
+                    console.log(url);
                 }
 
-               return $http.get(ENV.serverURL + ENDPOINT + 'orders/' + ENV.vendorKey);
+               return $http.get(url);
             },
             // getOrder: function(orderId){
             //     return $http.get(ENV.serverURL+ENDPOINT+'order/'+ orderId);
             // }
             updateInfo: function(info){
+                var  url = ENV.serverURL + ENDPOINT + 'updateInfo/';
+                
                return $http.post(url, info) ;
             }
         };

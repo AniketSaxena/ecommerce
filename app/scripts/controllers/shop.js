@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('ShopCtrl', function($scope, $rootScope, productService, orderService, localStorageService, ngToast) {
+    .controller('ShopCtrl', function($scope, $rootScope, productService, orderService, localStorageService) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -44,6 +44,12 @@ angular.module('chocoholicsApp')
                             if (product.id === item.itemId) {
                                 product.quantity = item.quantity;
                                 product.addedId = item.id;
+
+                        // FOR IMAGES
+                        // vm.loadImages(vm.product.images);
+
+
+
                             }
                         });
                     });
@@ -101,5 +107,24 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
+
+
+
+        //FOR IMAGES
+         // this.loadImages = function(images) {
+         //        angular.forEach(images, function(image) {
+         //                console.log(image.id);
+         //                stockService
+         //                    .getImages(image.id)
+         //                    .then(function(image) {
+         //                        console.log(image);
+         //                        vm.images.push(image);
+         //                    }).catch(function(error) {
+         //                        console.log(error);
+         //                    });
+         //            }); 
+         //    };
+
+         
         this.getItems(orderId);
     });

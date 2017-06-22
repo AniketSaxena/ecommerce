@@ -180,7 +180,7 @@ module.exports = function(grunt) {
             local: {
                 constants: {
                     ENV: {
-                        serverURL: 'http://192.168.1.8:1337',
+                        serverURL: 'http://192.168.1.5:1337',
                         vendorKey: '1c2a216405e85c2d7d5ca244e5258ae2',
                         owner: 'owner',
                         style: 'delivery',
