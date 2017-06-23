@@ -1,36 +1,28 @@
 // Generated on 2017-06-02 using generator-angular 0.16.0
 'use strict';
-
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
-
 module.exports = function(grunt) {
-
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
-
     // Automatically load required Grunt tasks
     require('jit-grunt')(grunt, {
         useminPrepare: 'grunt-usemin',
         ngtemplates: 'grunt-angular-templates',
         cdnify: 'grunt-google-cdn'
     });
-
     // Configurable paths for the application
     var appConfig = {
         app: require('./bower.json').appPath || 'app',
         dist: 'dist'
     };
-
     // Define the configuration for all the tasks
     grunt.initConfig({
-
         // Project settings
         yeoman: appConfig,
-
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             bower: {
@@ -66,7 +58,6 @@ module.exports = function(grunt) {
                 ]
             }
         },
-
         // The actual grunt server settings
         connect: {
             options: {
@@ -117,7 +108,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-
         // Make sure there are no obvious mistakes
         jshint: {
             options: {
@@ -137,7 +127,6 @@ module.exports = function(grunt) {
                 src: ['test/spec/{,*/}*.js']
             }
         },
-
         // Make sure code styles are up to par
         jscs: {
             options: {
@@ -154,7 +143,6 @@ module.exports = function(grunt) {
                 src: ['test/spec/{,*/}*.js']
             }
         },
-
         // Empties folders to start fresh
         clean: {
             dist: {
@@ -180,18 +168,23 @@ module.exports = function(grunt) {
             local: {
                 constants: {
                     ENV: {
-                        serverURL: 'http://192.168.1.5:1337',
+                        serverURL: 'http://192.168.1.4:1337',
                         vendorKey: '1c2a216405e85c2d7d5ca244e5258ae2',
                         owner: 'owner',
                         style: 'delivery',
                         mode: 'online',
                         type: 'local',
-                        brand: 'cheflery'
+                        payPath: '/pay',
+                        brand: 'cheflery',
+                        parseAPIKey: 'MbAe6hoy43d3uInM0TISC1dBePxocl4eLL4B0Tig',
+                        parseJsKey: 'bdKP5OkzKFPQt4RKURwhK7blDLTr6xScCxNuSPwY',
+                        parsePath: '/parse',
+                        webhookURL: 'https://requestb.in/1nu8aqv1',
+                        successURL: 'http://localhost:9001/#/confirm'
                     }
                 }
             }
         },
-
         // Add vendor prefixed styles
         postcss: {
             options: {
@@ -219,7 +212,6 @@ module.exports = function(grunt) {
                 }]
             }
         },
-
         // Automatically inject Bower components into the app
         wiredep: {
             app: {
@@ -243,7 +235,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-
         // Renames files for browser caching purposes
         filerev: {
             dist: {
@@ -255,7 +246,6 @@ module.exports = function(grunt) {
                 ]
             }
         },
-
         // Reads HTML for usemin blocks to enable smart builds that automatically
         // concat, minify and revision files. Creates configurations in memory so
         // additional tasks can operate on them
@@ -274,7 +264,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-
         // Performs rewrites based on filerev and the useminPrepare configuration
         usemin: {
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
@@ -293,7 +282,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-
         // The following *-min tasks will produce minified files in the dist folder
         // By default, your `index.html`'s <!-- Usemin block --> will take care of
         // minification. These next options are pre-configured if you do not wish
@@ -319,7 +307,6 @@ module.exports = function(grunt) {
         // concat: {
         //   dist: {}
         // },
-
         imagemin: {
             dist: {
                 files: [{
@@ -330,7 +317,6 @@ module.exports = function(grunt) {
                 }]
             }
         },
-
         svgmin: {
             dist: {
                 files: [{
@@ -341,7 +327,6 @@ module.exports = function(grunt) {
                 }]
             }
         },
-
         htmlmin: {
             dist: {
                 options: {
@@ -358,7 +343,6 @@ module.exports = function(grunt) {
                 }]
             }
         },
-
         ngtemplates: {
             dist: {
                 options: {
@@ -371,7 +355,6 @@ module.exports = function(grunt) {
                 dest: '.tmp/templateCache.js'
             }
         },
-
         // ng-annotate tries to make the code safe for minification automatically
         // by using the Angular long form for dependency injection.
         ngAnnotate: {
@@ -384,14 +367,12 @@ module.exports = function(grunt) {
                 }]
             }
         },
-
         // Replace Google CDN references
         cdnify: {
             dist: {
                 html: ['<%= yeoman.dist %>/*.html']
             }
         },
-
         // Copies remaining files to places other tasks can use
         copy: {
             dist: {
@@ -425,7 +406,6 @@ module.exports = function(grunt) {
                 src: '{,*/}*.css'
             }
         },
-
         // Run some tasks in parallel to speed up the build process
         concurrent: {
             server: [
@@ -440,7 +420,6 @@ module.exports = function(grunt) {
                 'svgmin'
             ]
         },
-
         // Test settings
         karma: {
             unit: {
@@ -449,13 +428,10 @@ module.exports = function(grunt) {
             }
         }
     });
-
-
     grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
         }
-
         grunt.task.run([
             'clean:server',
             'ngconstant:local',
@@ -466,12 +442,10 @@ module.exports = function(grunt) {
             'watch'
         ]);
     });
-
     grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function(target) {
         grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
         grunt.task.run(['serve:' + target]);
     });
-
     grunt.registerTask('test', [
         'clean:server',
         'wiredep',
@@ -480,7 +454,6 @@ module.exports = function(grunt) {
         'connect:test',
         'karma'
     ]);
-
     grunt.registerTask('build', [
         'clean:dist',
         'wiredep',
@@ -498,7 +471,6 @@ module.exports = function(grunt) {
         'usemin',
         'htmlmin'
     ]);
-
     grunt.registerTask('default', [
         'newer:jshint',
         'newer:jscs',
@@ -506,5 +478,4 @@ module.exports = function(grunt) {
         'build'
     ]);
     grunt.loadNpmTasks('grunt-ng-constant');
-
 };

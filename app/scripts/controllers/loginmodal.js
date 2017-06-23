@@ -96,8 +96,4 @@ angular.module('chocoholicsApp')
         this.cancel = function() {
             $uibModalInstance.close('cancel');
         };
-
-
-
-        localStorageService.remove('id');
     });

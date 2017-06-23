@@ -14,7 +14,6 @@ angular.module('chocoholicsApp')
         var vendor = ENV.vendorKey;
         // Public API here
         return {
-
             createOrder: function() {
                 var body = {
                     mode: ENV.mode,
@@ -34,8 +33,8 @@ angular.module('chocoholicsApp')
                     orderItemId: itemId
                 });
             },
-            getOrderItems : function(orderId){
-                return $http.get(ENV.serverURL+ENDPOINT+'items/'+orderId);
+            getOrderItems: function(orderId) {
+                return $http.get(ENV.serverURL + ENDPOINT + 'items/' + orderId);
             },
             removeOrderItem: function(id) {
                 return $http.delete(ENV.serverURL + ENDPOINT + 'item/' + id); /*** need help ***/
@@ -51,38 +50,62 @@ angular.module('chocoholicsApp')
                 return $http.put(ENV.serverURL + ENDPOINT + 'item/' + itemId, body);
             },
             generateLink: function(data) {
-               /*** What is payPath ***/
+                /*** What is payPath ***/
                 return $http.post(ENV.serverURL + ENV.payPath + '/generate', data);
             },
             getOrders: function(skip, limit, user) {
-                var  url = ENV.serverURL + ENDPOINT + 'orders/' + ENV.vendorKey;
+                var url = ENV.serverURL + ENDPOINT + 'orders/' + ENV.vendorKey;
                 var queryParams = {};
-                if(skip){
+                if (skip) {
                     queryParams.skip = parseInt(skip);
                 }
-                if(limit){
+                if (limit) {
                     queryParams.limit = parseInt(limit);
                 }
-                if(user){
+                if (user) {
                     queryParams.user = user;
                 }
                 var queryData = commonService.serialize(queryParams);
                 console.log(queryData);
-
-                if(queryData){
+                if (queryData) {
                     url = url + '?' + queryData;
                     console.log(url);
                 }
-
-               return $http.get(url);
+                return $http.get(url);
             },
-            // getOrder: function(orderId){
-            //     return $http.get(ENV.serverURL+ENDPOINT+'order/'+ orderId);
+            getOrder: function(orderId) {
+                return $http.get(ENV.serverURL + ENDPOINT + 'order/' + orderId);
+            },
+            updateInfo: function(info) {
+                var url = ENV.serverURL + ENDPOINT + 'updateInfo/';
+
+                return $http.post(url, info);
+            },
+            getDeliveryCharge: function() {
+                var deferred = $q.defer();
+                var query = new Parse.Query('UserKeys');
+                query.equalTo('brand', ENV.brand);
+                query.first().then(function(key) {
+                    if (key) {
+                        deferred.resolve(key.get('deliveryCharge'));
+                    } else {
+                        deferred.resolve(100);
+                    }
+                }, function(error) {
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            },
+            //  NOT NEEDED
+            // checkout: function(info){
+            //     return $http.post("https://www.instamojo.com/api/1.1/payment-requests/ ", {
+            //         amount: info.amount,
+            //         prupose: "Purchase of Food Items",
+            //         buyer_name: info.name,
+            //         email: info.email,
+            //         phone: info.phone
+            //     });
             // }
-            updateInfo: function(info){
-                var  url = ENV.serverURL + ENDPOINT + 'updateInfo/';
-                
-               return $http.post(url, info) ;
-            }
+
         };
     });

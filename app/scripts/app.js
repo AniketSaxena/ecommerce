@@ -74,14 +74,16 @@ angular
         $urlRouterProvider.otherwise('main/home');
         $urlRouterProvider.when('main/shop');
         localStorageServiceProvider.setStorageType('localStorage');
-        
+
     })
-    .run(function($http , localStorageService){
+    .run(function($http, localStorageService, ENV) {
+
+        Parse.initialize(ENV.parseAPIKey, ENV.parseJsKey);
+        Parse.serverURL = ENV.serverURL + ENV.parsePath;
         var token = localStorageService.get('token');
         if (token) {
             $http.defaults.headers.common['x-access-token'] = token;
             $http.defaults.headers.post['x-access-token'] = token;
             $http.defaults.headers.put['x-access-token'] = token;
         }
-    })
-;
+    });

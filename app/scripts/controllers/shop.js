@@ -44,12 +44,8 @@ angular.module('chocoholicsApp')
                             if (product.id === item.itemId) {
                                 product.quantity = item.quantity;
                                 product.addedId = item.id;
-
-                        // FOR IMAGES
-                        // vm.loadImages(vm.product.images);
-
-
-
+                                // FOR IMAGES
+                                // vm.loadImages(vm.product.images);
                             }
                         });
                     });
@@ -107,24 +103,20 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
-
-
-
         //FOR IMAGES
-         // this.loadImages = function(images) {
-         //        angular.forEach(images, function(image) {
-         //                console.log(image.id);
-         //                stockService
-         //                    .getImages(image.id)
-         //                    .then(function(image) {
-         //                        console.log(image);
-         //                        vm.images.push(image);
-         //                    }).catch(function(error) {
-         //                        console.log(error);
-         //                    });
-         //            }); 
-         //    };
+        // this.loadImages = function(images) {
+        //        angular.forEach(images, function(image) {
+        //                console.log(image.id);
+        //                stockService
+        //                    .getImages(image.id)
+        //                    .then(function(image) {
+        //                        console.log(image);
+        //                        vm.images.push(image);
+        //                    }).catch(function(error) {
+        //                        console.log(error);
+        //                    });
+        //            });
+        //    };
 
-         
         this.getItems(orderId);
     });
