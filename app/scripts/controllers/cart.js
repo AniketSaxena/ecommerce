@@ -21,6 +21,10 @@ angular.module('chocoholicsApp')
         var phone;
         var email;
         var addresses;
+
+        this.selectedAddress = false;
+
+        this.customerId = localStorageService.get('userId');
         this.amount = 0;
 
         this.name = localStorageService.get('name');
@@ -195,6 +199,25 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
+
+
+        this.getUserAddresses = function() {
+            customerService.getAddresses(vm.customerId)
+                .then(function(addresses) {
+                    vm.addresses = addresses;
+                    console.log(vm.addresses);
+                }).catch(function(error){
+                    console.log(error);
+                });
+        };
+
+        this.selectAddress = function(){
+            vm.selectedAddress = true;
+            
+        };
+
+
+        this.getUserAddresses();
         this.loadItems();
         this.getOrderDetails(orderId);
     });
