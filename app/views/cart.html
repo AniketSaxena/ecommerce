@@ -1,94 +1,100 @@
 <div class="header">
     <h4>Your Cart</h4>
 </div>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="item in cart.items">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <img src="../../images/download.jpg">
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <div>{{item.name}}</div>
-                    <div>{{item.cost*item.quantity | currency : "&#8377;"}}</div>
-                    <div>
-                        <button type="button" class="btn btn-default" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
-                            <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}">
-                        </span>
-                            <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
-                        </button>
-                        Quantity: {{item.quantity}}
-                        <button type="button" class="btn btn-default" ng-click="cart.increaseItem($index)" ng-disabled="item.changing">
-                            <span ng-class="{ 'glyphicon glyphicon-plus' : !item.changing}">
-                        </span>
-                            <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true">
-                        </i>
-                        </button>
-                    </div>
-                </div>
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <div class="panel panel-default" ng-repeat="item in cart.items">
+        <div class="panel-body">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <img src="../../images/tv.jpg">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div>{{item.name}}</div>
+                <div>{{item.cost*item.quantity | currency : "&#8377;"}}</div>
                 <div>
-                    <button type="button" class="btn btn-default" ng-click="cart.removeItem($index)">Remove item</button>
+                    <button type="button" class="btn btn-default" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
+                        <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}">
+                    </span>
+                        <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
+                    </button>
+                    Quantity: {{item.quantity}}
+                    <button type="button" class="btn btn-default" ng-click="cart.increaseItem($index)" ng-disabled="item.changing">
+                        <span ng-class="{ 'glyphicon glyphicon-plus' : !item.changing}">
+                    </span>
+                        <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true">
+                    </i>
+                    </button>
                 </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-default" ng-click="cart.removeItem($index)">Remove item</button>
             </div>
         </div>
     </div>
 </div>
-<div>
-    <form name="addressForm">
-        <div class="panel-body">
-            <div class="row" ng-repeat="address in cart.addresses" ng-hide="selectedAddress">
-                <!-- OTHERWISE IF ADDRESS EXISTS ALSO PUT IN NG-REPEAT FOR MULTIPLE ADDRESSES -->
-                <div>
-                    <h3>Address:</h3>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="form-group">
-                        <label>Flat or building name:</label>
-                        {{address.flatBldgName}}
+</div>
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2>Total Amount: {{cart.order.total | currency : "&#8377;"}}</h2>
+            </div>
+            <div class="panel-body">
+                <div ng-show="cart.addressSelected">
+                    <h3>Selected Address:</h3>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label>Flat/Building Name:</label>{{cart.selectedAddress.flatBldgName}}
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label>Street:</label>{{cart.selectedAddress.street}}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label>Landmark:</label>{{cart.selectedAddress.landmark}}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label>Pincode:</label>{{cart.selectedAddress.pincode}}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label>City:</label>{{cart.selectedAddress.city}}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label>State:</label>{{cart.selectedAddress.state}}
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-default" ng-click="cart.change()">Change Address</button>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="form-group">
-                        <label>Street:</label>
-                        {{address.street}}
+                <div ng-repeat="address in cart.addresses" ng-hide="cart.addressSelected">
+                    <h3>Address {{($index+1)}} :</h3>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label>Flat / Building Name:</label> {{address.flatBldgName}}
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <div class="form-group">
-                        <label>Landmark:</label>
-                        {{address.landmark}}
-                        <!-- PUT LANDMARK HERE -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <label>Street:</label>{{address.street}}
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <div class="form-group">
-                        <label>Pincode:</label>
-                        {{address.pincode}}
-                        <!-- PUT PINCODE HERE -->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label>Landmark:</label>{{address.landmark}}
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <div class="form-group">
-                        <label>City:</label>
-                        {{address.city}}
-                        <!-- PUT CITY HERE -->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label>Pincode:</label>{{address.pincode}}
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <div class="form-group">
-                        <label>State:</label>
-                        {{address.state}}
-                        <!-- PUT STATE HERE -->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label>City:</label>{{address.city}}
                     </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <label>State:</label>{{address.state}}
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="cart.selectAddress($index)">Select Address</button>
                 </div>
-                <button type="button" class="btn btn-primary btn-lg" ng-click="cart.selectAddress()">select this address</button>
+            </div>
+            <div class="panel-footer">
+                <span class="input-group-btn">
+                <!-- <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="cart.checkout()" ng-disabled="!cart.addressSelected">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}} </button> -->
+                <a class="btn btn-primary btn-lg btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc" ng-disabled="!cart.addressSelected">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</a>
+            </span>
             </div>
         </div>
-    </form>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <h3>Total: {{cart.order.total}}</h3>
-    <!-- <button type="button" class="btn btn-primary btn-lg btn-block" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc">Proceed to checkout</button> -->
-    <a class="btn btn-primary btn-lg btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc">Proceed To Checkout</a>
-</div>
+        <div>
+        </div>
+    </div>
+        
 </div>

@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('CartCtrl', function($scope, ENV, orderService, localStorageService, customerService) {
+    .controller('CartCtrl', function($state, $uibModal, $scope, ENV, orderService, localStorageService, customerService) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -15,27 +15,29 @@ angular.module('chocoholicsApp')
         ];
         var vm = this;
         var orderId;
-
         // CHECKOUT
         var name;
         var phone;
         var email;
         var addresses;
-
-        this.selectedAddress = false;
-
+        var addressExist;
+        var selectedAddress;
+        var addressSelected;
+        this.addressExist = false;
         this.customerId = localStorageService.get('userId');
         this.amount = 0;
-
         this.name = localStorageService.get('name');
         this.phone = localStorageService.get('phone');
-
         this.addresses = {};
-
         this.order = {};
-
         orderId = localStorageService.get('id');
         this.items = [];
+        this.selectedAddress = localStorageService.get('selectedAddress');
+        if(localStorageService.get('selectedAddress')){
+            vm.addressSelected = true;
+        } else {
+            vm.addressSelected = false;
+        }
         this.loadItems = function() {
             console.log('show the loader');
             vm.items = [];
@@ -94,8 +96,7 @@ angular.module('chocoholicsApp')
                     vm.items[index].changing = false;
                 });
         };
-
-        // CHECKOUT 
+        // CHECKOUT
         // this.checkout = function() {
         //     customerService.getAddresses(localStorageService.get('userId'))
         //         .then(function(addresses) {
@@ -119,7 +120,6 @@ angular.module('chocoholicsApp')
         //             console.log(error);
         //         });
         // };
-
         //  NOT NEEDED
         // this.checkout = function(){
         //     console.log(vm.order.total);
@@ -136,8 +136,19 @@ angular.module('chocoholicsApp')
         //         console.log(error);
         //     });
         // };
-
-
+        this.checkout = function() {
+            if (vm.addressExist === true) {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '/views/addressSelectModal.html',
+                    size: 'sm',
+                    controller: 'AddressselectCtrl',
+                    controllerAs: 'addressSelect'
+                });
+            } else {
+                console.log('no address found!');
+                $state.go('main.account');
+            }
+        };
         this.sum = function() {
             console.log('addOnTax:' + vm.order.addOnTax + ' delivery:' + vm.order.deliveryCharge + ' tax:' + vm.order.tax);
             vm.order.total =
@@ -146,28 +157,17 @@ angular.module('chocoholicsApp')
                 parseFloat(vm.order.addOnTax) +
                 parseFloat(vm.order.deliveryCharge) -
                 parseFloat(vm.order.discount);
-            console.log(vm.order.total);
-            console.log(vm.order.tax);
-            console.log(vm.order.addOnTax);
-            console.log(vm.order.deliveryCharge);
-            console.log(vm.order.discount);
         };
-
         this.calculateTotal = function(items) {
             console.log('calculating total...');
-            console.log(items);
-            vm.order.total = vm.order.subtotal = vm.order.tax = vm.order.addOnTax = vm.order.discount = vm.order.deliveryCharge =0;
+            vm.order.total = vm.order.subtotal = vm.order.tax = vm.order.addOnTax = vm.order.discount = vm.order.deliveryCharge = 0;
             _.each(items, function(item) {
                 console.log('calculating subtotal');
-                console.log(item);
-                console.log(item.quantity);
-                console.log(item.cost);
                 // if(vm.discount){
-                    // vm.order.subtotal += (item.quantity * items.cost) - vm.discount;
+                // vm.order.subtotal += (item.quantity * items.cost) - vm.discount;
                 // } else {
-                    vm.order.subtotal += (item.quantity * item.cost);
+                vm.order.subtotal += (item.quantity * item.cost);
                 // }
-
                 console.log(vm.order.subtotal);
                 if (item.discount) {
                     console.log(item.discount);
@@ -185,11 +185,8 @@ angular.module('chocoholicsApp')
                     console.log(vm.order.deliveryCharge);
                 }
                 vm.sum();
-
             });
         };
-
-
         this.getOrderDetails = function(orderId) {
             orderService.getOrder(orderId)
                 .then(function(response) {
@@ -199,24 +196,41 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
-
-
         this.getUserAddresses = function() {
             customerService.getAddresses(vm.customerId)
                 .then(function(addresses) {
                     vm.addresses = addresses;
-                    console.log(vm.addresses);
-                }).catch(function(error){
+                    console.log(vm.addresses.length);
+                    if(vm.addresses.length === 0){
+                        vm.addressExist = false;
+                    } else {
+                        vm.addressExist = true;
+                    }
+                }).catch(function(error) {
                     console.log(error);
                 });
         };
-
-        this.selectAddress = function(){
-            vm.selectedAddress = true;
-            
+        this.change = function(){
+            vm.addressSelected = false;
+            localStorageService.remove('selectedAddress');
         };
-
-
+        this.selectAddress = function(index){
+            console.log(vm.addresses[index]);
+            vm.selectedAddress = vm.addresses[index];
+            vm.addressSelected = true;
+            localStorageService.set('selectedAddress', vm.selectedAddress);
+            var info = {
+                orderId: localStorageService.get('id'),
+                addressId: vm.selectedAddress.id
+            };
+            orderService.updateInfo(info)
+            .then(function(response){
+                console.log(response);
+            })
+            .catch(function(error){
+                console.log(error);
+            });
+        };
         this.getUserAddresses();
         this.loadItems();
         this.getOrderDetails(orderId);

@@ -1,0 +1,82 @@
+<div class="modal-fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-header">
+            <h3 class="modal-title">Order Details:</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <label>
+                        Item Name:
+                    </label>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <label>
+                        Item Quantity
+                    </label>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <label>
+                        Item Amount:
+                    </label>
+                </div>
+            </div>
+            <div class="row" ng-repeat="item in confirm.items">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{item.name}}
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{item.quantity}}
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{item.quantity*item.cost}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <h4>
+                        Total:
+                    </h4>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    {{confirm.order.total}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Name:</label>{{confirm.name}}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Phone:</label>{{confirm.phone}}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Email:</label>{{confirm.email}}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Address:</label>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Flat / Building:</label>{{confirm.address.flatBldgName}}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Street:</label>{{confirm.address.street}}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Landmark:</label>{{confirm.address.landmark}}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>City:</label>{{confirm.address.city}}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>State:</label>{{confirm.address.state}}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Pincode:</label>{{confirm.address.pincode}} 
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-primary btn-block btn-lg" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc">Confirm</a>
+            <button type="button" class="btn btn-default btn-lg btn-block" ng-click="confirm.cancel()">Cancel</button>
+        </div>
+    </div>
