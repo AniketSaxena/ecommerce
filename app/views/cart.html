@@ -86,6 +86,9 @@
         <div class="panel-footer">
             <!-- Span containing the checkout button -->
             <span class="input-group-btn">
+                <!-- Button instead of link for instamojo
+                <button type="button" class="btn btn-default btn-block" ng-disabled="!cart.addressSelected" ng-click="cart.checkout">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</button>
+                 -->
                 <a class="btn btn-primary btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc" ng-disabled="!cart.addressSelected">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</a>
             </span>
             <!-- End of span -->

@@ -5,30 +5,46 @@
             <div class="panel-heading">
                 <h5><i class="glyphicon glyphicon-user"></i> Account Details</h5>
             </div>
-            <form name="addressForm" ng-submit="saveAddress()">
+            <!-- Start of Account details panel -->
+            <form name="accountDetails">
+                <!-- Start of panel body -->
                 <div class="panel-body">
+                    <!-- Start of rows -->
                     <div class="row">
+                        <!-- column for name -->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="form-group">
                                 <label>Name:</label>
                                 {{name}}
                             </div>
                         </div>
+                        <!-- End of column for name -->
+                        <!-- Start of column for email -->
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="form-group">
                                 <label>Email:</label>
                                 {{email}}
                             </div>
                         </div>
+                        <!-- End of column for email -->
+                        <!-- Start of column for phone -->
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="form-group">
                                 <label>Phone:</label>
                                 {{phone}}
                             </div>
                         </div>
+                        <!-- End of column for phone -->
+                        <!-- Password change -->
+                        <div>
+                            <a class="btn btn-default" ui-sref="main.passwordChange">Change Password</a>
+                        </div>
                     </div>
+                    <!-- End of rows -->
                 </div>
+                <!-- End of panel body -->
             </form>
+            <!-- End of form -->
         </div>
     </div>
     <!-- FOR ORDER HISTORY -->

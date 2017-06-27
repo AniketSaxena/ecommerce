@@ -7,18 +7,22 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('MainCtrl', function($uibModal, localStorageService) {
-        this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
+    .controller('MainCtrl', function($scope, $uibModal, localStorageService) {
+        //Variables
         var id;
         var vm = this;
         var items;
         var total;
+        var totalQuantity;
+        //Variable Definition
         this.total = localStorageService.get('total');
         items = localStorageService.get('quantity');
+        //Listening for total Quantity
+        $scope.$on('total', function(event, data){
+            console.log(data);
+            $scope.totalQuantity = data;
+        });
+        //Function for opening login modal
         this.open = function() {
             var modalInstance = $uibModal.open({
                 templateUrl: '/views/loginmodal.html',
@@ -31,6 +35,7 @@ angular.module('chocoholicsApp')
 
             });
         };
+        //Function for logging out
         this.logout = function() {
             localStorageService.remove('name');
             localStorageService.remove('phone');

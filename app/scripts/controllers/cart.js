@@ -8,11 +8,6 @@
  */
 angular.module('chocoholicsApp')
     .controller('CartCtrl', function($rootScope, $state, $uibModal, $scope, ENV, orderService, localStorageService, customerService) {
-        this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
         //List of variables
         var vm = this;
         var orderId;
@@ -65,7 +60,6 @@ angular.module('chocoholicsApp')
             $scope.items = [];
             orderService.getOrderItems(orderId)
                 .then(function(response) {
-                    console.log(response);
                     angular.forEach(response.data, function(element) {
                         if(element.quantity === 1){
                             element.min = true;
@@ -73,7 +67,7 @@ angular.module('chocoholicsApp')
                         vm.items.push(element);
                         $scope.items.push(element);
                         $scope.totalQuantity = $scope.totalQuantity + element.quantity;
-                        localStorageService.set('total',$scope.totalQuantity);
+                        $scope.$emit('total',totalQuantity);
                         });
                     vm.calculateTotal(vm.items);
                 }).catch(function(error) {
@@ -90,7 +84,7 @@ angular.module('chocoholicsApp')
                 .then(function(response) {
                     console.log(response);
                     $scope.totalQuantity = $scope.totalQuantity - vm.items[index].quantity;
-                    localStorageService.set('total',$scope.totalQuantity);
+                    $scope.$emit('total',totalQuantity);
                     // ngToast.create('removed!');
                     // vm.loadItems();
                 }).catch(function(error) {
@@ -109,7 +103,7 @@ angular.module('chocoholicsApp')
                         vm.items[index].min = false;
                     }
                     $scope.totalQuantity = $scope.totalQuantity + 1;
-                    localStorageService.set('total',$scope.totalQuantity);
+                    $scope.$emit('total',totalQuantity);
                 }).catch(function(error) {
                     console.log(error);
                     vm.items[index].changing = false;
@@ -127,7 +121,7 @@ angular.module('chocoholicsApp')
                     }
                     vm.items[index].changing = false;
                     $scope.totalQuantity = $scope.totalQuantity - 1;
-                    localStorageService.set('total',$scope.totalQuantity);
+                    $scope.$emit('total',totalQuantity);
                 }).catch(function(error) {
                     console.log(error);
                     vm.items[index].changing = false;
@@ -178,21 +172,14 @@ angular.module('chocoholicsApp')
                 // } else {
                 vm.order.subtotal += (item.quantity * item.cost);
                 // }
-                console.log(vm.order.subtotal);
                 if (item.discount) {
-                    console.log(item.discount);
                     vm.order.discount += (item.quantity * item.discount);
-                    console.log(vm.order.discount);
                 }
                 if (item.tax) {
-                    console.log(item.tax);
                     vm.order.tax += (item.quantity * item.tax);
-                    console.log(vm.order.tax);
                 }
                 if (item.deliveryCharge) {
-                    console.log(item.deliveryCharge);
                     vm.order.deliveryCharge += (item.quantity * item.deliveryCharge);
-                    console.log(vm.order.deliveryCharge);
                 }
                 vm.sum();
             });
@@ -212,7 +199,6 @@ angular.module('chocoholicsApp')
             customerService.getAddresses(vm.customerId)
                 .then(function(addresses) {
                     vm.addresses = addresses;
-                    console.log(vm.addresses.length);
                     if (vm.addresses.length === 0) {
                         vm.addressExist = false;
                     } else {
@@ -229,7 +215,6 @@ angular.module('chocoholicsApp')
         };
         // Function to select address
         this.selectAddress = function(index) {
-            console.log(vm.addresses[index]);
             vm.selectedAddress = vm.addresses[index];
             vm.addressSelected = true;
             localStorageService.set('selectedAddress', vm.selectedAddress);

@@ -1,12 +1,4 @@
 'use strict';
-/**
- * @ngdoc overview
- * @name chocoholicsApp
- * @description
- * # chocoholicsApp
- *
- * Main module of the application.
- */
 angular
     .module('chocoholicsApp', [
         'ngAnimate',
@@ -65,19 +57,25 @@ angular
             controller: 'AccountCtrl',
             controllerAs: 'account'
         };
+        var passwordChangeState = {
+            name: 'main.passwordChange',
+            url: '/main/passwordChange',
+            templateUrl: '/views/passwordChange.html',
+            controller: 'PasswordchangeCtrl',
+            controllerAs: 'passwordChange'
+        };
         $stateProvider.state(mainState);
         $stateProvider.state(homeState);
         $stateProvider.state(shopState);
         $stateProvider.state(cartState);
         $stateProvider.state(productState);
         $stateProvider.state(accountState);
+        $stateProvider.state(passwordChangeState);
         $urlRouterProvider.otherwise('main/home');
         $urlRouterProvider.when('main/shop');
         localStorageServiceProvider.setStorageType('localStorage');
-
     })
     .run(function($http, localStorageService, ENV) {
-
         Parse.initialize(ENV.parseAPIKey, ENV.parseJsKey);
         Parse.serverURL = ENV.serverURL + ENV.parsePath;
         var token = localStorageService.get('token');

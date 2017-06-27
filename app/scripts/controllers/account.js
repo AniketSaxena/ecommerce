@@ -8,48 +8,20 @@
  */
 angular.module('chocoholicsApp')
     .controller('AccountCtrl', function($scope, localStorageService, orderService, customerService) {
-        this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
+        // List of variables        
         var name;
         var phone;
         var email;
         var id;
-        var checker; //will check if address is there or not
-        // var userAddress = {};
-        // var newAddress = {};    //will store all details about address.
+        var checker; 
+        //Variable Definition
         $scope.orders = [];
         $scope.customerId = localStorageService.get('userId');
         $scope.name = localStorageService.get('name');
         $scope.phone = localStorageService.get('phone');
         $scope.email = localStorageService.get('email');
         $scope.checker = false;
-        // this function gives address as object and customerid to store address in customerId
-        // this.submit = function(newAddress, id){
-        //   customerService.addAddress(newAddress, id)
-        //   .then(function(response){
-        //     console.log(response);
-        //     vm.userAddress = vm.newAddress;
-        //     vm.checker = true;
-        //   }).catch(function(error){
-        //     console.log(error);
-        //   });
-        // };
-        //this function gives the address of the customer by sending customerId
-        // this.address = function(id){
-        //   customerService.getAddress(id)
-        //   .then(function(response){
-        //     if(response.data.flatBldgName){
-        //       console.log(response.data);
-        //       vm.checker = true;
-        //       vm.userAddress = response.data;
-        //     }
-        //   }).catch(function(error){
-        //     console.log(error);
-        //   });
-        // };
+        //Function to get user address
         $scope.getUserAddresses = function() {
             customerService.getAddresses($scope.customerId)
                 .then(function(addresses) {
@@ -67,6 +39,7 @@ angular.module('chocoholicsApp')
                     $scope.$emit('error', error.message);
                 });
         };
+        //Function to save address
         $scope.saveAddress = function() {
             console.log($scope.newAddress);
             console.log($scope.customerId);
@@ -74,28 +47,11 @@ angular.module('chocoholicsApp')
                 .addAddress($scope.newAddress, $scope.customerId)
                 .then(function(address) {
                     console.log(address);
-                    // if ($scope.source === 'app.products') {
-                    //     console.log('here....');
-                    //     $state.go($scope.source, { action: 'cart' });
-                    // } else {
-                    //     $state.go($scope.source);
-                    // }
                 }, function(error) {
                     $scope.$emit('error', error.message);
                 });
         };
-
-        
-        // DUMMY CODE FOR REMOVAL OF ADDRESS
-        // $scope.removeAddress = function() {
-        //     customerService.removeAddress($scope.address)
-        //     .then(function(response){
-        //         console.log(response);
-        //     }).catch(function(error){
-        //         console.log(error);
-        //     });
-        // };
-
+        //Function to get Order History
         $scope.getOrderHistory = function(skip, limit, user) {
             orderService.getOrders(skip, limit, user)
                 .then(function(response) {
@@ -108,6 +64,7 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
+        //Function to add more addresses
         $scope.addMore = function() {
             $scope.checker = false;
         };
