@@ -32,22 +32,38 @@ angular.module('chocoholicsApp')
         this.order = {};
         orderId = localStorageService.get('id');
         this.items = [];
+        $scope.items = [];
         this.selectedAddress = localStorageService.get('selectedAddress');
         if(localStorageService.get('selectedAddress')){
             vm.addressSelected = true;
         } else {
             vm.addressSelected = false;
         }
+        $('#checkoutCard').affix({
+            offset: {
+                top: 10,
+                // bottom: 10,
+                // function(){
+                //     return (this.bottom = $('.footer').outerHeight(true))
+                // }
+            }
+        });
+        $(document).on('affix.bs.affix','.panel', function(){
+            $(this).width($(this).width());
+        });
+        $('#myAffix').affix('checkPosition')
         this.loadItems = function() {
             console.log('show the loader');
             vm.items = [];
+            $scope.items = [];
             orderService.getOrderItems(orderId)
                 .then(function(response) {
                     console.log(response);
                     angular.forEach(response.data, function(element) {
                         vm.items.push(element);
+                        $scope.items.push(element);
+                        console.log(element.quantity);
                     });
-                    vm.calculateTotal(vm.items);
                 }).catch(function(error) {
                     console.error(error);
                 });
@@ -96,6 +112,13 @@ angular.module('chocoholicsApp')
                     vm.items[index].changing = false;
                 });
         };
+
+        $scope.$watchCollection('items',function(newValue, oldValue){
+            console.log(newValue);
+            if(newValue){
+                vm.calculateTotal($scope.items);
+            }
+        }, true);
         // CHECKOUT
         // this.checkout = function() {
         //     customerService.getAddresses(localStorageService.get('userId'))

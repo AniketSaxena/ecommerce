@@ -8,27 +8,26 @@ body{
 
 
 
-.panel.panel-default{
+#productCard{
 	margin-top: 30px;
 	border: 1px solid rgba(0,0,0,0.2);
 	border-radius: 4px;
 	transition:0.2s ease-in;
 }
-.panel:hover{
+#productCard:hover{
 	transform: translateY(-5px);
 	transition:0.2s;
 	box-shadow: 0 2px 2px 0px rgba(0,0,0,0.15);
 
 }
-#panel-header{
+.panel-header{
 	height: 230px;
 	background-image: url("/images/download.jpg"); 	
 	background-size: cover;
 }
 
-#panel-body{
+.panel-body{
 	font-family: 'Droid Sans', sans-serif;
-	font-weight: bold;
 }
 
 .cost-holder{

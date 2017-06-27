@@ -1,0 +1,8 @@
+body{
+	padding-top: 50px;
+}
+
+#checkout.affix{
+	margin-top: 0px;
+	top: 16px;
+}
