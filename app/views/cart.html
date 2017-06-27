@@ -1,22 +1,30 @@
+<!-- Start of column for cart items -->
 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <!-- Header -->
     <div class="header">
         <h4>Your Cart</h4>
     </div>
+    <!-- End of header -->
+    <!-- Start of panels for each item in cart -->
     <div class="panel panel-default" ng-repeat="item in cart.items">
+        <!-- Start of panel body -->
         <div class="panel-body">
+            <!-- Div for images -->
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <img src="../../images/tv.jpg">
             </div>
-            <div>
-                <button type="button" class="close" ng-click="cart.removeItem($index)">
-                    <span aria-hidden="true">
-                    &times;
-                </span>
-                </button>
-            </div>
+            <!-- End of images -->
+            <!-- Exit button 'X' -->
+            <button type="button" class="close" ng-click="cart.removeItem($index)">
+                <span aria-hidden="true">
+                &times;</span>
+            </button>
+            <!-- End of exit button -->
+            <!-- Item details -->
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div>{{item.name}}</div>
                 <div>{{item.cost*item.quantity | currency : "&#8377;"}}</div>
+                <!-- Buttons to increase and decrease item quantity -->
                 <div>
                     <button type="button" class="btn btn-default" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
                         <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}">
@@ -31,37 +39,59 @@
                     </i>
                     </button>
                 </div>
+                <!-- End of buttons to increase and decrease item quantity -->
             </div>
+            <!-- End of item details -->
         </div>
+        <!-- End of panel body -->
     </div>
+    <!-- End of panel -->
 </div>
+<!-- End of column for cart items -->
+<!-- Start of column for address selection and checkout -->
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <!-- Start of panel -->
     <div class="panel panel-default" id="checkoutCard">
+        <!-- Start of panel header containing total amount -->
         <div class="panel-heading">
             <h3>Total Amount: {{cart.order.total | currency : "&#8377;"}}</h3>
         </div>
+        <!-- End of panel header -->
+        <!-- Start of panel body containing address selection-->
         <div class="panel-body">
             <h5>Delivery Address</h5>
+            <!-- Below div shown when address is selected -->
             <div ng-show="cart.addressSelected">
+                <!-- List group containing address -->
                 <div class="list-group">
                     {{cart.selectedAddress.flatBldgName}},{{cart.selectedAddress.street}},{{cart.selectedAddress.landmark}},{{cart.selectedAddress.city}}-{{cart.selectedAddress.pincode}}.
                     <button type="button" class="btn btn-default pull-right btn-sm" ng-click="cart.change()">Change</button>
                 </div>
+                <!-- End of list group -->
             </div>
+            <!-- End of div for selected address -->
+            <!-- Start of div for address not selected -->
             <div ng-repeat="address in cart.addresses" ng-hide="cart.addressSelected">
+                <!-- Start of address selection list group -->
                 <div class="list-group">
                     {{address.flatBldgName}},{{address.street}},{{address.landmark}},{{address.city}}-{{address.pincode}}.
                     <button type="button" class="btn btn-primary pull-right btn-sm" ng-click="cart.selectAddress($index)">Select</button>
                 </div>
+                <!-- End of list group -->
             </div>
+            <!-- End of div for address not selected -->
         </div>
-    <div class="panel-footer">
-        <span class="input-group-btn">
-            <!-- <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="cart.checkout()" ng-disabled="!cart.addressSelected">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}} </button> -->
-            <a class="btn btn-primary btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc" ng-disabled="!cart.addressSelected">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</a>
-        </span>
+        <!-- End of panel body -->
+        <!-- Start of panel footer -->
+        <div class="panel-footer">
+            <!-- Span containing the checkout button -->
+            <span class="input-group-btn">
+                <a class="btn btn-primary btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc" ng-disabled="!cart.addressSelected">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</a>
+            </span>
+            <!-- End of span -->
+        </div>
+        <!-- End of panel footer -->
     </div>
+    <!-- End of panel -->
 </div>
-<disv>
-    </div>
-    </div>
+<!-- End of column for address selection and checkout -->

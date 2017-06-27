@@ -13,9 +13,9 @@ angular.module('chocoholicsApp')
             'AngularJS',
             'Karma'
         ];
+        //List of variables
         var vm = this;
         var orderId;
-        // CHECKOUT
         var name;
         var phone;
         var email;
@@ -24,7 +24,8 @@ angular.module('chocoholicsApp')
         var selectedAddress;
         var addressSelected;
         var totalQuantity;
-        this.totalQuantity = 0;
+        //Initializing variables
+        $scope.totalQuantity = 0;
         this.addressExist = false;
         this.customerId = localStorageService.get('userId');
         this.amount = 0;
@@ -36,28 +37,28 @@ angular.module('chocoholicsApp')
         this.items = [];
         $scope.items = [];
         this.selectedAddress = localStorageService.get('selectedAddress');
+        //Checking if address alreadu selected or not
         if (localStorageService.get('selectedAddress')) {
             vm.addressSelected = true;
         } else {
             vm.addressSelected = false;
         }
+        // Affixing checkout and address selection card
         $('#checkoutCard').affix({
             offset: {
                 top: 10,
-                // bottom: 10,
-                // function(){
-                //     return (this.bottom = $('.footer').outerHeight(true))
-                // }
             }
         });
+        //Setting width of card on affix to value before affix
         $(document).on('affix.bs.affix', '.panel', function() {
             $(this).width($(this).width());
         });
-        $('#myAffix').affix('checkPosition');
-        //WATCHER   
-        // $rootScope.$watch('vm.totalQuantity', function(newValue, oldValue) {
-        //     console.log('asjopjag');
-        // });
+        $('#checkoutCard').affix('checkPosition');
+        //Watcher for total amount
+        $scope.$watch('totalQuantity', function(newValue, oldValue) {
+            vm.calculateTotal(vm.items);
+        });
+        // Function to load items
         this.loadItems = function() {
             console.log('show the loader');
             vm.items = [];
@@ -71,8 +72,8 @@ angular.module('chocoholicsApp')
                         }
                         vm.items.push(element);
                         $scope.items.push(element);
-                        vm.totalQuantity = vm.totalQuantity + element.quantity;
-                        localStorageService.set('total',vm.totalQuantity);
+                        $scope.totalQuantity = $scope.totalQuantity + element.quantity;
+                        localStorageService.set('total',$scope.totalQuantity);
                         });
                     vm.calculateTotal(vm.items);
                 }).catch(function(error) {
@@ -81,20 +82,22 @@ angular.module('chocoholicsApp')
             vm.counter++;
             console.log('entering page number ' + vm.counter);
         };
+        // Function to remove items
         this.removeItem = function(index) {
             var item = vm.items[index];
             vm.items.splice(index, 1);
             orderService.removeOrderItem(item.id)
                 .then(function(response) {
                     console.log(response);
-                    vm.totalQuantity = vm.totalQuantity - vm.items[index].quantity;
-                    localStorageService.set('total',vm.totalQuantity);
+                    $scope.totalQuantity = $scope.totalQuantity - vm.items[index].quantity;
+                    localStorageService.set('total',$scope.totalQuantity);
                     // ngToast.create('removed!');
                     // vm.loadItems();
                 }).catch(function(error) {
                     console.log(error);
                 });
         };
+        // Function to increase item quantity
         this.increaseItem = function(index) {
             vm.items[index].changing = true;
             vm.items[index].quantity = vm.items[index].quantity + 1;
@@ -105,13 +108,14 @@ angular.module('chocoholicsApp')
                     if (vm.items[index].quantity >= 2) {
                         vm.items[index].min = false;
                     }
-                    vm.totalQuantity = vm.totalQuantity + 1;
-                    localStorageService.set('total',vm.totalQuantity);
+                    $scope.totalQuantity = $scope.totalQuantity + 1;
+                    localStorageService.set('total',$scope.totalQuantity);
                 }).catch(function(error) {
                     console.log(error);
                     vm.items[index].changing = false;
                 });
         };
+        // Function to decrease item quantity
         this.decreaseItem = function(index) {
             vm.items[index].changing = true;
             vm.items[index].quantity = vm.items[index].quantity - 1;
@@ -122,14 +126,14 @@ angular.module('chocoholicsApp')
                         vm.items[index].min = true;
                     }
                     vm.items[index].changing = false;
-                    vm.totalQuantity = vm.totalQuantity - 1;
-                    localStorageService.set('total',vm.totalQuantity);
+                    $scope.totalQuantity = $scope.totalQuantity - 1;
+                    localStorageService.set('total',$scope.totalQuantity);
                 }).catch(function(error) {
                     console.log(error);
                     vm.items[index].changing = false;
                 });
         };
-        // CHECKOUT
+        // Checkout function logic for instamojo
         // this.checkout = function() {
         //     customerService.getAddresses(localStorageService.get('userId'))
         //         .then(function(addresses) {
@@ -153,35 +157,7 @@ angular.module('chocoholicsApp')
         //             console.log(error);
         //         });
         // };
-        //  NOT NEEDED
-        // this.checkout = function(){
-        //     console.log(vm.order.total);
-        //     var info = {
-        //         amount: vm.order.total,
-        //         name: localStorageService.get('name'),
-        //         email: localStorageService.get('email'),
-        //         phone: localStorageService.get('phone')
-        //     };
-        //     orderService.checkout(info)
-        //     .then(function(response){
-        //         console.log(response.longurl);
-        //     }).catch(function(error){
-        //         console.log(error);
-        //     });
-        // };
-        this.checkout = function() {
-            if (vm.addressExist === true) {
-                var modalInstance = $uibModal.open({
-                    templateUrl: '/views/addressSelectModal.html',
-                    size: 'sm',
-                    controller: 'AddressselectCtrl',
-                    controllerAs: 'addressSelect'
-                });
-            } else {
-                console.log('no address found!');
-                $state.go('main.account');
-            }
-        };
+        // Function to Calculate sum of all costs
         this.sum = function() {
             console.log('addOnTax:' + vm.order.addOnTax + ' delivery:' + vm.order.deliveryCharge + ' tax:' + vm.order.tax);
             vm.order.total =
@@ -191,6 +167,7 @@ angular.module('chocoholicsApp')
                 parseFloat(vm.order.deliveryCharge) -
                 parseFloat(vm.order.discount);
         };
+        //Function to calculate the total amount
         this.calculateTotal = function(items) {
             console.log('calculating total...');
             vm.order.total = vm.order.subtotal = vm.order.tax = vm.order.addOnTax = vm.order.discount = vm.order.deliveryCharge = 0;
@@ -220,6 +197,7 @@ angular.module('chocoholicsApp')
                 vm.sum();
             });
         };
+        //Function to get order details
         this.getOrderDetails = function(orderId) {
             orderService.getOrder(orderId)
                 .then(function(response) {
@@ -229,6 +207,7 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
+        // Function to get user's address
         this.getUserAddresses = function() {
             customerService.getAddresses(vm.customerId)
                 .then(function(addresses) {
@@ -243,10 +222,12 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
+        // Function to change address 
         this.change = function() {
             vm.addressSelected = false;
             localStorageService.remove('selectedAddress');
         };
+        // Function to select address
         this.selectAddress = function(index) {
             console.log(vm.addresses[index]);
             vm.selectedAddress = vm.addresses[index];
@@ -264,6 +245,7 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
+        //Below functions are called on page loading
         this.getUserAddresses();
         this.loadItems();
         this.getOrderDetails(orderId);
