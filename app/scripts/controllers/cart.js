@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('CartCtrl', function($state, $uibModal, $scope, ENV, orderService, localStorageService, customerService) {
+    .controller('CartCtrl', function($rootScope, $state, $uibModal, $scope, ENV, orderService, localStorageService, customerService) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -23,6 +23,8 @@ angular.module('chocoholicsApp')
         var addressExist;
         var selectedAddress;
         var addressSelected;
+        var totalQuantity;
+        this.totalQuantity = 0;
         this.addressExist = false;
         this.customerId = localStorageService.get('userId');
         this.amount = 0;
@@ -34,7 +36,7 @@ angular.module('chocoholicsApp')
         this.items = [];
         $scope.items = [];
         this.selectedAddress = localStorageService.get('selectedAddress');
-        if(localStorageService.get('selectedAddress')){
+        if (localStorageService.get('selectedAddress')) {
             vm.addressSelected = true;
         } else {
             vm.addressSelected = false;
@@ -48,10 +50,14 @@ angular.module('chocoholicsApp')
                 // }
             }
         });
-        $(document).on('affix.bs.affix','.panel', function(){
+        $(document).on('affix.bs.affix', '.panel', function() {
             $(this).width($(this).width());
         });
-        $('#myAffix').affix('checkPosition')
+        $('#myAffix').affix('checkPosition');
+        //WATCHER   
+        // $rootScope.$watch('vm.totalQuantity', function(newValue, oldValue) {
+        //     console.log('asjopjag');
+        // });
         this.loadItems = function() {
             console.log('show the loader');
             vm.items = [];
@@ -60,10 +66,15 @@ angular.module('chocoholicsApp')
                 .then(function(response) {
                     console.log(response);
                     angular.forEach(response.data, function(element) {
+                        if(element.quantity === 1){
+                            element.min = true;
+                        }
                         vm.items.push(element);
                         $scope.items.push(element);
-                        console.log(element.quantity);
-                    });
+                        vm.totalQuantity = vm.totalQuantity + element.quantity;
+                        localStorageService.set('total',vm.totalQuantity);
+                        });
+                    vm.calculateTotal(vm.items);
                 }).catch(function(error) {
                     console.error(error);
                 });
@@ -76,6 +87,8 @@ angular.module('chocoholicsApp')
             orderService.removeOrderItem(item.id)
                 .then(function(response) {
                     console.log(response);
+                    vm.totalQuantity = vm.totalQuantity - vm.items[index].quantity;
+                    localStorageService.set('total',vm.totalQuantity);
                     // ngToast.create('removed!');
                     // vm.loadItems();
                 }).catch(function(error) {
@@ -92,6 +105,8 @@ angular.module('chocoholicsApp')
                     if (vm.items[index].quantity >= 2) {
                         vm.items[index].min = false;
                     }
+                    vm.totalQuantity = vm.totalQuantity + 1;
+                    localStorageService.set('total',vm.totalQuantity);
                 }).catch(function(error) {
                     console.log(error);
                     vm.items[index].changing = false;
@@ -107,18 +122,13 @@ angular.module('chocoholicsApp')
                         vm.items[index].min = true;
                     }
                     vm.items[index].changing = false;
+                    vm.totalQuantity = vm.totalQuantity - 1;
+                    localStorageService.set('total',vm.totalQuantity);
                 }).catch(function(error) {
                     console.log(error);
                     vm.items[index].changing = false;
                 });
         };
-
-        $scope.$watchCollection('items',function(newValue, oldValue){
-            console.log(newValue);
-            if(newValue){
-                vm.calculateTotal($scope.items);
-            }
-        }, true);
         // CHECKOUT
         // this.checkout = function() {
         //     customerService.getAddresses(localStorageService.get('userId'))
@@ -224,7 +234,7 @@ angular.module('chocoholicsApp')
                 .then(function(addresses) {
                     vm.addresses = addresses;
                     console.log(vm.addresses.length);
-                    if(vm.addresses.length === 0){
+                    if (vm.addresses.length === 0) {
                         vm.addressExist = false;
                     } else {
                         vm.addressExist = true;
@@ -233,11 +243,11 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
-        this.change = function(){
+        this.change = function() {
             vm.addressSelected = false;
             localStorageService.remove('selectedAddress');
         };
-        this.selectAddress = function(index){
+        this.selectAddress = function(index) {
             console.log(vm.addresses[index]);
             vm.selectedAddress = vm.addresses[index];
             vm.addressSelected = true;
@@ -247,12 +257,12 @@ angular.module('chocoholicsApp')
                 addressId: vm.selectedAddress.id
             };
             orderService.updateInfo(info)
-            .then(function(response){
-                console.log(response);
-            })
-            .catch(function(error){
-                console.log(error);
-            });
+                .then(function(response) {
+                    console.log(response);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         };
         this.getUserAddresses();
         this.loadItems();

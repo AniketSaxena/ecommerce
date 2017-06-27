@@ -2,7 +2,8 @@ body{
 	padding-top: 50px;
 }
 
-#checkout.affix{
+#checkoutCard.affix{
 	margin-top: 0px;
-	top: 16px;
+	top: 46px;
 }
+

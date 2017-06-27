@@ -16,6 +16,8 @@ angular.module('chocoholicsApp')
         var id;
         var vm = this;
         var items;
+        var total;
+        this.total = localStorageService.get('total');
         items = localStorageService.get('quantity');
         this.open = function() {
             var modalInstance = $uibModal.open({
