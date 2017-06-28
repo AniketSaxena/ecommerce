@@ -1,13 +1,22 @@
 Confirmation page   Total amount paid  DONE
 
-Account page modification 
+Account page modification DONE
 
-Product page image issue
+Product page image issue DONE
 
 Footer improvement
 
 Check responsiveness
 
-Preview on phone
+Preview on phone	
 
 login from different users
+
+
+
+
+
+
+
+"state": "initiated",
+"user": userId,

@@ -3,20 +3,24 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" ui-sref="main.home">chocoholics</a>
             </div>
-            <div class="collapse navbar-collapse" id="js-navbar-collapse">
+             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <li><a ui-sref="main.home">Home</a></li>
                     <li><a ui-sref="main.shop">Products</a></li>
-                    <li><a ui-sref="main.confirm">Confirm</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a ui-sref="main.cart">
                             <span class="glyphicon glyphicon-shopping-cart">
-                            </span>
-                            Cart
+                            </span> Cart
                             <!-- <span class="badge">
                                 {{main.totalQuantity}}
                             </span> -->
@@ -27,8 +31,7 @@
                         <!-- Single button -->
                         <div class="btn-group navbar-btn" uib-dropdown is-open="status.isopen">
                             <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled" ng-show="main.isLoggedIn">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                {{main.customerName}} <span class="caret"></span>
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{main.customerName}} <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                 <li role="menuitem"><a>{{main.customerName}}</a></li>
@@ -55,14 +58,15 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul class="list-inline">
-                    <li>
+                <ul class="list">
+                    <h5>Contact Us</h5>
+                    <li class="none">
                         <a href="">your twitter account</a>
                     </li>
-                    <li>
+                    <li class="none">
                         <a href="">your facebook account</a>
                     </li>
-                    <li>
+                    <li class="none">
                         <a href="">your instagram account</a>
                     </li>
                 </ul>
@@ -71,3 +75,4 @@
     </div>
     <!-- End of footer -->
 </footer>
+

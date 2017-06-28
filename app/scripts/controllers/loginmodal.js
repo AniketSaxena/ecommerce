@@ -15,32 +15,40 @@ angular.module('chocoholicsApp')
         ];
         var vm;
         var val;
+        var userId;
+        var state;
+        var id;
         vm = this;
+        this.id;
+        this.state;
         this.user = {};
-        console.log(localStorageService);
-        console.log(localStorageService.set('key', 'ihaorgihjroig'));
+        this.userId = localStorageService.get('userId');
         this.login = function() {
             loginService.loginUser(vm.user)
                 .then(function(response) {
-                    console.log(response.data.token);
+                    localStorageService.set('userId', response.data.customer.objectId);
                     localStorageService.set('name', response.data.name.first + ' ' + response.data.name.last||'');
-                    console.log(localStorageService.get('name'));
                     localStorageService.set('phone', response.data.customer.phone);
-                    console.log(localStorageService.get('phone'));
                     localStorageService.set('email', response.data.email);
-                    console.log(localStorageService.get('email'));
-                    if(localStorageService.get('id')){
-                        return true;
-                     }else{
-                        return orderService.createOrder();
-                     }
+                    vm.getUserOrders();
+                    if(vm.id && vm.data === "initiated"){
+                        if(vm.id === localStorageService.get('id')){
+                            return true;
+                        } else {
+                            localStorageService.set('id',vm.id);
+                        }
+                    } else {
+                        return orderService,createOrder();
+                    }
                 })
                 .then(function(response) {
+                    console.log(response);
+                    
                     if(response.data && response.data.objectId){
                         localStorageService.set('id',response.data.objectId);
                     }
+                    
                     $uibModalInstance.close('User Logged In');
-                    console.log(localStorageService.get('id'));
 
                     //added now
 
@@ -56,6 +64,7 @@ angular.module('chocoholicsApp')
                 .then(function(response){
                     console.log(response);
                     console.log(response.data);
+                    localStorageService.remove('id');
                     $state.reload();
                 })
                 .catch(function(error) {
@@ -94,4 +103,15 @@ angular.module('chocoholicsApp')
         this.cancel = function() {
             $uibModalInstance.close('cancel');
         };
+        this.getUserOrders = function(){
+            orderService.getOrders(0, 1, userId, "createdAt") 
+            .then(function(response){
+                _.each(response.data,function(data){
+                    vm.state = data.state;
+                    vm.id = data.id;
+                }).catch(function(error){
+                    console.log(error);
+                });
+            })
+        }
     });

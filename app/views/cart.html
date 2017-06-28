@@ -49,9 +49,71 @@
 </div>
 <!-- End of column for cart items -->
 <!-- Start of column for address selection and checkout -->
-<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+<div class="hidden-xs col-sm-6 col-md-6 col-lg-6">
     <!-- Start of panel -->
     <div class="panel panel-default" id="checkoutCard">
+        <!-- Start of panel header containing total amount -->
+        <div class="panel-heading">
+            <h3>Total Amount: {{cart.order.total | currency : "&#8377;"}}</h3>
+        </div>
+        <!-- End of panel header -->
+        <!-- Start of panel body containing address selection if user is logged in-->
+        <div class="panel-body" ng-show="cart.checkLoggedIn">
+            <h5>Delivery Address</h5>
+            <!-- Below div shown when address is selected -->
+            <div ng-show="cart.addressSelected">
+                <!-- List group containing address -->
+                <div class="list-group">
+                    {{cart.selectedAddress.flatBldgName}},{{cart.selectedAddress.street}},{{cart.selectedAddress.landmark}},{{cart.selectedAddress.city}}-{{cart.selectedAddress.pincode}}.
+                    <button type="button" class="btn btn-default pull-right btn-sm" ng-click="cart.change()">Change</button>
+                </div>
+                <!-- End of list group -->
+            </div>
+            <!-- End of div for selected address -->
+            <!-- Start of div for address not selected -->
+            <div ng-repeat="address in cart.addresses" ng-hide="cart.addressSelected">
+                <!-- Start of address selection list group -->
+                <div class="list-group">
+                    {{address.flatBldgName}},{{address.street}},{{address.landmark}},{{address.city}}-{{address.pincode}}.
+                    <button type="button" class="btn btn-primary pull-right btn-sm" ng-click="cart.selectAddress($index)">Select</button>
+                </div>
+                <!-- End of list group -->
+            </div>
+            <!-- End of div for address not selected -->
+        </div>
+        <!-- End of panel body for logged in user-->
+        <!-- Start of panel body for logged out user -->
+        <div class="panel-body" ng-hide="cart.checkLoggedIn">
+            <div class="alert alert-info">Please Login or register to checkout</div>
+        </div>
+        <!-- End of panel body for logged out user -->
+        <!-- Start of panel footer -->
+        <div class="panel-footer">
+            <!-- Span containing the checkout button for logged in user -->
+            <span class="input-group-btn" ng-show="cart.checkLoggedIn">
+                <!-- Button instead of link for instamojo
+                <button type="button" class="btn btn-default btn-block" ng-disabled="!cart.addressSelected" ng-click="cart.checkout">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</button>
+                 -->
+                <a class="btn btn-primary btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc" ng-disabled="!cart.addressSelected">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</a>
+            </span>
+            <!-- End of span for logged in user -->
+            <span class="input-group-btn" ng-hide="cart.checkLoggedIn">
+                <button type="button" class="btn btn-primary btn-block" ng-click="cart.login()">Login to checkout</button>
+            </span>
+        </div>
+        <!-- End of panel footer -->
+    </div>
+    <!-- End of panel -->
+</div>
+<!-- End of column for address selection and checkout
+
+
+
+
+<!-- Start of column for address selection and checkout for small devices -->
+<div class="visible-xs col-xs-6">
+    <!-- Start of panel -->
+    <div class="panel panel-default" id="checkoutXSCard">
         <!-- Start of panel header containing total amount -->
         <div class="panel-heading">
             <h3>Total Amount: {{cart.order.total | currency : "&#8377;"}}</h3>

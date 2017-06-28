@@ -87,3 +87,7 @@ body {
   .modal input{
     margin-top: 10px;
   }
+
+  .none{
+    list-style-type: none;
+  }

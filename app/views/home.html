@@ -25,13 +25,13 @@
                         <p> {{product.rate | currency : "&#8377;"}}</p>
                     </div>
                     <!-- Button to show top product details -->
-                    <a type="button" class="btn btn-default" title="Buy" ui-sref="main.product({id: product.id})">
+                        <button type="button" class="btn btn-default" title="Buy" ui-sref="main.product({id: product.id})">
                         <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span> Buy
                     </button>
                 </div>
-                <div>
-                    <p>{{quantityAmount}}</p>
-                </div>
+                <!-- <div>
+                        <p>{{quantityAmount}}</p>
+                    </div> -->
             </div>
         </div>
     </div>
