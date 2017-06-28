@@ -1,62 +1,13 @@
-To Do:
+Confirmation page   Total amount paid  DONE
 
-1)Create an orders service
-2)create order function
----
-createOrder() -> orderID
+Account page modification 
 
-3)add items
----
-addOrderItems(items) ---> ['aadsads','dfsfbds']
-items = [{id, qty}];
+Product page image issue
 
+Footer improvement
 
-4)link order
----
-linkOrder(orderId, itemId) ---> orderId
+Check responsiveness
 
-5)delete items
----
-deleteOrderItem(id) ---> remove item
+Preview on phone
 
-6)update items
----
-updateOrderItem(id, qty, discount*, discountCode*, remarks, orderId)
-
-7)proceed to checkout
----
-generateLink(data)
-
-data: name phonenumber email amout address 
-returns a link
-
-8)order confirmation
-9)get orders
----
-getOrders(skip , limit, state, user, complete) ---> promise with orders array
-
-10)get order
----
-getOrder(orderId) ---> order
-
-11)get order items
----
-getOrderItems(id)
-
-
-
-
-
-DELIVERY = INITIATED -> PROCESSING -> OUT FOR DELIVERY -> DELIVERED
-cancelled is also a state
-
-
-queryParams;
-
-{skip: 0,
-limit: 10,
-state: 'initialed',
-user: 'hghgfhftg',
-complete: 'complete'}
-
-skip=10&limit=10&...
+login from different users

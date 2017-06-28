@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('CartCtrl', function($rootScope, $state, $uibModal, $scope, ENV, orderService, localStorageService, customerService) {
+    .controller('CartCtrl', function($rootScope, $state, $uibModal, $scope, ENV, orderService, localStorageService, customerService, accountService) {
         //List of variables
         var vm = this;
         var orderId;
@@ -19,7 +19,14 @@ angular.module('chocoholicsApp')
         var selectedAddress;
         var addressSelected;
         var totalQuantity;
+        var checkLoggedIn;
         //Initializing variables
+        //for checking if user is logged in
+        if (localStorageService.get('name')) {
+            vm.checkLoggedIn = true;
+        } else {
+            vm.checkLoggedIn = false;
+        }
         $scope.totalQuantity = 0;
         this.addressExist = false;
         this.customerId = localStorageService.get('userId');
@@ -61,15 +68,15 @@ angular.module('chocoholicsApp')
             orderService.getOrderItems(orderId)
                 .then(function(response) {
                     angular.forEach(response.data, function(element) {
-                        if(element.quantity === 1){
+                        if (element.quantity === 1) {
                             element.min = true;
                         }
                         vm.items.push(element);
                         $scope.items.push(element);
                         $scope.totalQuantity = $scope.totalQuantity + element.quantity;
-                        $scope.$emit('total',totalQuantity);
-                        });
-                    vm.calculateTotal(vm.items);
+                        $scope.$emit('total', totalQuantity);
+                    });
+                vm.calculateTotal(vm.items);
                 }).catch(function(error) {
                     console.error(error);
                 });
@@ -84,7 +91,7 @@ angular.module('chocoholicsApp')
                 .then(function(response) {
                     console.log(response);
                     $scope.totalQuantity = $scope.totalQuantity - vm.items[index].quantity;
-                    $scope.$emit('total',totalQuantity);
+                    $scope.$emit('total', totalQuantity);
                     // ngToast.create('removed!');
                     // vm.loadItems();
                 }).catch(function(error) {
@@ -103,7 +110,7 @@ angular.module('chocoholicsApp')
                         vm.items[index].min = false;
                     }
                     $scope.totalQuantity = $scope.totalQuantity + 1;
-                    $scope.$emit('total',totalQuantity);
+                    $scope.$emit('total', totalQuantity);
                 }).catch(function(error) {
                     console.log(error);
                     vm.items[index].changing = false;
@@ -121,7 +128,7 @@ angular.module('chocoholicsApp')
                     }
                     vm.items[index].changing = false;
                     $scope.totalQuantity = $scope.totalQuantity - 1;
-                    $scope.$emit('total',totalQuantity);
+                    $scope.$emit('total', totalQuantity);
                 }).catch(function(error) {
                     console.log(error);
                     vm.items[index].changing = false;
@@ -153,18 +160,46 @@ angular.module('chocoholicsApp')
         // };
         // Function to Calculate sum of all costs
         this.sum = function() {
-            console.log('addOnTax:' + vm.order.addOnTax + ' delivery:' + vm.order.deliveryCharge + ' tax:' + vm.order.tax);
-            vm.order.total =
-                parseFloat(vm.order.subtotal) +
-                parseFloat(vm.order.tax) +
-                parseFloat(vm.order.addOnTax) +
-                parseFloat(vm.order.deliveryCharge) -
-                parseFloat(vm.order.discount);
+            accountService.getTaxes()
+                .then(function(response) {
+                    _.each(response.data, function(data) {
+                         if (data.default === true) {
+                             vm.order.addOnTax.name = data.name;
+                             vm.order.addOnTax.amount = vm.order.subtotal * (data.percent/100);
+                             vm.order.addOnTax.percent = data.percent;
+                         }
+                    });
+                    console.log('addOnTax:' + vm.order.addOnTax.amount + ' delivery:' + vm.order.deliveryCharge + ' tax:' + vm.order.tax);
+                    vm.order.total =
+                        parseFloat(vm.order.subtotal) +
+                        parseFloat(vm.order.tax) +
+                        parseFloat(vm.order.addOnTax.amount) +
+                        parseFloat(vm.order.deliveryCharge) -
+                        parseFloat(vm.order.discount);
+                    var cost = {
+                        orderId: localStorageService.get('id'),
+                        discount: vm.order.discount,
+                        roundOff: 0,
+                        subtotal: vm.order.subtotal,
+                        total: vm.order.total,
+                        deliveryCharge: vm.order.deliveryCharge,
+                        addOnTax: vm.order.addOnTax,
+                        owner: ENV.owner
+                    };
+                    return orderService.updateCost(cost);
+                })
+                .then(function(response) {
+                    console.log(response.data.id);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         };
         //Function to calculate the total amount
         this.calculateTotal = function(items) {
             console.log('calculating total...');
-            vm.order.total = vm.order.subtotal = vm.order.tax = vm.order.addOnTax = vm.order.discount = vm.order.deliveryCharge = 0;
+            vm.order.total = vm.order.subtotal = vm.order.tax = vm.order.discount = vm.order.deliveryCharge = 0;
+            vm.order.addOnTax = {};
             _.each(items, function(item) {
                 console.log('calculating subtotal');
                 // if(vm.discount){
@@ -208,7 +243,7 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
-        // Function to change address 
+        // Function to change address
         this.change = function() {
             vm.addressSelected = false;
             localStorageService.remove('selectedAddress');
@@ -230,7 +265,11 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
-        //Below functions are called on page loading
+        //Function to login a user
+        this.login = function() {
+                $scope.$emit('login');
+            }
+            //Below functions are called on page loading
         this.getUserAddresses();
         this.loadItems();
         this.getOrderDetails(orderId);

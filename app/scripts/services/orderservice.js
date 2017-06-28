@@ -96,6 +96,9 @@ angular.module('chocoholicsApp')
                 });
                 return deferred.promise;
             },
+            updateCost: function(cost){
+                return $http.post(ENV.serverURL + ENDPOINT + 'updateCost', cost);
+            }
             //  NOT NEEDED
             // checkout: function(info){
             //     return $http.post("https://www.instamojo.com/api/1.1/payment-requests/ ", {

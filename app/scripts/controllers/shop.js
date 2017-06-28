@@ -8,18 +8,22 @@
  */
 angular.module('chocoholicsApp')
     .controller('ShopCtrl', function($scope, $rootScope, productService, orderService, localStorageService) {
-        this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
+        //variables
         var vm = this;
         var items = [];
         var orderItemId;
         var orderId;
         var total;
-        // var totalQuantity;
         var quantityObj = {};
+        var name;
+        var loggedIn;
+        this.name = localStorageService.get('name');
+        // To check if user logged in
+        if (this.name) {
+            vm.loggedIn = true;
+        } else {
+            vm.loggedIn = false;
+        }
         this.counter = 0;
         this.busy = false;
         vm.products = [];
@@ -78,7 +82,7 @@ angular.module('chocoholicsApp')
                         vm.products[index].adding = false;
                         console.log(vm.products[index].quantity);
                         // vm.total = vm.total + 1;
-                        localStorageService.set('total',vm.total);
+                        localStorageService.set('total', vm.total);
                     }).catch(function(error) {
                         console.log(error);
                         vm.products[index].adding = false;
@@ -111,6 +115,72 @@ angular.module('chocoholicsApp')
                     console.log(error);
                 });
         };
+        //Function to add items when user is logged out
+        this.addItemLoggedOut = function(index) {
+            vm.products[index].adding = true;
+            var item = {
+                itemId: vm.products[index].id,
+                quantity: 1
+            };
+            items = [];
+            items.push(item);
+            console.log(vm.products[index]);
+            if (orderId) {
+                if (vm.products[index].quantity !== 0) {
+                    vm.products[index].quantity++;
+                    orderService.updateOrderItem(vm.products[index].addedId, vm.products[index].quantity, null, null, null, orderId)
+                        .then(function(response) {
+                            console.log(response);
+                            vm.products[index].adding = false;
+                            console.log(vm.products[index].quantity);
+                            // vm.total = vm.total + 1;
+                            localStorageService.set('total', vm.total);
+                        }).catch(function(error) {
+                            console.log(error);
+                            vm.products[index].adding = false;
+                        });
+                } else {
+                    orderService.addOrderItem(items)
+                        .then(function(response) {
+                            // console.log(response.data);
+                            vm.products[index].quantity++;
+                            orderItemId = response.data;
+                            return orderService.linkOrder(orderId, orderItemId);
+                        })
+                        .then(function(response) {
+                            console.log(response);
+                            vm.products[index].adding = false;
+                            // vm.total = vm.total + 1;
+                            // localStorageService.set('total',vm.total);
+                        })
+                        .catch(function(error) {
+                            console.error(error);
+                            vm.products[index].adding = false;
+                        });
+                }
+            } else {
+                orderService.createOrder()
+                    .then(function(response) {
+                        orderId = response.data.objectId;
+                        localStorageService.set('id', orderId);
+                        return orderService.addOrderItem(items)
+                    }).then(function(response) {
+                        vm.products[index].quantity++;
+                        orderItemId = response.data;
+                        return orderService.linkOrder(orderId, orderItemId);
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                        vm.products[index].adding = false;
+                        // vm.total = vm.total + 1;
+                        // localStorageService.set('total',vm.total);
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                        vm.products[index].adding = false;
+                    });
+            }
+        };
         //FOR IMAGES
         // this.loadImages = function(images) {
         //        angular.forEach(images, function(image) {
@@ -125,6 +195,5 @@ angular.module('chocoholicsApp')
         //                    });
         //            });
         //    };
-
         this.getItems(orderId);
     });

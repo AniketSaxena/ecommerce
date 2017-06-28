@@ -8,11 +8,6 @@
  */
 angular.module('chocoholicsApp')
     .controller('RegistermodalCtrl', function($scope, $uibModalInstance, phone, customerService, loginService) {
-        this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
         $scope.user = {};
         if (phone) {
             $scope.user.phone = phone;

@@ -1,85 +1,52 @@
 <!-- jumbotron starts here -->
 <div class="jumbotron">
-  <div class="container">
-    <h1>Lorem Ipsum</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit risus, faucibus sit amet vestibulum ut, congue eu orci. Donec..</p>
-    <p>
-      <a class="btn btn-primary btn-lg" ui-sref="main.shop">Shop now</a>
-    </p>
-  </div>
+    <div class="container">
+        <h1>Lorem Ipsum</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit risus, faucibus sit amet vestibulum ut, congue eu orci. Donec..</p>
+        <p>
+            <a class="btn btn-primary btn-lg" ui-sref="main.shop">Shop now</a>
+        </p>
+    </div>
 </div>
 <!-- jumbotron ends here -->
 <!-- Section for bestselling products -->
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="bestselling">
-    <h3>Best Selling products</h3>
-  </div>
-  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-    <div class="panel panel-default" id="panel">
-      <div class="panel-header" id="panel-header">
-      </div>
-      <div class="panel-body" id="panel-body">
-        Butter Chicken
-        <div class="cost-holder">
-          <div class="cost">
-            <p>&#8377; 450</p>
-          </div>
-          <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Buy
-          </button>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in home.products">
+        <div class="panel panel-default product-preview-panel" id="productCard">
+            <div class="panel-header">
+            </div>
+            <div class="panel-body">
+                <a ui-sref="main.product({id:product.id})">
+                    <h4>{{product.name}}</h4>
+                </a>
+                <p>{{product.subtitle}}</p>
+                <div class="cost-holder" name="cost-holder">
+                    <div class="cost">
+                        <p> {{product.rate | currency : "&#8377;"}}</p>
+                    </div>
+                    <!-- Button to show top product details -->
+                    <a type="button" class="btn btn-default" title="Buy" ui-sref="main.product({id: product.id})">
+                        <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span> Buy
+                    </button>
+                </div>
+                <div>
+                    <p>{{quantityAmount}}</p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <!-- Next product -->
-  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-    <div class="panel panel-default" id="panel">
-      <div class="panel-header" id="panel-header">
-      </div>
-      <div class="panel-body" id="panel-body">
-        Butter Chicken
-        <div class="cost-holder">
-          <div class="cost">
-            <p>&#8377; 450</p>
-          </div>
-          <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Buy
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Next product -->
-  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-    <div class="panel panel-default" id="panel">
-      <div class="panel-header" id="panel-header">
-      </div>
-      <div class="panel-body" id="panel-body">
-        Butter Chicken
-        <div class="cost-holder">
-          <div class="cost">
-            <p>&#8377; 450</p>
-          </div>
-          <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Buy
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Best Selling products ends here -->
-  <!-- Start of about us section -->
-  <div class="row">
+</div>
+<!-- Best Selling products ends here -->
+<!-- Start of about us section -->
+<div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-6">
-      <div class="about">
-        <h3>About us</h3>
-        
-        
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et fermentum lorem, sed pellentesque odio. Integer congue pharetra ultrices. Etiam et nibh semper, maximus urna a, tempor quam. Donec id ultricies leo, non maximus velit. Curabitur lobortis eros a leo faucibus, sit amet bibendum quam tincidunt. Vestibulum sagittis volutpat eros vel malesuada. Morbi eget nunc urna. Suspendisse sollicitudin commodo enim, eget porta nisl sagittis a. Proin laoreet purus sit amet leo ullamcorper porttitor. Sed sagittis tortor vel nisl convallis, vitae tempor massa hendrerit. Sed viverra accumsan orci vel congue. Nullam dapibus massa at tempus luctus. Suspendisse sed dui nulla. Sed at vulputate nibh, nec interdum leo. Integer in tincidunt leo.
-        </p>
-      </div>
+        <div class="about">
+            <h3>About us</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et fermentum lorem, sed pellentesque odio. Integer congue pharetra ultrices. Etiam et nibh semper, maximus urna a, tempor quam. Donec id ultricies leo, non maximus velit. Curabitur lobortis eros a leo faucibus, sit amet bibendum quam tincidunt. Vestibulum sagittis volutpat eros vel malesuada. Morbi eget nunc urna. Suspendisse sollicitudin commodo enim, eget porta nisl sagittis a. Proin laoreet purus sit amet leo ullamcorper porttitor. Sed sagittis tortor vel nisl convallis, vitae tempor massa hendrerit. Sed viverra accumsan orci vel congue. Nullam dapibus massa at tempus luctus. Suspendisse sed dui nulla. Sed at vulputate nibh, nec interdum leo. Integer in tincidunt leo.
+            </p>
+        </div>
     </div>
-  </div>
-  <!-- End of about us section -->
+</div>
+<!-- End of about us section -->
 </div>

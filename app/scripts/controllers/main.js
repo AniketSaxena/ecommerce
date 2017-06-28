@@ -7,20 +7,17 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('MainCtrl', function($scope, $uibModal, localStorageService) {
+    .controller('MainCtrl', function($state, $scope, $uibModal, localStorageService) {
         //Variables
         var id;
         var vm = this;
         var items;
-        var total;
         var totalQuantity;
         //Variable Definition
-        this.total = localStorageService.get('total');
         items = localStorageService.get('quantity');
-        //Listening for total Quantity
-        $scope.$on('total', function(event, data){
-            console.log(data);
-            $scope.totalQuantity = data;
+        //Listening for log In
+        $scope.$on('login',function(event){
+            vm.open();
         });
         //Function for opening login modal
         this.open = function() {
@@ -40,7 +37,9 @@ angular.module('chocoholicsApp')
             localStorageService.remove('name');
             localStorageService.remove('phone');
             localStorageService.remove('email');
+            localStorageService.remove('userId');
             vm.isLoggedIn = false;
+            $state.go('main.home');
         };
         
         // Run this functin to check if the user is already logged in

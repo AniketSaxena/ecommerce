@@ -27,7 +27,9 @@ angular
         var homeState = {
             name: 'main.home',
             url: '/home',
-            templateUrl: '/views/home.html'
+            templateUrl: '/views/home.html',
+            controller: 'HomeCtrl',
+            controllerAs: 'home'
         };
         var shopState = {
             name: 'main.shop',
@@ -64,6 +66,13 @@ angular
             controller: 'PasswordchangeCtrl',
             controllerAs: 'passwordChange'
         };
+        var confirmState = {
+            name: 'main.confirm',
+            url: '/main/confirm',
+            templateUrl: '/views/confirm.html',
+            controller: 'ConfirmCtrl',
+            controllerAs: 'confirm'
+        };
         $stateProvider.state(mainState);
         $stateProvider.state(homeState);
         $stateProvider.state(shopState);
@@ -71,6 +80,7 @@ angular
         $stateProvider.state(productState);
         $stateProvider.state(accountState);
         $stateProvider.state(passwordChangeState);
+        $stateProvider.state(confirmState);
         $urlRouterProvider.otherwise('main/home');
         $urlRouterProvider.when('main/shop');
         localStorageServiceProvider.setStorageType('localStorage');

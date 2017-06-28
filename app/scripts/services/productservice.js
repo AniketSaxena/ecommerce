@@ -13,14 +13,14 @@ angular.module('chocoholicsApp')
         var route = '/stock';
         // Public API here
         return {
-            getProducts: function(skip, limit) {
-                return $http.get(ENV.serverURL + route + '/products/' + ENV.vendorKey + '?sortBy=updatedAt&asc=false&skip=' + skip + '&limit=' + limit);
+            getProducts: function(skip, limit, sortBy) {
+                var sort;
+                sort = sortBy ? sortBy : 'order';
+                return $http.get(ENV.serverURL + route + '/products/' + ENV.vendorKey + '?sortBy=' + sort + '&asc=false&skip=' + skip + '&limit=' + limit);
             },
             getProduct: function(id) {
                 return $http.get(ENV.serverURL + route + '/product/' + id);
             },
-
-
             // FOR IMAGES
             getImages: function(id) {
                 var deferred = $q.defer();

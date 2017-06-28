@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('LoginmodalCtrl', function($uibModal, $uibModalInstance, $scope, $http, $rootScope, loginService, orderService, customerService, localStorageService, ENV) {
+    .controller('LoginmodalCtrl', function($state, $uibModal, $uibModalInstance, $scope, $http, $rootScope, loginService, orderService, customerService, localStorageService, ENV) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -30,17 +30,17 @@ angular.module('chocoholicsApp')
                     localStorageService.set('email', response.data.email);
                     console.log(localStorageService.get('email'));
                     if(localStorageService.get('id')){
-                        $uibModalInstance.close();
+                        return true;
                      }else{
                         return orderService.createOrder();
                      }
                 })
                 .then(function(response) {
-                    console.log(response.data);
-                    localStorageService.set('id',response.data.objectId);
+                    if(response.data && response.data.objectId){
+                        localStorageService.set('id',response.data.objectId);
+                    }
                     $uibModalInstance.close('User Logged In');
                     console.log(localStorageService.get('id'));
-                    console.log(response.data.objectId);
 
                     //added now
 
@@ -56,10 +56,8 @@ angular.module('chocoholicsApp')
                 .then(function(response){
                     console.log(response);
                     console.log(response.data);
+                    $state.reload();
                 })
-
-                // till here
-
                 .catch(function(error) {
                     console.log(error);
                 });

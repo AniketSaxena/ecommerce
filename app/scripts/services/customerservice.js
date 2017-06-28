@@ -31,10 +31,13 @@ angular.module('chocoholicsApp')
                     })
                     .then(function(response) {
                         console.log('reached orderService');
-                        return orderService.createOrder();
+                        if(localStorageService.get('id')){
+                            return true;
+                        } else {
+                            return orderService.createOrder();
+                        }    
                     })
                     .then(function(response) {
-                        console.log(response.data);
                         //from here
                         var info = {
                             orderId: localStorageService.get('id'),

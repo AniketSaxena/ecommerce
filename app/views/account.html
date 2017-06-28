@@ -5,8 +5,7 @@
             <div class="panel-heading">
                 <h5><i class="glyphicon glyphicon-user"></i> Account Details</h5>
             </div>
-            <!-- Start of Account details panel -->
-            <form name="accountDetails">
+           
                 <!-- Start of panel body -->
                 <div class="panel-body">
                     <!-- Start of rows -->
@@ -41,10 +40,112 @@
                         </div>
                     </div>
                     <!-- End of rows -->
+                    <form name="addressForm" ng-submit="saveAddress()" ng-hide="checker">
+                        <div class="panel-body">
+                            <div class="row">
+                                <!-- SHOW WHEN NO ADDRESS EXISTS USING: ng-hide/show or ng-class -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="newAddress.flatBldgName" placeholder="Flat / Bldg Name">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="newAddress.street" placeholder="Street">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="newAddress.landmark" placeholder="Landmark">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" ng-model="newAddress.pincode" placeholder="Pincode" ng-change="changePin()" min="100000" max="999999" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="newAddress.city" placeholder="City" required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="newAddress.state" placeholder="State" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <button type="submit" class="btn btn-primary" ng-disabled="!addressForm.$valid">Submit</button>
+                                <button type="button" class="btn btn-default" ng-click="goBack()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                    <h3>List of addresses</h3>
+                    <form name="addressForm" ng-submit="saveAddress()" ng-show="checker">
+                        <div class="panel-body">
+                            <div class="row" ng-repeat="address in addresses">
+                                <!-- OTHERWISE IF ADDRESS EXISTS ALSO PUT IN NG-REPEAT FOR MULTIPLE ADDRESSES -->
+                                <div>
+                                    <h4>Address:</h4>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label>Flat or building name:</label>
+                                        {{address.flatBldgName}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label>Street:</label>
+                                        {{address.street}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Landmark:</label>
+                                        {{address.landmark}}
+                                        <!-- PUT LANDMARK HERE -->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Pincode:</label>
+                                        {{address.pincode}}
+                                        <!-- PUT PINCODE HERE -->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>City:</label>
+                                        {{address.city}}
+                                        <!-- PUT CITY HERE -->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label>State:</label>
+                                        {{address.state}}
+                                        <!-- PUT STATE HERE -->
+                                    </div>
+                                </div>
+                                <!-- DISABLED IF ADDRESS DOES NOT EXISTS -->
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-default" ng-disabled="!checker" ng-click="addMore()">
+                                        <i class="glyphicon glyphicon-plus"></i> Add more addresses
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <!-- End of panel body -->
-            </form>
-            <!-- End of form -->
+       
         </div>
     </div>
     <!-- FOR ORDER HISTORY -->
@@ -85,108 +186,7 @@
         <div class="panel-heading">
             <h5><i class="fa fa-map-marker"></i> Address Settings</h5>
         </div>
-        <form name="addressForm" ng-submit="saveAddress()" ng-hide="checker">
-            <div class="panel-body">
-                <div class="row">
-                    <!-- SHOW WHEN NO ADDRESS EXISTS USING: ng-hide/show or ng-class -->
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group">
-                            <input type="text" class="form-control" ng-model="newAddress.flatBldgName" placeholder="Flat / Bldg Name">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group">
-                            <input type="text" class="form-control" ng-model="newAddress.street" placeholder="Street">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" ng-model="newAddress.landmark" placeholder="Landmark">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <input type="number" class="form-control" ng-model="newAddress.pincode" placeholder="Pincode" ng-change="changePin()" min="100000" max="999999" required>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" ng-model="newAddress.city" placeholder="City" required>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" ng-model="newAddress.state" placeholder="State" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <button type="submit" class="btn btn-primary" ng-disabled="!addressForm.$valid">Submit</button>
-                    <button type="button" class="btn btn-default" ng-click="goBack()">Cancel</button>
-                </div>
-            </div>
-        </form>
-        <form name="addressForm" ng-submit="saveAddress()" ng-show="checker">
-            <div class="panel-body">
-                <div class="row" ng-repeat="address in addresses">
-                    <!-- OTHERWISE IF ADDRESS EXISTS ALSO PUT IN NG-REPEAT FOR MULTIPLE ADDRESSES -->
-                    <div>
-                        <h3>Address:</h3>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group">
-                            <label>Flat or building name:</label>
-                            {{address.flatBldgName}}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group">
-                            <label>Street:</label>
-                            {{address.street}}
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Landmark:</label>
-                            {{address.landmark}}
-                            <!-- PUT LANDMARK HERE -->
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Pincode:</label>
-                            {{address.pincode}}
-                            <!-- PUT PINCODE HERE -->
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>City:</label>
-                            {{address.city}}
-                            <!-- PUT CITY HERE -->
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>State:</label>
-                            {{address.state}}
-                            <!-- PUT STATE HERE -->
-                        </div>
-                    </div>
-                    <!-- DISABLED IF ADDRESS DOES NOT EXISTS -->
-                    
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-default" ng-disabled="!checker" ng-click="addMore()">
-                                <i class="glyphicon glyphicon-plus"></i> Add more addresses
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+        
     </div>
 </div>
 </div>

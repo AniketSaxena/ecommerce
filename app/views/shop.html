@@ -34,10 +34,17 @@
                             <div>
                                 <small>{{product.quantity}} in cart</small>
                             </div>
-                            <button type="button" class="btn btn-default" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding">
+                            <!-- Button for when used logged in -->
+                            <button type="button" class="btn btn-default" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding" ng-show="shop.loggedIn">
                                 <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
                                 <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true" ></span> Buy
                             </button>
+                            <!-- Button for when user logged out -->
+                            <button type="button" class="btn btn-default" title="Buy" ng-click="shop.addItemLoggedOut($index)" ng-disabled="product.adding" ng-hide="shop.loggedIn">
+                                <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
+                                <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true" ></span> Buy
+                            </button>
+
                         </div>
                         <div>
                             <p>{{quantityAmount}}</p>
