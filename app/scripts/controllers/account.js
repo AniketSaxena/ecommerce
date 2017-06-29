@@ -53,7 +53,7 @@ angular.module('chocoholicsApp')
         };
         //Function to get Order History
         $scope.getOrderHistory = function(skip, limit, user) {
-            orderService.getOrders(skip, limit, user)
+            orderService.getOrders(skip, limit, user, 'createdAt')
                 .then(function(response) {
                     console.log(response);
                     angular.forEach(response.data, function(element) {

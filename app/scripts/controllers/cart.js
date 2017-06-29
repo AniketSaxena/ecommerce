@@ -59,6 +59,7 @@ angular.module('chocoholicsApp')
         //Watcher for total amount
         $scope.$watch('totalQuantity', function(newValue, oldValue) {
             vm.calculateTotal(vm.items);
+            $scope.$emit('totalQuantity', totalQuantity);
         });
         // Function to load items
         this.loadItems = function() {
@@ -76,7 +77,7 @@ angular.module('chocoholicsApp')
                         $scope.totalQuantity = $scope.totalQuantity + element.quantity;
                         $scope.$emit('total', totalQuantity);
                     });
-                vm.calculateTotal(vm.items);
+                    vm.calculateTotal(vm.items);
                 }).catch(function(error) {
                     console.error(error);
                 });
@@ -86,12 +87,12 @@ angular.module('chocoholicsApp')
         // Function to remove items
         this.removeItem = function(index) {
             var item = vm.items[index];
+            $scope.totalQuantity = $scope.totalQuantity - vm.items[index].quantity;
+            $scope.$emit('total', totalQuantity);
             vm.items.splice(index, 1);
             orderService.removeOrderItem(item.id)
                 .then(function(response) {
                     console.log(response);
-                    $scope.totalQuantity = $scope.totalQuantity - vm.items[index].quantity;
-                    $scope.$emit('total', totalQuantity);
                     // ngToast.create('removed!');
                     // vm.loadItems();
                 }).catch(function(error) {
@@ -163,11 +164,11 @@ angular.module('chocoholicsApp')
             accountService.getTaxes()
                 .then(function(response) {
                     _.each(response.data, function(data) {
-                         if (data.default === true) {
-                             vm.order.addOnTax.name = data.name;
-                             vm.order.addOnTax.amount = vm.order.subtotal * (data.percent/100);
-                             vm.order.addOnTax.percent = data.percent;
-                         }
+                        if (data.default === true) {
+                            vm.order.addOnTax.name = data.name;
+                            vm.order.addOnTax.amount = vm.order.subtotal * (data.percent / 100);
+                            vm.order.addOnTax.percent = data.percent;
+                        }
                     });
                     console.log('addOnTax:' + vm.order.addOnTax.amount + ' delivery:' + vm.order.deliveryCharge + ' tax:' + vm.order.tax);
                     vm.order.total =

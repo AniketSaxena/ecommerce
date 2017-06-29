@@ -53,7 +53,7 @@ angular.module('chocoholicsApp')
                 /*** What is payPath ***/
                 return $http.post(ENV.serverURL + ENV.payPath + '/generate', data);
             },
-            getOrders: function(skip, limit, user, sort) {
+            getOrders: function(skip, limit, user, sort, state) {
                 var url = ENV.serverURL + ENDPOINT + 'orders/' + ENV.vendorKey;
                 var queryParams = {};
                 if (skip) {
@@ -68,7 +68,11 @@ angular.module('chocoholicsApp')
                 if (sort){
                     queryParams.sortBy = sort;
                 }
+                if (state){
+                    queryParams.state = state;
+                }
                 var queryData = commonService.serialize(queryParams);
+
                 console.log(queryData);
                 if (queryData) {
                     url = url + '?' + queryData;
