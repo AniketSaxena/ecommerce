@@ -85,6 +85,7 @@
             <!-- Start of panel for date and time scheduled -->
             <div class="panel-body" ng-show="cart.scheduled">
                     <label>Time Set</label>
+                    <p>{{cart.showHours}}:{{cart.showMinutes}}, {{cart.showDay}}:{{cart.showMonth}}:{{cart.showYear}}</p>
                     <button type="button" class="btn btn-default btn-sm pull-right" ng-click="cart.resetTime()">Reset</button>
             </div>
             <!-- End of panel for date and time scheduled -->

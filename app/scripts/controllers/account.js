@@ -21,17 +21,24 @@ angular.module('chocoholicsApp')
         $scope.phone = localStorageService.get('phone');
         $scope.email = localStorageService.get('email');
         $scope.checker = false;
+        $scope.moment;
+        $scope.isInitiated = false;
         //Function to get user address
         $scope.getUserAddresses = function() {
+            // service to get customer's address
             customerService.getAddresses($scope.customerId)
                 .then(function(addresses) {
+                    //setting the address
                     $scope.addresses = addresses;
                     $scope.$emit('load-end');
                     console.log($scope.addresses);
+                    // to check if address exists
                     if ($scope.addresses.length === 0) {
+                        // in this case address does not exist
                         $scope.checker = false;
                         console.log($scope.checker);
                     } else {
+                        // in this case address exists
                         $scope.checker = true;
                         console.log($scope.checker);
                     }
@@ -58,6 +65,10 @@ angular.module('chocoholicsApp')
                     console.log(response);
                     angular.forEach(response.data, function(element) {
                         $scope.orders.push(element);
+                        if(element.state === "initiated"){
+                            $scope.moment=moment(element.date, "YYYYMMDD").fromNow();
+                            $scope.isInitiated = true;
+                        }
                     });
                     console.log($scope.orders);
                 }).catch(function(error) {

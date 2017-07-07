@@ -25,8 +25,20 @@ angular.module('chocoholicsApp')
         var currentHours = new Date().getHours();  //variable storing current hours
         var currentMonth = new Date().getMonth(); // variable to get current month
         var scheduled;
-
+        var showDay;
+        var showMonth;
+        var showYear;
+        var showHours;
+        var showMinutes;
         //Initializing variables
+
+        //for showing selected date
+        this.showDay = '';
+        this.showMonth = '';
+        this.showYear = '';
+        this.showHours = '';
+        this.showMinutes = '';
+
 
         //for date and time
         this.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -357,14 +369,21 @@ angular.module('chocoholicsApp')
             // to show time and date is set
             vm.scheduled = true;
             // to get time in integer
-            var time = (vm.mytime.getHours()*60)+ vm.mytime.getMinutes() ;
+            var time = (vm.mytime.getHours()*60)+ vm.mytime.getMinutes();
+
+            vm.showDay = vm.dt.getDate();
+            vm.showMonth = vm.dt.getMonth()+1;
+            vm.showYear = vm.dt.getYear()-100+2000;
+            vm.showHours = vm.mytime.getHours();
+            vm.showMinutes = vm.mytime.getMinutes();
+
             // info to be passed to service
             var info = {
                 orderId: localStorageService.get('id'),
                 date: vm.dt,
                 time: time
             }
-            console.log(info)
+            // service to update information based on time and date
             orderService.updateInfo(info)
             .then(function(response){
                 console.log(response);
