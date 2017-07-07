@@ -1,22 +1,36 @@
+<!-- modal starts here --> 
 <div class="modal-fade" tabindex="-1" role="dialog" id="login-modal">
+    <!-- modal dialog starts here  -->
     <div class="modal-dialog modal-sm" role="document">
+        <!-- modal header -->
         <div class="modal-header">
             <h3 class="modal-title">Login</h3>
         </div>
+        <!-- modal body -->
         <div class="modal-body">
+            <!-- form for login information -->
             <form name="myForm">
                 <label>Enter your phone number and password:</label>
+                <!-- input groups for phone number  -->
                 <input id="login_phone" class="form-control" type="tel" placeholder="Phone Number" ng-model="login.user.phone" ng-change="login.checkUser()" name="myPhone" required>
+                <!-- message if input is wrong -->
                 <div ng-messages="myForm.myPhone.$error" role="alert" ng-if="myForm.myPhone.$dirty">
                     <div ng-message="required" class="text-danger">This field is required.</div>
                 </div>
+                <!-- input for password -->
                 <input id="login_password" class="form-control" type="password" placeholder="Password" ng-model="login.user.password" name="myPassword" required>
+                <!-- message if input is wrong -->
                 <div ng-messages="myForm.myPassword.$error" role="alert" ng-if="myForm.myPassword.$dirty">
                     <div ng-message="required" class="text-danger">This field is required.</div>
                 </div>
+                <!-- modal footer -->
                 <div class="modal-footer">
+                    <!-- buttons for login and cancel -->
                     <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="login.login()" ng-disabled="myForm.$invalid">Login</button>
                     <button type="button" class="btn btn-default btn-lg btn-block" ng-click="login.cancel()">cancel</button>
                 </div>
         </div>
     </div>
+    <!-- modal dialog ends here -->
+</div>
+<!-- modal ends here

@@ -3,6 +3,7 @@
     <div class="container">
         <h1>Lorem Ipsum</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit risus, faucibus sit amet vestibulum ut, congue eu orci. Donec..</p>
+        <!-- button for entering shop -->
         <p>
             <a class="btn btn-primary btn-lg" ui-sref="main.shop">Shop now</a>
         </p>
@@ -12,10 +13,15 @@
 <!-- Section for bestselling products -->
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in home.products">
+        <!-- start of panel -->
         <div class="panel panel-default product-preview-panel" id="productCard">
+            <!-- start of panel header -->
             <div class="panel-header">
             </div>
+            <!-- end of panel header -->
+            <!-- start of panel body -->
             <div class="panel-body">
+                <!-- contains product details -->
                 <a ui-sref="main.product({id:product.id})">
                     <h4>{{product.name}}</h4>
                 </a>
@@ -33,7 +39,9 @@
                         <p>{{quantityAmount}}</p>
                     </div> -->
             </div>
+            <!-- end of panel body -->
         </div>
+        <!-- end of panel -->
     </div>
 </div>
 <!-- Best Selling products ends here -->
