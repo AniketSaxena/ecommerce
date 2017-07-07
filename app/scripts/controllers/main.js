@@ -28,11 +28,6 @@ angular.module('chocoholicsApp')
             vm.total = totalQuantity.targetScope.totalQuantity;
         });
 
-        if($scope.totalQuantity === 0){
-            vm.checker = true;
-        } else {
-            vm.checker = false;
-        }
         //Function for opening login modal
         this.open = function() {
             var modalInstance = $uibModal.open({
@@ -46,12 +41,13 @@ angular.module('chocoholicsApp')
         };
         //Function for logging out
         this.logout = function() {
+            //This function removes the following items from local storage
             localStorageService.remove('name');
             localStorageService.remove('phone');
             localStorageService.remove('email');
             localStorageService.remove('userId');
             localStorageService.remove('id');
-
+    
             vm.isLoggedIn = false;
             $state.go('main.home');
         };

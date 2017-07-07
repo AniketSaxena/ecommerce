@@ -172,7 +172,7 @@ module.exports = function(grunt) {
                         vendorKey: '1c2a216405e85c2d7d5ca244e5258ae2',
                         owner: 'AS742HJVZK',
                         style: 'delivery',
-                        mode: 'online',
+                        mode: 'website',
                         type: 'local',
                         payPath: '/pay',
                         brand: 'cheflery',
