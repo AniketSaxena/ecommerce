@@ -50,6 +50,7 @@ angular.module('chocoholicsApp')
         $scope.saveAddress = function() {
             console.log($scope.newAddress);
             console.log($scope.customerId);
+            //service to add address to server
             customerService
                 .addAddress($scope.newAddress, $scope.customerId)
                 .then(function(address) {
@@ -60,11 +61,14 @@ angular.module('chocoholicsApp')
         };
         //Function to get Order History
         $scope.getOrderHistory = function(skip, limit, user) {
+            //service to get orders of the user from the server
             orderService.getOrders(skip, limit, user, 'createdAt')
                 .then(function(response) {
                     console.log(response);
+                    // for each order since we can have many orders
                     angular.forEach(response.data, function(element) {
                         $scope.orders.push(element);
+                        // if order state is initiated find time to delivery and show it on html
                         if(element.state === "initiated"){
                             $scope.moment=moment(element.date, "YYYYMMDD").fromNow();
                             $scope.isInitiated = true;
@@ -79,6 +83,7 @@ angular.module('chocoholicsApp')
         $scope.addMore = function() {
             $scope.checker = false;
         };
+        // these functions to be called on page load
         $scope.getOrderHistory(0, 10, $scope.customerId);
         $scope.getUserAddresses($scope.customerId);
         console.log(this.checker);

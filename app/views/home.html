@@ -1,11 +1,11 @@
 <!-- jumbotron starts here -->
 <div class="jumbotron">
     <div class="container">
-        <h1>Lorem Ipsum</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit risus, faucibus sit amet vestibulum ut, congue eu orci. Donec..</p>
+        <h1>Hello ,world!</h1>
+        <p>Contents ... </p>
         <!-- button for entering shop -->
         <p>
-            <a class="btn btn-primary btn-lg" ui-sref="main.shop">Shop now</a>
+            <a class="btn btn-primary" ui-sref="main.shop">Shop now</a>
         </p>
     </div>
 </div>
@@ -23,12 +23,12 @@
             <div class="panel-body">
                 <!-- contains product details -->
                 <a ui-sref="main.product({id:product.id})">
-                    <h4>{{product.name}}</h4>
+                    <a id="productNameLabel">{{product.name}}</a>
                 </a>
-                <p>{{product.subtitle}}</p>
+                <p id="productNameSubtitle">{{product.subtitle}}</p>
                 <div class="cost-holder" name="cost-holder">
-                    <div class="cost">
-                        <p> {{product.rate | currency : "&#8377;"}}</p>
+                    <div class="cost" id="productCost">
+                        <p > {{product.rate | currency : "&#8377;"}}</p>
                     </div>
                     <!-- Button to show top product details -->
                         <button type="button" class="btn btn-default" title="Buy" ui-sref="main.product({id: product.id})">

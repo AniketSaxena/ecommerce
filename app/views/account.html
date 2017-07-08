@@ -197,22 +197,11 @@
                                 <label>Bill Number:</label>
                                 {{order.billNo}}
                             </div>
-                            <div>
-                                <label>Date of Order:</label>
-                                {{order.createdAt}}
-                            </div>
-                            <div>
-                                    <label>Date of delivery:</label>
-                                    {{order.date}}
-                            </div>
-                            <div>
-                                    <label>Time of order:</label>
-                                    {{order.time}}
-                            </div>
                             <div ng-show="isInitiated">
-                                    <label>Moment:</label>
+                                    <label>Delivery:</label>
                                     {{moment}}
                             </div>
+                            
                         </div>
                         <!-- end of form group -->
                     </div>

@@ -168,7 +168,7 @@ module.exports = function(grunt) {
             local: {
                 constants: {
                     ENV: {
-                        serverURL: 'http://192.168.1.5:1337',
+                        serverURL: 'http://192.168.1.4:1337',
                         vendorKey: '1c2a216405e85c2d7d5ca244e5258ae2',
                         owner: 'AS742HJVZK',
                         style: 'delivery',
@@ -303,10 +303,13 @@ module.exports = function(grunt) {
         //       ]
         //     }
         //   }
-        // },
-        // concat: {
-        //   dist: {}
-        // },
+        // },   
+        concat: {
+          css:{
+            src: 'app/styles/*.css',
+            dest: 'build/css/concat.css'
+          }
+        },
         imagemin: {
             dist: {
                 files: [{
@@ -363,7 +366,7 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: '.tmp/concat/scripts',
                     src: '*.js',
-                    dest: '.tmp/concat/scripts'
+                    dest: 'build/scripts'
                 }]
             }
         },
@@ -460,9 +463,10 @@ module.exports = function(grunt) {
         'useminPrepare',
         'concurrent:dist',
         'postcss',
-        'ngtemplates',
         'concat',
         'ngAnnotate',
+        'ngtemplates',
+        'concurrentat',
         'copy:dist',
         'cdnify',
         'cssmin',
@@ -471,7 +475,7 @@ module.exports = function(grunt) {
         'usemin',
         'htmlmin'
     ]);
-    grunt.registerTask('default', [
+    grunt.registerTask('default', 'concat cssmin', [
         'newer:jshint',
         'newer:jscs',
         'test',
