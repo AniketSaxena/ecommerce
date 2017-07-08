@@ -31,11 +31,11 @@ angular.module('chocoholicsApp')
                     })
                     .then(function(response) {
                         console.log('reached orderService');
-                        if(localStorageService.get('id')){
+                        if (localStorageService.get('id')) {
                             return true;
                         } else {
                             return orderService.createOrder();
-                        }    
+                        }
                     })
                     .then(function(response) {
                         //from here
@@ -50,6 +50,8 @@ angular.module('chocoholicsApp')
                     .then(function(response) {
                         console.log(response);
                         deferred.resolve();
+                        $uibModalInstance.close();
+                        $state.reload();
                     })
                     .catch(function(error) {
                         console.error(error);

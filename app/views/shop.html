@@ -1,4 +1,3 @@
-<div class="container">
     <!-- Upper navigation for categories -->
     <!--  <div class="row">                   
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -21,33 +20,31 @@
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in shop.products">
                 <div class="panel panel-default product-preview-panel" id="productCard">
                     <div class="panel-header">
+                            <div class="cost" id="productCost">
+                                <p> {{product.rate | currency : "&#8377;"}}</p>
+                            </div>
+                            <div id="productQuantity" ng-show="product.quantity">
+                                <strong><span  class="glyphicon glyphicon-shopping-cart">
+                            </span> {{product.quantity}}</strong>
+                            </div>
                     </div>
                     <div class="panel-body">
                         <a ui-sref="main.product({id:product.id})">
-                            <h4>{{product.name}}</h4>
+                            <h4 id="productNameLabel">{{product.name}}</h4>
                         </a>
-                        <p>{{product.subtitle}}</p>
+                        <p id="productNameSubtitle">{{product.subtitle}}</p>
                         <div class="cost-holder" name="cost-holder">
-                            <div class="cost">
-                                <p> {{product.rate | currency : "&#8377;"}}</p>
-                            </div>
-                            <div>
-                                <small>{{product.quantity}} in cart</small>
-                            </div>
                             <!-- Button for when used logged in -->
-                            <button type="button" class="btn btn-default" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding" ng-show="shop.loggedIn">
+                            <button type="button" class="btn btn-default btn-sm" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding" ng-show="shop.loggedIn">
                                 <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
                                 <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true" ></span> Buy
                             </button>
                             <!-- Button for when user logged out -->
-                            <button type="button" class="btn btn-default" title="Buy" ng-click="shop.addItemLoggedOut($index)" ng-disabled="product.adding" ng-hide="shop.loggedIn">
+                            <button type="button" class="btn btn-default btn-sm" title="Buy" ng-click="shop.addItemLoggedOut($index)" ng-disabled="product.adding" ng-hide="shop.loggedIn">
                                 <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
                                 <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true" ></span> Buy
                             </button>
 
-                        </div>
-                        <div>
-                            <p>{{quantityAmount}}</p>
                         </div>
                     </div>
                 </div>

@@ -17,21 +17,22 @@
         <div class="panel panel-default product-preview-panel" id="productCard">
             <!-- start of panel header -->
             <div class="panel-header">
+                <div class="cost" id="productCost">
+                        <p > {{product.rate | currency : "&#8377;"}}</p>
+                    </div>
             </div>
             <!-- end of panel header -->
             <!-- start of panel body -->
-            <div class="panel-body">
+            <div class="panel-body" id="homePanelBody">
                 <!-- contains product details -->
                 <a ui-sref="main.product({id:product.id})">
                     <a id="productNameLabel">{{product.name}}</a>
                 </a>
                 <p id="productNameSubtitle">{{product.subtitle}}</p>
                 <div class="cost-holder" name="cost-holder">
-                    <div class="cost" id="productCost">
-                        <p > {{product.rate | currency : "&#8377;"}}</p>
-                    </div>
+                    
                     <!-- Button to show top product details -->
-                        <button type="button" class="btn btn-default" title="Buy" ui-sref="main.product({id: product.id})">
+                        <button type="button" class="btn btn-default btn-sm" title="Buy" ui-sref="main.product({id: product.id})">
                         <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span> Buy
                     </button>
                 </div>

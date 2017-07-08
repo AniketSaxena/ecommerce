@@ -14,8 +14,10 @@ angular.module('chocoholicsApp')
         var items;
         var total;
         var checker;
+        var cartChecker;
         this.checker = true;
         this.tatal = 0;
+        this.cartChecker = false;
         //Variable Definition
         items = localStorageService.get('quantity');
         //Listening for log In
@@ -26,6 +28,12 @@ angular.module('chocoholicsApp')
         $scope.$on('totalQuantity',function(totalQuantity){
             console.log(totalQuantity.targetScope.totalQuantity);
             vm.total = totalQuantity.targetScope.totalQuantity;
+            // if(vm.total === 0)
+            // {
+            //     vm.cartChecker = false;
+            // } else {
+                vm.cartChecker = true;
+            // }
         });
 
         //Function for opening login modal

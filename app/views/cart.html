@@ -16,23 +16,23 @@
             <!-- End of images -->
             <!-- Exit button 'X' -->
             <button type="button" class="close" ng-click="cart.removeItem($index)">
-                <span aria-hidden="true">
+                <span aria-hidden="true" id="crossButton">
             &times;</span>
             </button>
             <!-- End of exit button -->
             <!-- Item details -->
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <div>{{item.name}}</div>
-                <div>{{item.cost*item.quantity | currency : "&#8377;"}}</div>
+                <label id="cartNameLabel">{{item.name}}</label>
+                <div id="cartCost">{{item.cost*item.quantity | currency : "&#8377;"}}</div>
                 <!-- Buttons to increase and decrease item quantity -->
                 <div>
-                    <button type="button" class="btn btn-default" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
                         <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}">
                     </span>
                         <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
                     </button>
                     Quantity: {{item.quantity}}
-                    <button type="button" class="btn btn-default" ng-click="cart.increaseItem($index)" ng-disabled="item.changing">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="cart.increaseItem($index)" ng-disabled="item.changing">
                         <span ng-class="{ 'glyphicon glyphicon-plus' : !item.changing}">
                     </span>
                         <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true">
