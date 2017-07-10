@@ -6,75 +6,126 @@
     h6 {
         font-family: 'Raleway', sans-serif;
     }
-
+    
     p,
     a {
         font-family: 'Open Sans', sans-serif;
     }
-
+    
     @media screen and (max-width:767px) {
         .nav-tabs.nav-justified>li {
             float: left;
         }
     }
-    .jumbotron{
+    
+    .jumbotron {
         background-color: white;
     }
-
-    #product-name{
+    
+    #product-name {
         text-transform: uppercase;
-    }   
-
+    }
+    
     #item {
         margin: 20px;
     }
-
-    #productNameLabel{
-        color:black;
+    
+    #productNameLabel {
+        color: black;
         font-size: 14px;
         font-weight: bold;
     }
-
-    #productNameLabel :hover{
+    
+    #productNameLabel:hover {
         text-decoration: underline;
-        color:black;
+        color: black;
     }
-
-    #productNameSubtitle{
+    
+    #productNameSubtitle {
         color: black;
         font-size: 14px;
     }
-
-    #productCost p{
+    
+    #productCost p {
         padding-top: 2px;
         padding-left: 2px;
         border-top: 1px;
         border-right: 1px;
         border-top-right-radius: 4px;
-        background: rgba(0,0,0,0.7);
+        background: rgba(0, 0, 0, 0.7);
         position: absolute;
         height: 25px;
         width: 65px;
-        bottom:200px;
+        bottom: 200px;
         color: white;
         font-size: 16px;
         font-weight: bold;
     }
-
-    #productQuantity{
+    
+    #productQuantity {
         padding-top: 2px;
         padding-left: 4px;
         border-top: 1px;
         border-left: 1px;
         border-top-left-radius: 4px;
         color: white;
-        background: rgba(78,46,40,0.7);
+        background: rgba(210, 105, 30, 0.7);
         position: absolute;
         bottom: 210px;
         right: 16px;
         height: 25px;
         width: 35px;
     }
+    
+    .navbar-btn {
+        background-color: white;
+    }
+    
+    .btn-primary {
+        background-color: rgb(210, 105, 30);
+        border-color: rgb(78, 46, 40);
+    }
+    
+    .btn-primary:hover {
+        background-color: rgb(78, 46, 40);
+        border-color: rgb(78, 46, 40);
+    }
+    
+    .btn-primary:active,
+    .btn-primary.active,
+    .open > .dropdown-toggle.btn-primary {
+        background-color: rgb(78, 46, 40);
+        border-color: rgb(78, 46, 40);
+    }
+    
+    .btn-primary:focus,
+    .btn-primary.focus {
+        background-color: rgb(78, 46, 40);
+        border-color: rgb(78, 46, 40);
+    }
+    
+    .btn-primary:active:hover,
+    .btn-primary.active:hover,
+    .open > .dropdown-toggle.btn-primary:hover,
+    .btn-primary:active:focus,
+    .btn-primary.active:focus,
+    .open > .dropdown-toggle.btn-primary:focus,
+    .btn-primary:active.focus,
+    .btn-primary.active.focus,
+    .open > .dropdown-toggle.btn-primary.focus {
+        background-color: rgb(78, 46, 40);
+        border-color: rgb(78, 46, 40);
+    }
+    
+    .panel-primary {
+        border-color: rgb(78, 46, 40);
+    }
+    
+    .panel-primary > .panel-heading {
+        background-color: rgb(210, 105, 30);
+        border-color: rgb(78, 46, 40);
+    }
+    
     .panel-header {
         height: 230px;
         background-image: url("/images/download.jpg");
@@ -82,29 +133,28 @@
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
     }
-
+    
     .panel-body {
         background-color: white;
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
     }
-
+    
     .product-preview-panel {
         min-height: 420px;
     }
-
+    
     .cost-holder {
         position: relative;
         margin-top: 10px;
         height: 20px;
     }
-
-
+    
     .cost-holder h4 {
         position: relative;
         float: left;
     }
-
+    
     .cost-holder button {
         overflow: hidden;
         position: relative;
@@ -114,14 +164,31 @@
         border-width: 2px;
         background-position: 0px 0px;
         transition: all 0.2s ease-in;
-        width: 38px;
+        width: 34px;
     }
-
+    
     .cost-holder button:hover {
         width: 72px;
         transition: all 0.2s;
     }
-
+    
     .cost-holder button span {
         margin-right: 4px;
+    }
+    
+    .btn-link {
+        color: rgb(210, 105, 30);
+    }
+    
+    .btn-link:hover {
+        color: rgb(78, 46, 40);
+    }
+    
+    .btn-link:active{
+        color: rgb(78, 46, 40);
+    }
+
+    .btn-link:focus{
+        color: rgb(78, 46, 40);
+
     }
