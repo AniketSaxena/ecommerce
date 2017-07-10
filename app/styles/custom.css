@@ -76,7 +76,12 @@
         height: 25px;
         width: 35px;
     }
-    
+    .close{
+        color: red;
+    }
+    .close:hover{
+        color:red;
+    }
     .navbar-btn {
         background-color: white;
     }
@@ -116,7 +121,6 @@
         background-color: rgb(78, 46, 40);
         border-color: rgb(78, 46, 40);
     }
-    
     .panel-primary {
         border-color: rgb(78, 46, 40);
     }
@@ -162,6 +166,7 @@
         border: solid;
         border-color: grey;
         border-width: 2px;
+        background-color: rgb(144,238,144);
         background-position: 0px 0px;
         transition: all 0.2s ease-in;
         width: 34px;
@@ -169,6 +174,7 @@
     
     .cost-holder button:hover {
         width: 72px;
+        background-color: rgb(152,251,152);
         transition: all 0.2s;
     }
     
@@ -192,3 +198,4 @@
         color: rgb(78, 46, 40);
 
     }
+    
