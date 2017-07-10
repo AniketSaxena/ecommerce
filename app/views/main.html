@@ -2,10 +2,10 @@
 <!-- start of header -->
 <div class="header">
     <!-- navbar starts here  -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation"  id="navHeader">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="navHeader">
         <div class="container">
             <!-- navbar header starts here -->
-            <div class="navbar-header" >
+            <div class="navbar-header">
                 <!-- navbar button  -->
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -16,7 +16,7 @@
                 <a class="navbar-brand" ui-sref="main.home">chocoholics</a>
             </div>
             <!-- On collapse after clicking button -->
-             <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <!-- navbar contents -->
                 <ul class="nav navbar-nav">
                     <li><a ui-sref="main.home">Home</a></li>
@@ -25,13 +25,15 @@
                 <!-- navbar right side contents -->
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a ui-sref="main.cart">
-                            <span  class="glyphicon glyphicon-shopping-cart">
+                        <button type="button" class="btn btn-default navbar-btn btn-sm" id="mainCart">
+                            <a ui-sref="main.cart">
+                                <span class="glyphicon glyphicon-shopping-cart">
                             </span> Cart
-                            <span  ng-show="main.cartChecker" class="badge">
-                                {{main.total}}
+                                <span ng-show="main.cartChecker">
+                                ({{main.total}})
                             </span>
-                        </a>
+                            </a>
+                        </button>
                     </li>
                     <li>
                         <button type="button" class="btn btn-default navbar-btn btn-sm" id="login-button" ng-click="main.open('sm')" ng-hide="main.isLoggedIn">login</button>
@@ -92,5 +94,4 @@
     </div>
     <!-- end of container -->
 </footer>
-    <!-- End of footer -->
-
+<!-- End of footer -->
