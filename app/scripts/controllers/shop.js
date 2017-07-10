@@ -18,6 +18,9 @@ angular.module('chocoholicsApp')
         var quantityObj = {};
         var name;
         var loggedIn;
+        var category = null;
+        var categories;
+        this.categories = ['biryani','noodles','curries'];
         this.name = localStorageService.get('name');
         // To check if user logged in
         if (this.name) {
@@ -35,12 +38,12 @@ angular.module('chocoholicsApp')
             $scope.$emit('totalQuantity', totalQuantity);
         });
         //Function to loadmore items for infinite scroll
-        this.loadMore = function() {
+        this.loadMore = function(category) {
             if (vm.busy) {
                 return;
             }
             vm.busy = true;
-            productService.getProducts(vm.counter, 12)
+            productService.getProducts(vm.counter, 12, category)
                 .then(function(response) {
                     // console.log(response.data);
                     angular.forEach(response.data, function(element) {
@@ -205,6 +208,22 @@ angular.module('chocoholicsApp')
                     });
             }
         };
+        this.showCategory = function(category){
+            vm.products = [];
+            vm.loadMore(category);
+        };
+
+        //FOR Getting categories
+        // this.getCategory = function(){
+        //     productService.getCategories()
+        //     .then(function(response){
+        //         console.log(response);
+        //         _.each(response.data, function(element))
+        //         vm.categories.push(element);
+        //     }).catch(function(error){
+        //         console.log(error);
+        //     });
+        // }
         //FOR IMAGES
         // this.loadImages = function(images) {
         //        angular.forEach(images, function(image) {

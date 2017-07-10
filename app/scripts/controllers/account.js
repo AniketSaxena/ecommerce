@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('AccountCtrl', function($scope, localStorageService, orderService, customerService) {
+    .controller('AccountCtrl', function($state, $scope, localStorageService, orderService, customerService) {
         // List of variables        
         var name;
         var phone;
@@ -55,6 +55,7 @@ angular.module('chocoholicsApp')
                 .addAddress($scope.newAddress, $scope.customerId)
                 .then(function(address) {
                     console.log(address);
+                    $state.reload();
                 }, function(error) {
                     $scope.$emit('error', error.message);
                 });
@@ -82,6 +83,9 @@ angular.module('chocoholicsApp')
         //Function to add more addresses
         $scope.addMore = function() {
             $scope.checker = false;
+        };
+        $scope.goBack = function(){
+            $scope.checker = true; 
         };
         // these functions to be called on page load
         $scope.getOrderHistory(0, 10, $scope.customerId);

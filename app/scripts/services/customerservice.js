@@ -51,7 +51,6 @@ angular.module('chocoholicsApp')
                         console.log(response);
                         deferred.resolve();
                         $uibModalInstance.close();
-                        $state.reload();
                     })
                     .catch(function(error) {
                         console.error(error);

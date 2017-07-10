@@ -4,12 +4,16 @@
     h4,
     h5,
     h6 {
-        font-family: 'Raleway', sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
+        margin-top: 0;
+        margin-bottom: 0;
     }
     
     p,
     a {
         font-family: 'Open Sans', sans-serif;
+        margin-top: 0;
+        margin-bottom: 0;
     }
     
     @media screen and (max-width:767px) {
@@ -17,7 +21,6 @@
             float: left;
         }
     }
-    
     
     #product-name {
         text-transform: uppercase;
@@ -28,146 +31,260 @@
     }
     
     #productNameLabel {
+        height: 14.55px;
+        width: 117.54px;
+        overflow: hidden;
+        text-overflow: ellipsis;
         color: black;
         font-size: 14px;
         font-weight: bold;
     }
     
     #productNameLabel:hover {
-        text-decoration: underline;
+        text-decoration: none;
         color: black;
     }
     
+
     #productNameSubtitle {
         color: black;
+        width: 117.54px;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 14px;
     }
     
-    #productCost p {
+    /*#productCost p {
+        border-radius: 2px;
+        padding-top: 4px;
+        padding-left: 6px;
+        position: absolute;
+        height: 34px;
+        width: 78px;
+        left: 175px;
+        bottom: 155px;
+        font-size: 16px;
+        font-weight: bold;
+    }*/
+
+
+    #productQuantity {
+        text-align: center;
         border-bottom: solid;
         border-bottom-width: 5px;
         border-bottom-color: #fbc02d;
-        padding-top: 4px;
-        padding-left: 6px;
-        background: #ffd600;
-        position: absolute;
-        height: 34px;
-        width: 74px;
-        bottom: 230px;
+        padding-top: 6px;
+        padding-left: 10px;
         color: #293437;
-        font-size: 16px;
-        font-weight: bold;
+        background: rgba(255,214,0,0.8);
+        position: absolute;
+        bottom: 138px;
+        height: 32px;
+        width: 243.01px;
     }
     
-    #productQuantity {
-        border-bottom: solid;
-        border-bottom-width: 5px;
-        border-bottom-color: #586166;
-        border-radius: 2px;
-        padding-top: 4px;
-        padding-left: 10px;
-        color: white;
-        background: #4a5c65;
-        position: absolute;
-        bottom: 240px;
-        right: 24px;
-        height: 34px;
-        width: 45px;
-    }
-    #single-button{
+    #single-button {
         border: none;
         margin-top: 2px;
-        margin-left: 4px;
+        margin-left: 10px;
         height: 34px;
         background-color: #f8f8f8;
-        color: black;   
+        color: black;
     }
-    #single-button:hover{
-        background-color: rgb(220,220,220);
+    
+    #single-button:hover {
+        background-color: rgb(220, 220, 220);
     }
-    #mainCart{
+    
+    #mainCart {
         background-color: #cfd8dc;
         border: none;
-        border-bottom:solid;
+        border-bottom: solid;
         border-bottom-width: 5px;
         border-bottom-color: #90a4ae;
         border-radius: 2px;
     }
-    #mainCart a{
+    
+    #mainCart:active {
+        border: none;
+    }
+    
+    #mainCart a {
         color: #37474f;
         font-weight: bold;
     }
-    #mainCart a:hover{
+    
+    #mainCart a:hover {
         text-decoration: none;
     }
-    .navbar-toggle{
+    
+    #mainCart:active {
+        border: none;
+        height:     34px;
+        text-decoration: none;
+    }
+
+    
+    #checkoutButton > .btn-primary {
+        color: #546e7a;
+        font-weight: bold;
+        border-radius: 2px;
+        background-color: #aeea00;
+        border: none;
+        border-bottom: solid;
+        border-bottom-width: 5px;
+        border-bottom-color: #7cb342;
+    }
+    
+    #checkoutButton {
+        color: #546e7a;
+        font-weight: bold;
+        border-radius: 2px;
+        background-color: #aeea00;
+        border: none;
+        border-bottom: solid;
+        border-bottom-width: 5px;
+        border-bottom-color: #7cb342;
+    }
+    
+    #checkoutButton:active {
+        height: 38px;
+        border: none;
+    }
+    
+    #loginButton {
+        margin-left: 10px;
+        height: 34px;
+    }
+    
+    #plusButton {
+        margin-left: 10px;
+        border-radius: 2px;
+        border: solid;
+        border-color: #e53935;
+        border-bottom-color: #d32f2f;
+        border-width: 2px;
+        border-bottom-width: 5px;
+        background-color: #e53935;
+        color: white;
+    }
+    
+    #minusButton {
+        margin-right: 10px;
+        background-color: #cfd8dc;
+        border: none;
+        border-bottom: solid;
+        border-bottom-width: 5px;
+        border-bottom-color: #90a4ae;
+        border-radius: 2px;
+    }
+
+    .navbar-toggle {
         color: #90a4ae;
         border: none;
     }
-    .navbar-brand{
+    
+    .navbar-brand {
         font-weight: bold;
     }
-    .navbar-default .navbar-brand{
+    
+    .navbar-default .navbar-brand {
         color: #5d4037;
     }
-    .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
+    
+    .navbar-default .navbar-brand:hover,
+    .navbar-default .navbar-brand:focus {
         color: #5d4037;
     }
+    
     .jumbotron {
         background-color: white;
     }
-    .close{
+    
+    .close {
         color: red;
     }
-    .close:hover{
-        color:red;
+    
+    .close:hover {
+        color: red;
     }
+    
     .navbar-btn {
-        background-color: white;
+        background-color: white; 
     }
     
-    .btn-primary {
-        background-color: rgb(210, 105, 30);
-        border-color: rgb(78, 46, 40);
+    .nav-pills{
+        padding-bottom: 20px;
     }
-    
-    .btn-primary:hover {
-        background-color: rgb(78, 46, 40);
-        border-color: rgb(78, 46, 40);
+    .btn-primary:hover,
+    .btn-primary{
+        background-color: #ffd600;
+        border: none;
+        border-bottom: solid;
+        border-bottom-width: 5px;
+        border-bottom-color: #fbc02d;
+        color: #263238; 
+        font-weight: bold;
     }
-    
+
     .btn-primary:active,
-    .btn-primary.active,
-    .open > .dropdown-toggle.btn-primary {
-        background-color: rgb(78, 46, 40);
-        border-color: rgb(78, 46, 40);
-    }
-    
-    .btn-primary:focus,
-    .btn-primary.focus {
-        background-color: rgb(78, 46, 40);
-        border-color: rgb(78, 46, 40);
-    }
-    
     .btn-primary:active:hover,
-    .btn-primary.active:hover,
-    .open > .dropdown-toggle.btn-primary:hover,
     .btn-primary:active:focus,
-    .btn-primary.active:focus,
-    .open > .dropdown-toggle.btn-primary:focus,
-    .btn-primary:active.focus,
-    .btn-primary.active.focus,
-    .open > .dropdown-toggle.btn-primary.focus {
-        background-color: rgb(78, 46, 40);
-        border-color: rgb(78, 46, 40);
+    .btn-primary:focus{
+        background-color: #ffd600;
+        border: none;
+        color: #263238; 
+        border-bottom: solid;
+        border-bottom-width: 5px;
+        border-bottom-color: #ffd600;
     }
+    
+    .btn-default{
+        margin-right: 10px;
+        background-color: #cfd8dc;
+        border: none;
+        border-bottom: solid;
+        border-bottom-width: 5px;
+        border-bottom-color: #90a4ae;
+        border-radius: 2px;
+        color: #37474f;
+        font-weight: bold;
+    }
+    
+    .btn-default:active{
+        border: none;
+        height: 34px;
+        text-decoration: none;
+    }
+
+
+
+    .input-group .form-control{
+        height: 36px;
+        border-radius: 2px;
+    }
+
+    .uib-time input{
+        margin-left: 5px;
+        margin-right: 5px;
+        height: 36px;
+        border-radius: 2px;
+    }
+
     .panel-primary {
-        border-color: rgb(78, 46, 40);
+        border-color: #dcdcdc;
     }
     
     .panel-primary > .panel-heading {
-        background-color: rgb(210, 105, 30);
-        border-color: rgb(78, 46, 40);
+        height: 34px;
+        border-color: #dcdcdc;
+        border-radius: 2px;
+        background-color: #f5f5f5;
+        color: #363636;
+    }
+
+    .panel-primary label{
+        margin-bottom: 15px;
     }
     
     .panel-header {
@@ -177,7 +294,7 @@
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
     }
-    
+
     .panel-body {
         background-color: white;
         border-bottom-left-radius: 4px;
@@ -185,7 +302,11 @@
     }
     
     .product-preview-panel {
-        min-height: 420px;
+        min-height: 350px;
+    }
+    .product-preview-panel .panel-body{
+        min-height: 113.64;
+        
     }
     
     .cost-holder {
@@ -200,10 +321,12 @@
     }
     
     .cost-holder button {
+        margin-right: 0;
         border-radius: 2px;
         overflow: hidden;
-        position: relative;
-        float: right;
+        /*position: absolute;
+        right: 0px;    
+        float: right;*/
         border: solid;
         border-color: #e53935;
         border-bottom-color: #d32f2f;
@@ -213,7 +336,7 @@
         color: white;
         background-position: 0px 0px;
         transition: all 0.2s ease-in;
-        width: 32px;
+        width: 33px;
     }
     
     .cost-holder button:hover {
@@ -225,7 +348,16 @@
         border-color: #e53935;
         transition: all 0.2s;
     }
-
+    
+    .cost-holder button:focus,
+    .cost-holder button:active,
+    .cost-holder button:active:hover,
+    .cost-holder button:active:focus {
+        color: white;
+        background-color: #e53935;
+        border-color: #e53935;
+        height: 33px;
+    }
     
     .cost-holder button span {
         margin-right: 4px;
@@ -239,12 +371,10 @@
         color: rgb(78, 46, 40);
     }
     
-    .btn-link:active{
+    .btn-link:active {
         color: rgb(78, 46, 40);
-    }
-
-    .btn-link:focus{
-        color: rgb(78, 46, 40);
-
     }
     
+    .btn-link:focus {
+        color: rgb(78, 46, 40);
+    }

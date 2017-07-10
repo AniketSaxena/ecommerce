@@ -1,54 +1,56 @@
-    <!-- Upper navigation for categories -->
-    <!--  <div class="row">                   
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <ul class="nav nav-pills nav-justified">
-                <li role="presentation">
-                    <a ui-sref="#" ui-sref-active="active">All</a>
-                </li>
-                <li role="presentation">
-                    <a ui-sref="#" ui-sref-active="active">Beverages</a>
-                </li>
-                <li role="presentation">
-                    <a ui-sref="#" ui-sref-active="active">Dishes</a>
-                </li>
-            </ul>
-        </div>
-    </div> -->
-    <!-- End of navigation categories -->
-    <div class="row" id="item">
-        <div infinite-scroll="shop.loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="busy" infinite-scroll-use-document-bottom="true">
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in shop.products">
-                <div class="panel panel-default product-preview-panel" id="productCard">
-                    <div class="panel-header">
-                            <div class="cost" id="productCost">
-                                <p> {{product.rate | currency : "&#8377; "}}</p>
-                            </div>
-                            <div id="productQuantity" ng-show="product.quantity">
-                                <strong><span  class="glyphicon glyphicon-shopping-cart">
-                            </span> {{product.quantity}}</strong>
-                            </div>
+<!-- Upper navigation for categories -->
+<!--  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <ul class="nav nav-pills nav-justified">
+            <li role="presentation">
+                <a ui-sref="#" ui-sref-active="active">All</a>
+            </li>
+            <li role="presentation">
+                <a ui-sref="#" ui-sref-active="active">Beverages</a>
+            </li>
+            <li role="presentation">
+                <a ui-sref="#" ui-sref-active="active">Dishes</a>
+            </li>
+        </ul>
+    </div>
+</div> -->
+<!-- End of navigation categories -->
+<div class="row" id="item">
+<ul class="nav nav-pills nav-justified" >
+    <li role="presentation" ng-repeat="category in shop.categories"><a ng-click="shop.showCategory(category)">{{category}}</a></li>
+</ul>
+    <div infinite-scroll="shop.loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="busy" infinite-scroll-use-document-bottom="true">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in shop.products">
+            <div class="panel panel-default product-preview-panel" id="productCard">
+                <div class="panel-header">
+                    <div id="productQuantity" ng-show="product.quantity">
+                        <strong><span  class="glyphicon glyphicon-shopping-cart">
+                        </span> {{product.quantity}} added</strong>
                     </div>
-                    <div class="panel-body">
-                        <a ui-sref="main.product({id:product.id})">
-                            <h4 id="productNameLabel">{{product.name}}</h4>
-                        </a>
-                        <p id="productNameSubtitle">{{product.subtitle}}</p>
-                        <div class="cost-holder" name="cost-holder">
-                            <!-- Button for when used logged in -->
-                            <button type="button" class="btn btn-default btn-sm" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding" ng-show="shop.loggedIn">
-                                <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
-                                <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true" ></span> Buy
-                            </button>
-                            <!-- Button for when user logged out -->
-                            <button type="button" class="btn btn-default btn-sm" title="Buy" ng-click="shop.addItemLoggedOut($index)" ng-disabled="product.adding" ng-hide="shop.loggedIn">
-                                <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
-                                <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true" ></span> Buy
-                            </button>
-
-                        </div>
+                </div>
+                <div class="panel-body">
+                    <span class="pull-right" id="productCost">
+                        <h5><strong>{{product.rate | currency : "&#8377; "}}</strong></h5>
+                    </span>
+                    <h5 ui-sref="main.product({id:product.id})">
+                        {{product.category}}
+                    <label id="productNameLabel" class="text-capitalize">{{product.name}}</label>
+                    </h5> {{product.subtitle}} 
+                    <div class="cost-holder pull-right" name="cost-holder">
+                        <!-- Button for when used logged in -->
+                        <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding" ng-show="shop.loggedIn">
+                            <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
+                            <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span> Buy
+                        </button>
+                        <!-- Button for when user logged out -->
+                        <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItemLoggedOut($index)" ng-disabled="product.adding" ng-hide="shop.loggedIn">
+                            <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
+                            <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span> Buy
+                        </button>
                     </div>
                 </div>
             </div>
-            <!-- Pager Start -->
         </div>
+        <!-- Pager Start -->
     </div>
+</div>

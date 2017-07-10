@@ -1,61 +1,69 @@
 <!-- Start of column for cart items -->
 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-    <!-- Header -->
-    <div class="header">
-        <h4>Your Cart</h4>
-    </div>
-    <!-- End of header -->
-    <!-- Start of panels for each item in cart -->
-    <div class="panel panel-default" ng-repeat="item in cart.items">
-        <!-- Start of panel body -->
-        <div class="panel-body">
-            <!-- Div for images -->
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <img src="../../images/tv.jpg">
-            </div>
-            <!-- End of images -->
-            <!-- Exit button 'X' -->
-            <button type="button" class="close" ng-click="cart.removeItem($index)">
-                <span aria-hidden="true" id="crossButton">
-            &times;</span>
-            </button>
-            <!-- End of exit button -->
-            <!-- Item details -->
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <label id="cartNameLabel">{{item.name}}</label>
-                <div id="cartCost">{{item.cost*item.quantity | currency : "&#8377;"}}</div>
-                <!-- Buttons to increase and decrease item quantity -->
-                <div>
-                    <button type="button" class="btn btn-default btn-sm" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
-                        <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}">
-                    </span>
-                        <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
-                    </button>
-                    Quantity: {{item.quantity}}
-                    <button type="button" class="btn btn-default btn-sm" ng-click="cart.increaseItem($index)" ng-disabled="item.changing">
-                        <span ng-class="{ 'glyphicon glyphicon-plus' : !item.changing}">
-                    </span>
-                        <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true">
-                    </i>
-                    </button>
-                </div>
-                <!-- End of buttons to increase and decrease item quantity -->
-            </div>
-            <!-- End of item details -->
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <strong>
+            <h4>
+            <span  class="glyphicon glyphicon-shopping-cart">
+            </span>  Your Cart
+            </strong>
+            </h4>
         </div>
-        <!-- End of panel body -->
+        <!-- Table -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="item in cart.items">
+                <tr>
+                    <td> <p class="text-capitalize">{{item.name}}</p></td>
+                    <td>
+                        <button id="minusButton" type="button" class="btn btn-default btn-xs" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
+                            <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}">
+                        </span>
+                            <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
+                        </button>
+                        {{item.quantity}} Pc
+                        <button id="plusButton" type="button" class="btn btn-default btn-xs" ng-click="cart.increaseItem($index)" ng-disabled="item.changing">
+                            <span ng-class="{ 'glyphicon glyphicon-plus' : !item.changing}">
+                        </span>
+                            <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true">
+                        </i>
+                        </button>
+                    </td>
+                    <td>{{item.cost*item.quantity | currency : "&#8377;"}}</td>
+                    <td>
+                        <button type="button" class="close" ng-click="cart.removeItem($index)">
+                            <span aria-hidden="true" id="crossButton">
+                        &times;</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td>Total:</td>
+                    <td>{{totalQuantity}} Pc</td>
+                    <td>{{cart.order.total | currency : "&#8377;"}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <!-- End of panel -->
-</div>
-<!-- End of column for cart items -->
+   </div>
+
 <!-- Start of column for address selection and checkout -->
 <div class="hidden-xs col-sm-6 col-md-6 col-lg-6">
     <!-- Start of panel -->
     <div class="content" id="checkoutCard">
-        <div class="panel panel-primary" >
+        <div class="panel panel-primary">
             <!-- Start of panel header containing total amount -->
             <div class="panel-heading">
-                <label><span><i class="glyphicon glyphicon-time"></i></span> Schedule Delivery</label>
+                <label id="panelHeadingLabel"><span><i class="glyphicon glyphicon-time"></i></span> Schedule Delivery</label>
             </div>
             <!-- End of panel header -->
             <!-- panel body for unscheduled date and time -->
@@ -65,7 +73,7 @@
                     <!-- Start of date picker -->
                     <p class="input-group">
                         <!-- input area -->
-                        <input type="text" class="form-control" uib-datepicker-popup="{{cart.format}}" ng-model="cart.dt" is-open="cart.popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="cart.altInputFormats" id="dateSet"/>
+                        <input type="text" class="form-control" uib-datepicker-popup="{{cart.format}}" ng-model="cart.dt" is-open="cart.popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="cart.altInputFormats" id="dateSet" />
                         <!-- button for opening calendar -->
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="cart.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -84,9 +92,9 @@
             <!-- end of panel for unscheduled date and time  -->
             <!-- Start of panel for date and time scheduled -->
             <div class="panel-body" ng-show="cart.scheduled">
-                    <label>Time Set</label>
-                    <p>{{cart.showHours}}:{{cart.showMinutes}}, {{cart.showDay}}:{{cart.showMonth}}:{{cart.showYear}}</p>
-                    <button type="button" class="btn btn-default btn-sm pull-right" ng-click="cart.resetTime()">Reset</button>
+                <label>Time Set</label>
+                <p>{{cart.showHours}}:{{cart.showMinutes}}, {{cart.showDay}}:{{cart.showMonth}}:{{cart.showYear}}</p>
+                <button type="button" class="btn btn-default btn-sm pull-right" ng-click="cart.resetTime()">Reset</button>
             </div>
             <!-- End of panel for date and time scheduled -->
         </div>
@@ -131,10 +139,10 @@
                 <!-- Button instead of link for instamojo
                 <button type="button" class="btn btn-default btn-block" ng-disabled="!cart.addressSelected" ng-click="cart.checkout">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</button>
                 -->
-                <a class="btn btn-primary btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc" ng-disabled="((!cart.addressSelected) || (!cart.scheduled))">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</a>
+                <a id="checkoutButton" class="btn btn-primary btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc" ng-disabled="((!cart.addressSelected) || (!cart.scheduled))">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</a>
             </span>
             <!-- End of span for logged in user -->
-            <span class="input-group-btn" ng-hide="cart.checkLoggedIn">
+            <span id="checkoutButton" class="input-group-btn" ng-hide="cart.checkLoggedIn">
                 <button type="button" class="btn btn-primary btn-block" ng-click="cart.login()">Login to checkout</button>
             </span>
         </div>
@@ -189,15 +197,15 @@
                 <!-- Button instead of link for instamojo
                 <button type="button" class="btn btn-default btn-block" ng-disabled="!cart.addressSelected" ng-click="cart.checkout">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</button>
                 -->
-                <a class="btn btn-primary btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc" ng-disabled="((!cart.addressSelected) || (!cart.scheduled))">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</a>
+                <a id="checkoutButton" class="btn btn-primary btn-block" role="button" href="https://www.instamojo.com/@cheflery/ff56d73326f045848f08b9484713f7bc" ng-disabled="((!cart.addressSelected) || (!cart.scheduled))">Proceed To Checkout {{cart.order.total | currency : "&#8377;"}}</a>
             </span>
             <!-- End of span for logged in user -->
-            <span class="input-group-btn" ng-hide="cart.checkLoggedIn">
-                <button type="button" class="btn btn-primary btn-block" ng-click="cart.login()">Login to checkout</button>
+            <span class="input-group-btn" ng-hide="cart.checkLoggedIn" id="checkoutButton">
+                <button id="checkoutButton" type="button" class="btn btn-primary btn-block" ng-click="cart.login()">Login to checkout</button>
             </span>
         </div>
         <!-- End of panel footer -->
     </div>
     <!-- End of panel -->
 </div>
-<!-- End of column for address selection and checkout
+<!-- End of csolumn for address selection and checkout

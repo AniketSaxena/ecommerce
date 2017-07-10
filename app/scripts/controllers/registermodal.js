@@ -16,6 +16,7 @@ angular.module('chocoholicsApp')
             customerService.registerUser($scope.user)
                 .then(function() {
                     $uibModalInstance.close();
+                    $state.reload();
                 }).catch(function(error) {
                     console.log(error);
                     $scope.error = error;
