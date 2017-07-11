@@ -20,7 +20,7 @@ angular.module('chocoholicsApp')
         var loggedIn;
         var category = null;
         var categories;
-        this.categories = ['biryani','noodles','curries'];
+        this.categories = ['biryani','noodles','curries','kebabs','drinks','desserts','sample1','sample2iehoiehgieoghe','sample3','sample4','sample5','sample6','sample7','sample8','sample9','sample10'];
         this.name = localStorageService.get('name');
         // To check if user logged in
         if (this.name) {
@@ -37,13 +37,26 @@ angular.module('chocoholicsApp')
         $scope.$watch('totalQuantity', function(newValue, oldValue) {
             $scope.$emit('totalQuantity', totalQuantity);
         });
+        // to affix category
+        $('#pillAffix').affix({
+            offset: {
+                top: 10,
+            }
+        });
+        //to maintain width of category
+        $(document).on('affix.bs.affix', '.content', function() {
+            $(this).width($(this).width());
+        });
+        // to maintain position of category
+        $('#pillAffix').affix('checkPosition');
+
         //Function to loadmore items for infinite scroll
         this.loadMore = function(category) {
             if (vm.busy) {
                 return;
             }
             vm.busy = true;
-            productService.getProducts(vm.counter, 12, category)
+            productService.getProducts(vm.counter, 12, null, category)
                 .then(function(response) {
                     // console.log(response.data);
                     angular.forEach(response.data, function(element) {
@@ -210,6 +223,7 @@ angular.module('chocoholicsApp')
         };
         this.showCategory = function(category){
             vm.products = [];
+            vm.counter = 0;
             vm.loadMore(category);
         };
 
@@ -238,5 +252,6 @@ angular.module('chocoholicsApp')
         //                    });
         //            });
         //    };
+        this.loadMore(null);
         this.getItems(orderId);
     });

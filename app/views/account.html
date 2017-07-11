@@ -5,49 +5,62 @@
     <div class="col-xs-12 col-md-6">
         <!-- Start of panel -->
         <div class="panel panel-primary">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="glyphicon glyphicon-user"></i> Account Details</h3>
+            </div>
+            <!-- List group -->
+            <div class="list-group">
+                <div class="list-group-item">
+                    <span class="pull-right">{{name}}</span>
+                    <h5 class="list-group-item-heading">Name</h5>
+                </div>
+                <div class="list-group-item">
+                    <span class="pull-right">{{email}}</span>
+                    <h5 class="list-group-item-heading">Email</h5>
+                </div>
+                <div class="list-group-item">
+                    <span class="pull-right">{{phone}}</span>
+                    <h5 class="list-group-item-heading">Phone Number</h5>
+                </div>
+                <div class="list-group-item">
+                    <button class="btn btn-default btn-xs pull-right" ui-sref="main.passwordChange">Change Password</button>
+                    <h5 class="list-group-item-heading">Password</h5> 
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-primary" ng-show="checker">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                <button type="button" class="btn btn-default btn-xs pull-right" ng-click="addMore()"><span><i class="glyphicon glyphicon-plus"></i></span></button>
+                <h3 class="panel-title"><i class="glyphicon glyphicon-home"></i> Address Details</h3>
+            </div>
+            <!-- List group -->
+            <div class="panel-body">
+                <p ng-repeat="address in addresses">
+                    <span>{{address.flatBldgName}},</span>
+                    <span>{{address.street}},</span>
+                    <span>{{address.landmark}},</span>
+                    <span>{{address.city}} - </span>
+                    <span>{{address.pincode}},</span>
+                    <span>{{address.state}}.</span>
+                </p>
+            </div>
+            <div class="panel-footer">
+                <button type="button" class="btn btn-primary btn-block" ng-click="addMore()">Add another Address</button>
+            </div>
+        </div>
+        <div class="panel panel-primary" ng-hide="checker">
             <!-- start of panel header -->
             <div class="panel-heading" id="panelHeading">
                 <!-- heading of panel -->
-                <label><i class="glyphicon glyphicon-user"></i> Account Details</label>
+                <h3 class="panel-title"><i class="glyphicon glyphicon-home"></i> Address Details</h3>
             </div>
             <!-- end of panel header -->
             <!-- Start of panel body -->
             <div class="panel-body">
-                <!-- Start of rows -->
-                <div class="row">
-                    <!-- column for name -->
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group">
-                            <label>Name:</label>
-                            {{name}}
-                        </div>
-                    </div>
-                    <!-- End of column for name -->
-                    <!-- Start of column for email -->
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="form-group">
-                            <label>Email:</label>
-                            {{email}}
-                        </div>
-                    </div>
-                    <!-- End of column for email -->
-                    <!-- Start of column for phone -->
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                            <label>Phone:</label>
-                            {{phone}}
-                        </div>
-                    </div>
-                    <!-- End of column for phone -->
-                    <!-- Password change -->
-                    <div>
-                        <a class="btn btn-default" ui-sref="main.passwordChange">Change Password</a>
-                    </div>
-                </div>
-                <!-- End of rows -->
-                <h4>List of addresses</h4>
                 <!-- start of form -->
-                <form name="addressForm" ng-submit="saveAddress()" ng-hide="checker">
+                <form name="addressForm" ng-submit="saveAddress()">
                     <!-- start of panel body -->
                     <div class="panel-body">
                         <!-- start of row -->
@@ -100,68 +113,6 @@
                     <!-- end of panel body -->
                 </form>
                 <!-- end of form -->
-                <!-- start of form -->
-                <form name="addressForm" ng-submit="saveAddress()" ng-show="checker">
-                    <div class="panel-body">
-                        <div class="row" ng-repeat="address in addresses">
-                            <!-- OTHERWISE IF ADDRESS EXISTS ALSO PUT IN NG-REPEAT FOR MULTIPLE ADDRESSES -->
-                            <div>
-                                <h4>Address:</h4>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label>Flat or building name:</label>
-                                    {{address.flatBldgName}}
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                    <label>Street:</label>
-                                    {{address.street}}
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>Landmark:</label>
-                                    {{address.landmark}}
-                                    <!-- PUT LANDMARK HERE -->
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>Pincode:</label>
-                                    {{address.pincode}}
-                                    <!-- PUT PINCODE HERE -->
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>City:</label>
-                                    {{address.city}}
-                                    <!-- PUT CITY HERE -->
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <label>State:</label>
-                                    {{address.state}}
-                                    <!-- PUT STATE HERE -->
-                                </div>
-                            </div>
-                            <!-- DISABLED IF ADDRESS DOES NOT EXISTS -->
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-default" ng-disabled="!checker" ng-click="addMore()">
-                                        <i class="glyphicon glyphicon-plus"></i> Add more addresses
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- end of form -->
             </div>
             <!-- End of panel body -->
         </div>
@@ -171,47 +122,30 @@
     <!-- FOR ORDER HISTORY -->
     <!-- start of another column of 12 -->
     <div class="col-xs-12 col-md-6">
-        <!-- start of panel -->
-        <div class="panel panel-primary">
-            <!-- start of panel heading -->
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
             <div class="panel-heading">
-                <label>Order History</label>
+                <h3 class="panel-title"><span><i class="glyphicon glyphicon-th-list"></i></span> Order History</h3>
             </div>
-            <!-- end of panel heading -->
-            <!-- start of panel body -->
-            <div class="panel-body">
-                <!-- start of row -->
-                <div class="row">
-                    <!-- start of column for order details -->
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="order in orders">
-                        <!-- start of form group -->
-                        <div class="form-group">
-                            <div>
-                                <h4>Order: {{order.id}}</h4>
-                            </div>
-                            <div>
-                                <label>Status:</label>
-                                {{order.state}}
-                            </div>
-                            <div>
-                                <label>Bill Number:</label>
-                                {{order.billNo}}
-                            </div>
-                            <div ng-show="isInitiated">
-                                    <label>Delivery:</label>
-                                    {{moment}}
-                            </div>
-                            
-                        </div>
-                        <!-- end of form group -->
-                    </div>
-                    <!-- end of columns for order details -->
-                </div>
-                <!-- end of row -->
-            </div>
-            <!-- end of panel body -->
+            <!-- Table -->
+            <table class="table" ng-repeat="order in orders">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>State</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <!-- <td><a ng-href="//use.proplco.com/{{order.id}}">{{order.id}}</a></td> -->
+                        <td><a ng-href="{{order.url}}">{{order.id}}</a></td>
+                        <td>{{order.state}}</td>
+                        <td>{{order.total | currency : "&#8377; "}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <!-- end of panel -->
     </div>
     <!-- end of column of 12 -->
 </div>

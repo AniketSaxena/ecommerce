@@ -13,8 +13,7 @@ angular.module('chocoholicsApp')
         var route = '/stock';
         // Public API here
         return {
-            getProducts: function(skip, limit, category) {
-                var sortBy = 'updatedAt';
+            getProducts: function(skip, limit, sortBy, category) {
                 var url = ENV.serverURL + route + '/products/' + ENV.vendorKey ;
                 var queryParams = {};
                 if (skip) {

@@ -11,7 +11,7 @@ angular.module('chocoholicsApp')
         var vm = this;
         this.products = [];
         this.getTopProducts = function() {
-            productService.getProducts(0, 4, 'updatedAt')
+            productService.getProducts(0, 4, 'updatedAt', null)
                 .then(function(response) {
                     // console.log(response.data);
                     angular.forEach(response.data, function(element) {

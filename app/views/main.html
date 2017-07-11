@@ -20,7 +20,7 @@
                 <!-- navbar contents -->
                 <ul class="nav navbar-nav">
                     <li><a ui-sref="main.home">Home</a></li>
-                    <li><a ui-sref="main.shop">Products</a></li>
+                    <li><a ui-sref="main.shop">Shop</a></li>
                 </ul>
                 <!-- navbar right side contents -->
                 <ul class="nav navbar-nav navbar-right">
@@ -61,7 +61,7 @@
 <!-- Modal Definition -->
 <!-- End of modal -->
 <!-- start of container for the content -->
-<div class="container content-wrapper">
+<div class="container-fluid content-wrapper">
     <ui-view></ui-view>
 </div>
 <!-- end of container -->
@@ -69,28 +69,32 @@
 <footer>
     <!-- start of container -->
     <div class="container">
-        <!-- start of rows -->
-        <div class="row">
-            <!-- start of columns -->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <!-- list containing the contact links -->
-                <ul class="list">
-                    <h5>Contact Us</h5>
-                    <li class="none">
-                        <a href="">your twitter account</a>
-                    </li>
-                    <li class="none">
-                        <a href="">your facebook account</a>
-                    </li>
-                    <li class="none">
-                        <a href="">your instagram account</a>
-                    </li>
-                </ul>
-                <!-- end of list -->
-            </div>
-            <!-- end of column -->
-        </div>
-        <!-- end of rows -->
+            <ul class="list-inline pull-right">
+            <li>
+                <a href="">Facebook page</a>
+            </li>
+            <li>
+                <a href="">Twitter page</a>
+            </li>
+            <li>
+                <a href="">Instagram page</a>
+            </li>
+            <li>
+                <a href="">Google maps</a>
+            </li>
+        </ul>
+        <ul class="list-inline">
+            <li>
+                <a><strong>Chocohollics</strong></a>
+            </li>
+            <li>
+                <a href="">Terms & Conditions</a>
+            </li>
+            <li>
+                <a href="">Privacy Policy</a>
+            </li>
+            </ul>
+
     </div>
     <!-- end of container -->
 </footer>

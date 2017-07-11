@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('AccountCtrl', function($state, $scope, localStorageService, orderService, customerService) {
+    .controller('AccountCtrl', function(ENV, $state, $scope, localStorageService, orderService, customerService) {
         // List of variables        
         var name;
         var phone;
@@ -68,7 +68,9 @@ angular.module('chocoholicsApp')
                     console.log(response);
                     // for each order since we can have many orders
                     angular.forEach(response.data, function(element) {
+                        element.url = ENV.serverURL + '/' + element.id;
                         $scope.orders.push(element);
+                        console.log($scope.orders);
                         // if order state is initiated find time to delivery and show it on html
                         if(element.state === "initiated"){
                             $scope.moment=moment(element.date, "YYYYMMDD").fromNow();
