@@ -18,6 +18,10 @@ angular.module('chocoholicsApp')
         this.checker = true;
         this.tatal = 0;
         this.cartChecker = false;
+        // for navbar collapse on click
+        $('.nav a').on('click', function() {
+            $('.navbar-toggle').click() //bootstrap 3.x by Richard
+        });
         //Variable Definition
         items = localStorageService.get('quantity');
         //Listening for log In
@@ -25,14 +29,14 @@ angular.module('chocoholicsApp')
             vm.open();
         });
         //Listening for getting total items
-        $scope.$on('totalQuantity',function(totalQuantity){
+        $scope.$on('totalQuantity', function(totalQuantity) {
             console.log(totalQuantity.targetScope.totalQuantity);
             vm.total = totalQuantity.targetScope.totalQuantity;
             // if(vm.total === 0)
             // {
             //     vm.cartChecker = false;
             // } else {
-                vm.cartChecker = true;
+            vm.cartChecker = true;
             // }
         });
 
@@ -55,7 +59,7 @@ angular.module('chocoholicsApp')
             localStorageService.remove('email');
             localStorageService.remove('userId');
             localStorageService.remove('id');
-    
+
             vm.isLoggedIn = false;
             $state.go('main.home');
         };

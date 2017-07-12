@@ -22,7 +22,7 @@ angular.module('chocoholicsApp')
         this.product.largeImage = "https://placeholdit.co//i/1200x1200?&text=Random";
         this.id = $stateParams.id;
         this.checker = false;
-        if(localStorageService.get('id')) {
+        if (localStorageService.get('name')) {
             vm.checker = true;
             this.orderId = localStorageService.get('id');
         }
@@ -35,20 +35,27 @@ angular.module('chocoholicsApp')
                     //vm.loadImages(vm.product.images);
                 });
         };
-
+        // function to get order items
         this.getItems = function(orderId) {
             orderService.getOrderItems(orderId)
                 .then(function(response) {
-                    _.each(response.data, function(orderItem) {
-                        if (orderItem.itemId === vm.product.id) {
-                            console.log('got it');
-                            vm.product.quantity = orderItem.quantity;
-                            vm.product.addedId = orderItem.id;
-                        } else {
-                            vm.product.quantity = 0;
-                        }
-                        console.log(vm.product);
-                    });
+                    console.log('in get items')
+                    console.log(response.data.length);
+                    if (response.data.length === 0) {
+                        vm.product.quantity = 0;
+                    } else {
+                        _.each(response.data, function(orderItem) {
+                            if (orderItem.itemId === vm.product.id) {
+                                vm.product.quantity = orderItem.quantity;
+                                vm.product.addedId = orderItem.id;
+                            } else {
+                                vm.product.quantity = 0;
+                            }
+                            console.log(vm.product);
+                        });
+
+                    }
+                    console.log(vm.product.quantity);
                 }).catch(function(error) {
                     console.log(error);
                 });
@@ -78,6 +85,7 @@ angular.module('chocoholicsApp')
             };
             var items = [];
             items.push(item);
+            console.log(vm.product.quantity);
             // if item was already added and has quantity > 0
             if (vm.product.quantity !== 0) {
                 vm.product.quantity++;

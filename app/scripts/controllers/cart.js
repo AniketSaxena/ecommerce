@@ -398,7 +398,7 @@ angular.module('chocoholicsApp')
         // Options for datepicker
         this.options = {
             minDate: new Date(),
-            showWeeks: true
+            showWeeks: false
         };
         //Below functions are called on page loading
         this.getUserAddresses();    // tp get user addresses 

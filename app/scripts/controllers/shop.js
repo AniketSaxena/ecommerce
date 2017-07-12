@@ -20,7 +20,20 @@ angular.module('chocoholicsApp')
         var loggedIn;
         var category = null;
         var categories;
-        this.categories = ['biryani','noodles','curries','kebabs','drinks','desserts','sample1','sample2iehoiehgieoghe','sample3','sample4','sample5','sample6','sample7','sample8','sample9','sample10'];
+        var length;
+        //variable definitions
+        this.characters = 0;
+        this.categories = ['biryani', 'noodles', 'curries', 'kebabs', 'drinks', 'desserts', 'sample1', 'sample2iehoiehgieoghe', 'sample3', 'sample4', 'sample5', 'sample6', 'sample7', 'sample8', 'sample9', 'sample10'];
+        // to get div lenght
+        this.length = 0;
+        $('#navPillDiv').width($('#categoryNav').width()*4.5);
+        console.log($('#categoryNav').width());
+        //to set tabs as active for big devices
+        $('#tab').click(function(e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+
         this.name = localStorageService.get('name');
         // To check if user logged in
         if (this.name) {
@@ -141,7 +154,7 @@ angular.module('chocoholicsApp')
                     //console.log(response);
                     _.each(response.data, function(orderItem) {
                         $scope.totalQuantity += orderItem.quantity;
-                        if(orderItem.quantity === 0){
+                        if (orderItem.quantity === 0) {
                             vm.showQuantity = false;
                         } else {
                             vm.showQuantity = true;
@@ -221,7 +234,7 @@ angular.module('chocoholicsApp')
                     });
             }
         };
-        this.showCategory = function(category){
+        this.showCategory = function(category) {
             vm.products = [];
             vm.counter = 0;
             vm.loadMore(category);

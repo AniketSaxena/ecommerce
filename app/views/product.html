@@ -2,22 +2,31 @@
     <div class="row">
         <!-- col for image -->
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <img ng-src="{{product.product.smallImage}}" class="image-responsive" srcset="{{product.product.smallImage}} 1x,{{product.product.mediumImage}} 2x,{{product.product.largeImage}} 3x"></img>
+            <ol class="breadcrumb visible-xs">
+                    <li>
+                        <a ui-sref="main.home">Home</a>
+                    </li>
+                    <li>
+                        <a ui-sref="main.shop">Shop</a>
+                    </li>
+                    <li class="active">{{product.product.name}}</li>
+                </ol>
+            <img id="productImage" ng-src="{{product.product.smallImage}}" srcset="{{product.product.smallImage}} 1x,{{product.product.mediumImage}} 2x,{{product.product.largeImage}} 3x">
             <!-- FOR IMAGES -->
             <!--   <img src="{{product.product.images}}">
         -->
 
-        <label id="quantityLabel" ng-show="product.product.quantity">
-            <strong>
-                <span class="glyphicon glyphicon-shopping-cart" ></span> 
-                 {{product.product.quantity}} added
-            </strong>
-        </label>
+            <label id="quantityLabelProduct" ng-show="product.product.quantity">
+                <strong>
+                    <span class="glyphicon glyphicon-shopping-cart" ></span> 
+                     {{product.product.quantity}} added
+                </strong>
+            </label>
         </div>
         <!-- col for basic details -->
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <div>
-                <ol class="breadcrumb">
+                <ol class="breadcrumb hidden-xs">
                     <li>
                         <a ui-sref="main.home">Home</a>
                     </li>

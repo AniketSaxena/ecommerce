@@ -13,7 +13,7 @@ angular.module('chocoholicsApp')
         var phone;
         var email;
         var id;
-        var checker; 
+        var checker;
         //Variable Definition
         $scope.orders = [];
         $scope.customerId = localStorageService.get('userId');
@@ -23,6 +23,10 @@ angular.module('chocoholicsApp')
         $scope.checker = false;
         $scope.moment;
         $scope.isInitiated = false;
+        // To show top of page when page loads
+        $(document).ready(function() {
+            $(this).scrollTop(0);
+        });
         //Function to get user address
         $scope.getUserAddresses = function() {
             // service to get customer's address
@@ -72,8 +76,8 @@ angular.module('chocoholicsApp')
                         $scope.orders.push(element);
                         console.log($scope.orders);
                         // if order state is initiated find time to delivery and show it on html
-                        if(element.state === "initiated"){
-                            $scope.moment=moment(element.date, "YYYYMMDD").fromNow();
+                        if (element.state === "initiated") {
+                            $scope.moment = moment(element.date, "YYYYMMDD").fromNow();
                             $scope.isInitiated = true;
                         }
                     });
@@ -86,8 +90,8 @@ angular.module('chocoholicsApp')
         $scope.addMore = function() {
             $scope.checker = false;
         };
-        $scope.goBack = function(){
-            $scope.checker = true; 
+        $scope.goBack = function() {
+            $scope.checker = true;
         };
         // these functions to be called on page load
         $scope.getOrderHistory(0, 10, $scope.customerId);

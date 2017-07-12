@@ -1,9 +1,44 @@
-Date 
+home page card height   DONE
+account page plus btn touching line  NOT DONE
+category selection set active DONE
+change password button no styling DONE
+remove stripes from scrollbar DONE
+remove footer text for fb twitter etc	DONE
+remove center align from dropdown DONE
+restrict category xs	ASK 
+navbar dropdown 
+sidebar
+testing responsiveness
+testing functionality
+hosting
+images
 
-time
 
-instamojo checkout
 
-styling
 
-fix totaling of amount
+
+
+
+
+
+
+Functionality testing:
+
+User registers
+User logs in
+User add items 
+user increase and decrease item quantity 
+user removes item from cart
+user sets date and time
+user adds new address
+user selects address
+user checkout
+user logs out
+user clicks checkout and immediately closes browser
+
+
+
+Function not working :
+
+When (non logged in user) without a previous order adds item to cart it creates an order and adds it
+but the user is unable to add a second item without reloading the page

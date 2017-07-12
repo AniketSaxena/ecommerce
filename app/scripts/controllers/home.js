@@ -10,6 +10,10 @@ angular.module('chocoholicsApp')
     .controller('HomeCtrl', function(productService) {
         var vm = this;
         this.products = [];
+        // To show top of page when page loads
+        $(document).ready(function() {
+            $(this).scrollTop(0);
+        });
         this.getTopProducts = function() {
             productService.getProducts(0, 4, 'updatedAt', null)
                 .then(function(response) {
