@@ -48,10 +48,10 @@
             <br />
             <br />
             <!-- for logged in used -->
-            <button id="addToCartButton" type="button" class="btn btn-primary" ng-click="product.addItem()" ng-show="product.checker">
+            <button id="addToCartButton" type="button" class="btn btn-primary" ng-click="product.addItem()" ng-show="product.checker" ng-disabled="product.product.adding">
                 <span class="glyphicon glyphicon-plus"></span>Add to Cart</button>
                 <!-- for non logged in user -->
-            <button id="addToCartButton" type="button" class="btn btn-primary" ng-click="product.addItemLoggedOut()" ng-hide="product.checker">
+            <button id="addToCartButton" type="button" class="btn btn-primary" ng-click="product.addItemLoggedOut()" ng-hide="product.checker" ng-disabled="product.product.adding">
                 <span class="glyphicon glyphicon-plus"></span>Add to Cart</button>
                 <a id="checkoutButton" type="button" class="btn btn-default pull-right" ui-sref="main.cart">Proceed To Checkout</a>
                 <br />

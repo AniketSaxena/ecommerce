@@ -16,18 +16,30 @@ angular.module('chocoholicsApp')
         var vm = this;
         var orderId;
         var checker;
+        var totalQuantity;
         this.product = {};
         this.product.smallImage = "https://placeholdit.co//i/400x400?&text=Random";
         this.product.mediumImage = "https://placeholdit.co//i/800x800?&text=Random";
         this.product.largeImage = "https://placeholdit.co//i/1200x1200?&text=Random";
         this.id = $stateParams.id;
         this.checker = false;
+        $scope.totalQuantity = 0;
+        // for stating page from top
+        $(document).ready(function() {
+            $(this).scrollTop(0);
+        });
+        // to check login
         if (localStorageService.get('name')) {
             vm.checker = true;
         }
+        // to check and set order id
         if (localStorageService.get('id')) {
             this.orderId = localStorageService.get('id');
         }
+        // for cart counter
+        $scope.$watch('totalQuantity', function(newValue, oldValue) {
+            $scope.$emit('totalQuantity', totalQuantity);
+        });
         this.loadProduct = function(id) {
             productService.getProduct(id)
                 .then(function(response) {
@@ -47,6 +59,7 @@ angular.module('chocoholicsApp')
                         vm.product.quantity = 0;
                     } else {
                         _.each(response.data, function(orderItem) {
+                            $scope.totalQuantity = $scope.totalQuantity + orderItem.quantity;
                             if (orderItem.itemId === vm.product.id) {
                                 vm.product.quantity = orderItem.quantity;
                                 vm.product.addedId = orderItem.id;
@@ -93,7 +106,8 @@ angular.module('chocoholicsApp')
                         console.log(response);
                         // vm.product.adding = false;
                         console.log(vm.product.quantity);
-                        $scope.emit('add');
+                        $scope.totalQuantity = $scope.totalQuantity + 1;
+                        vm.product.adding = false;
                     }).catch(function(error) {
                         console.log(error);
                         // vm.product.adding = false;
@@ -112,7 +126,7 @@ angular.module('chocoholicsApp')
                     })
                     .then(function(response) {
                         console.log(response);
-                        $scope.emit('add');
+                        $scope.totalQuantity = $scope.totalQuantity + 1;
                         vm.product.adding = false;
                     })
                     .catch(function(error) {
@@ -139,7 +153,8 @@ angular.module('chocoholicsApp')
                             console.log(response);
                             // vm.product.adding = false;
                             console.log(vm.product.quantity);
-                        $scope.emit('add');
+                            $scope.totalQuantity = $scope.totalQuantity + 1;
+                            vm.product.adding = false;
 
                         }).catch(function(error) {
                             console.log(error);
@@ -159,8 +174,7 @@ angular.module('chocoholicsApp')
                         })
                         .then(function(response) {
                             console.log(response);
-                        $scope.emit('add');
-
+                            $scope.totalQuantity = $scope.totalQuantity + 1;
                             vm.product.adding = false;
                         })
                         .catch(function(error) {
@@ -185,8 +199,7 @@ angular.module('chocoholicsApp')
                         console.log(response);
                         console.log(vm.product.quantity);
                         $scope.totalQuantity = $scope.totalQuantity + 1;
-                        $scope.emit('add');
-                        
+                        $scope.totalQuantity = $scope.totalQuantity + 1;
                         vm.product.adding = false;
                         // localStorageService.set('total',vm.total);
                     })

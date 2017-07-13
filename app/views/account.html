@@ -40,6 +40,8 @@
                 <p ng-repeat="address in addresses" id="addresses">
                     <label>{{name}}</label>
                     <br />
+                    <button type="button" class="btn btn-default btn-xs pull-right" id="removeBtn">Remove</button>
+                    <button type="button" class="btn btn-default btn-xs pull-right">Edit</button>
                     <span>{{address.flatBldgName}},</span>
                     <br />
                     <span>{{address.street}},</span>

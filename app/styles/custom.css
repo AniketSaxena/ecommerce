@@ -94,6 +94,9 @@ footer a:hover {
         width: 91% !important;
     }
 }
+#removeBtn{
+    margin-left: 8px;
+}
 #addresses{
     margin-bottom: 16px;
    /* border-bottom: solid;
@@ -197,7 +200,7 @@ font-weight: bold;
     height: 32px;
     top: 120px;
     /*width: 211.76px;*/
-    width: 88%;
+    width: 86.5%;
 }
 
 #quantityLabel,
@@ -359,6 +362,16 @@ font-weight: bold;
     margin-top: 14px;
     margin-right: 14px;
 }
+#menu-button:hover,
+#menu-button:focus,
+#menu-button:active,
+#menu-button:active:hover,
+#menu-button:active:focus{
+    height: 24px;
+}
+
+
+
 
 .uib-datepicker button {
     border: none;
@@ -444,6 +457,9 @@ font-weight: bold;
     border: none;
     height: 34px;
     text-decoration: none;
+}
+.btn-xs:active{
+    height: 24.26px;
 }
 
 .input-group .form-control {

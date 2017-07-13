@@ -5,10 +5,61 @@ testing functionality
 images
 
 
+issue or not?:
+When selecting category only shows items of that category but when reaching bottom loads all items from there
+
+
+Things left:
+
+images
+checkout
+address edit and remove
+order history details
+change password
+
+
+To ask list:
+
+address type eg home and work
+
+cart number in main not changing from product page
+
+If login register etc fail what to show and how?
+
+How to make sure user enters existing email.
+
+edit and remove address
+
+
+
+Responsiveness Testing:
+
+category navigation list not proper on real phone
+
+Css issue quantity holder
+
+css issue + - button on cart page  
+
+Sidebar not very responsive on click (also how to set active)
+
+
 
 
 
 Functionality testing:
+
+user log in with incorrect password 				fail
+
+user checkout										not completed
+user clicks checkout and immediately closes browser	not completed
+
+
+
+
+
+
+
+
 
 User registers	   		  							success                                               
 User logs in 										success
@@ -24,36 +75,15 @@ user adds new address 								success
 user selects address on cart						success
 user logs out										success
 
-user log in with incorrect password 				fail
-
-
-user checkout										not completed
-user clicks checkout and immediately closes browser	not completed
-
-
-
-
-To ask list:
-
-address area field
-address type eg home and work
-
-cart number in main not changing from product page
-
-If login register etc fail what to show and how?
-
-Account page delivery address fixed width									
-
 
 To do
 
 footer alignment terms and conditions and privacy policy on one line		Done
 proceed to checkout not floating and end to end								Done
-Account page delivery address fixed width									Ask
+Account page delivery address fixed width									Done
 Made address format for account settings page								Done
 Account page start from top on small devices								Issue not showing again
 Side nav to left															Done
-
 
 
 Function not working :

@@ -25,6 +25,7 @@ angular.module('chocoholicsApp')
         this.login = function() {
             loginService.loginUser(vm.user)
                 .then(function(response) {
+                    console.log(response);
                     localStorageService.set('userId', response.data.customer.objectId);
                     vm.userId = localStorageService.get('userId');
                     localStorageService.set('name', response.data.name.first + ' ' + response.data.name.last || '');
@@ -34,11 +35,6 @@ angular.module('chocoholicsApp')
                 })
                 .then(function(orderId) { // This response will be either an order Id or null
                     console.log(orderId);
-
-
-
-
-
                     if(orderId){
                     // If this order id is not null, then compare with the one in localstorage
                         if(localStorageService.get('id') && orderId === localStorageService.get('id')){
