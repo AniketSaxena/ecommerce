@@ -24,6 +24,8 @@ angular.module('chocoholicsApp')
         this.checker = false;
         if (localStorageService.get('name')) {
             vm.checker = true;
+        }
+        if (localStorageService.get('id')) {
             this.orderId = localStorageService.get('id');
         }
         this.loadProduct = function(id) {
@@ -53,14 +55,12 @@ angular.module('chocoholicsApp')
                             }
                             console.log(vm.product);
                         });
-
                     }
                     console.log(vm.product.quantity);
                 }).catch(function(error) {
                     console.log(error);
                 });
         };
-
         // FOR IMAGES
         this.loadImages = function(images) {
             angular.forEach(images, function(image) {
@@ -75,7 +75,6 @@ angular.module('chocoholicsApp')
                     });
             });
         };
-
         this.addItem = function() {
             // on clicking add item
             vm.product.adding = true;
@@ -120,7 +119,6 @@ angular.module('chocoholicsApp')
                     });
             }
         };
-
         this.addItemLoggedOut = function() {
             // on clicking add item
             vm.product.adding = true;
@@ -167,18 +165,19 @@ angular.module('chocoholicsApp')
             } else {
                 orderService.createOrder()
                     .then(function(response) {
+                        vm.product.quantity = 1;
                         vm.orderId = response.data.objectId;
                         localStorageService.set('id', vm.orderId);
                         return orderService.addOrderItem(items)
                     }).then(function(response) {
                         var orderItemId;
-                        vm.product.quantity++;
                         orderItemId = response.data;
                         vm.product.addedId = orderItemId;
                         return orderService.linkOrder(vm.orderId, orderItemId);
                     })
                     .then(function(response) {
                         console.log(response);
+                        console.log(vm.product.quantity);
                         $scope.totalQuantity = $scope.totalQuantity + 1;
                         vm.product.adding = false;
                         // localStorageService.set('total',vm.total);
@@ -189,7 +188,6 @@ angular.module('chocoholicsApp')
                     });
             }
         }
-
         this.loadProduct(this.id);
         this.getItems(this.orderId);
     });

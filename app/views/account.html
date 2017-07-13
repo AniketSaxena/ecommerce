@@ -128,7 +128,7 @@
                 <h3 class="panel-title"><span><i class="glyphicon glyphicon-th-list"></i></span> Order History</h3>
             </div>
             <!-- Table -->
-            <table class="table" ng-repeat="order in orders">
+            <table class="table" >
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -136,7 +136,7 @@
                         <th>Amount</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody ng-repeat="order in orders">
                     <tr>
                         <!-- <td><a ng-href="//use.proplco.com/{{order.id}}">{{order.id}}</a></td> -->
                         <td><a ng-href="{{order.url}}">{{order.id}}</a></td>

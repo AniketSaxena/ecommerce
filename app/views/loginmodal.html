@@ -12,16 +12,21 @@
             <form name="myForm">
                 <label>Enter your phone number and password:</label>
                 <!-- input groups for phone number  -->
-                <input id="login_phone" class="form-control" type="tel" placeholder="Phone Number" ng-model="login.user.phone" ng-change="login.checkUser()" name="myPhone" required>
+                <input id="login_phone" class="form-control" type="tel" placeholder="Phone Number" ng-model="login.user.phone"  minlength="10" maxlength="10" ng-change="login.checkUser()" name="myPhone" required>
                 <!-- message if input is wrong -->
                 <div ng-messages="myForm.myPhone.$error" role="alert" ng-if="myForm.myPhone.$dirty">
                     <div ng-message="required" class="text-danger">This field is required.</div>
+                    <div ng-message="minlength" class="text-danger">This field must have 10 numbers</div>
+
                 </div>
                 <!-- input for password -->
-                <input id="login_password" class="form-control" type="password" placeholder="Password" ng-model="login.user.password" name="myPassword" required>
+                <input id="login_password" class="form-control" type="password" placeholder="Password" ng-model="login.user.password"
+                minlength="8" name="myPassword" required>
                 <!-- message if input is wrong -->
                 <div ng-messages="myForm.myPassword.$error" role="alert" ng-if="myForm.myPassword.$dirty">
                     <div ng-message="required" class="text-danger">This field is required.</div>
+                    <div ng-message="minlength" class="text-danger">This field must have atleast 8 characters</div>
+
                 </div>
                 <!-- modal footer -->
                 <div class="modal-footer">

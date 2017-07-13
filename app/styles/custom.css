@@ -327,6 +327,9 @@ font-weight: bold;
     border-radius: 10px;
     background-color: #F90;
 }
+#menu-button{
+    margin-top: 14px;
+}
 
 .uib-datepicker button {
     border: none;
@@ -362,7 +365,10 @@ font-weight: bold;
 .close:hover {
     color: red;
 }
-
+.navbar-header{
+    width: 50%;
+    display: inline-block;
+}
 .navbar-btn {
     background-color: white;
 }

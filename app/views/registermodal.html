@@ -6,10 +6,12 @@
         <div class="modal-body">
             <form name="myForm">
                 <label>Phone Number:</label>
-                <input class="form-control" type="tel" placeholder="Phone Number" ng-model="user.phone" name="myPhone" minlenght="10" maxlenght="10" required>
+                <input class="form-control" type="tel" placeholder="Phone Number" ng-model="user.phone" name="myPhone" minlength="10" maxlength="10" required>
                 <div ng-messages="myForm.myPhone.$error" role="alert" ng-if="myForm.myPhone.$dirty">
                     <div ng-message="required" class="text-danger">This field is required.</div>
                     <div ng-message="minlength" class="text-danger">This field must have 10 digits</div>
+                    <div ng-message="maxlength" class="text-danger">This field must have 10 digits</div>
+
                 </div>
                 <label>Password:</label>
                 <input id="register_password" class="form-control" type="password" placeholder="Password" ng-model="user.password" minlength="8" name="myPassword" required>

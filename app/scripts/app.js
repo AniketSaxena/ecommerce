@@ -14,7 +14,8 @@ angular
         'infinite-scroll',
         'config',
         'LocalStorageModule',
-        'ngToast'
+        'ngToast',
+        'ngAside'
     ])
     .config(function($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
         var mainState = {

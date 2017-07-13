@@ -7,7 +7,7 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-    .controller('MainCtrl', function($state, $scope, $uibModal, localStorageService) {
+    .controller('MainCtrl', function($aside, $state, $scope, $uibModal, localStorageService) {
         //Variables
         var id;
         var vm = this;
@@ -28,6 +28,10 @@ angular.module('chocoholicsApp')
         $scope.$on('login', function(event) {
             vm.open();
         });
+        //Listening for log out
+        $scope.$on('logout', function(event) {
+            vm.logout();
+        });
         //Listening for getting total items
         $scope.$on('totalQuantity', function(totalQuantity) {
             console.log(totalQuantity.targetScope.totalQuantity);
@@ -39,7 +43,6 @@ angular.module('chocoholicsApp')
             vm.cartChecker = true;
             // }
         });
-
         //Function for opening login modal
         this.open = function() {
             var modalInstance = $uibModal.open({
@@ -59,20 +62,29 @@ angular.module('chocoholicsApp')
             localStorageService.remove('email');
             localStorageService.remove('userId');
             localStorageService.remove('id');
-
             vm.isLoggedIn = false;
             $state.go('main.home');
         };
-
         // Run this functin to check if the user is already logged in
         this.checkLoggedIn = function() {
             if (localStorageService.get('name')) {
                 vm.isLoggedIn = true;
                 vm.customerName = localStorageService.get('name');
                 vm.customerEmail = localStorageService.get('email');
-            } else {
-
-            }
+            } else {}
+        };
+        this.openAside = function() {
+            var asideInstance = $aside.open({
+                templateUrl: '/views/aside.html',
+                controller: 'AsideCtrl',
+                placement: 'right',
+                size: 'lg',
+                resolve: {
+                    isLoggedIn: function(){
+                        return vm.isLoggedIn;
+                    }
+                }
+            });
         };
         this.checkLoggedIn();
     });

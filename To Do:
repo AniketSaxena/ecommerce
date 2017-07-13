@@ -1,16 +1,6 @@
-home page card height   DONE
-account page plus btn touching line  NOT DONE
-category selection set active DONE
-change password button no styling DONE
-remove stripes from scrollbar DONE
-remove footer text for fb twitter etc	DONE
-remove center align from dropdown DONE
-restrict category xs	ASK 
-navbar dropdown 
-sidebar
+
 testing responsiveness
 testing functionality
-hosting
 images
 
 
@@ -24,12 +14,18 @@ images
 
 Functionality testing:
 
-User registers
-User logs in
-User add items 
-user increase and decrease item quantity 
-user removes item from cart
-user sets date and time
+User registers	   		  							completed                                               
+User logs in 										completed
+User add items login								completed
+User add items logout 								completed
+user increase and decrease item quantity logged in 	completed
+user increase and decrease item quantity logged out completed
+user removes item from cart logged in 				completed
+user removes item from cart logged out				completed
+user sets date and time	logged in 					completed
+user sets date and time	logged out					completed
+
+
 user adds new address
 user selects address
 user checkout
@@ -42,3 +38,5 @@ Function not working :
 
 When (non logged in user) without a previous order adds item to cart it creates an order and adds it
 but the user is unable to add a second item without reloading the page
+
+cart number not changing as well cos of same issue

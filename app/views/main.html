@@ -1,4 +1,4 @@
-<!-- Top Navigation Contents start here -->
+Top Navigation Contents start here -->
 <!-- start of header -->
 <div class="header">
     <!-- navbar starts here  -->
@@ -6,22 +6,23 @@
         <div class="container">
             <!-- navbar header starts here -->
             <div class="navbar-header">
-                <!-- navbar button  -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" ui-sref="main.home">chocohollics</a>
-            </div>
-            <!-- On collapse after clicking button -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <!-- navbar contents -->
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav hidden-xs">
                     <li><a ui-sref="main.home">Home</a></li>
                     <li><a ui-sref="main.shop">Shop</a></li>
                 </ul>
+            </div>
+
+                <!-- navbar button  -->
+                <button id="menu-button" type="button" ng-click="main.openAside()" class="visible-xs pull-right navbar-btn">
+                    <!-- data-toggle="collapse" data-target=".navbar-ex1-collapse" -->
+                    <span class="sr-only">Menu</span>
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+
+                </button>
+            <!-- On collapse after clicking button -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <!-- navbar contents -->
                 <!-- navbar right side contents -->
                 <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -36,7 +37,7 @@
                         </button>
                     </li>
                     <li>
-                        <button id="loginButton" type="button" class="btn btn-default navbar-btn btn-sm" id="login-button" ng-click="main.open('sm')" ng-hide="main.isLoggedIn">login</button>
+                        <button id="loginButton" type="button" class="btn btn-primary navbar-btn btn-sm" id="login-button" ng-click="main.open('sm')" ng-hide="main.isLoggedIn">Login</button>
                         <!-- Single button -->
                         <div class="btn-group navbar-btn" uib-dropdown is-open="status.isopen">
                             <button id="single-button" type="button" class="btn btn-primary btn-sm" uib-dropdown-toggle ng-disabled="disabled" ng-show="main.isLoggedIn">
@@ -106,4 +107,4 @@
     </div>
     <!-- end of container -->
 </footer>
-<!-- End of footer -->
+<!-- End of footer
