@@ -1,3 +1,4 @@
+TO DO:
 
 testing responsiveness
 testing functionality
@@ -7,36 +8,56 @@ images
 
 
 
-
-
-
-
-
 Functionality testing:
 
-User registers	   		  							completed                                               
-User logs in 										completed
-User add items login								completed
-User add items logout 								completed
-user increase and decrease item quantity logged in 	completed
-user increase and decrease item quantity logged out completed
-user removes item from cart logged in 				completed
-user removes item from cart logged out				completed
-user sets date and time	logged in 					completed
-user sets date and time	logged out					completed
+User registers	   		  							success                                               
+User logs in 										success
+User add items login								success
+User add items logout 								success
+user increase and decrease item quantity logged in 	success
+user increase and decrease item quantity logged out success
+user removes item from cart logged in 				success
+user removes item from cart logged out				success
+user sets date and time	logged in 					success
+user sets date and time	logged out					success
+user adds new address 								success
+user selects address on cart						success
+user logs out										success
+
+user log in with incorrect password 				fail
 
 
-user adds new address
-user selects address
-user checkout
-user logs out
-user clicks checkout and immediately closes browser
+user checkout										not completed
+user clicks checkout and immediately closes browser	not completed
+
+
+
+
+To ask list:
+
+address area field
+address type eg home and work
+
+cart number in main not changing from product page
+
+If login register etc fail what to show and how?
+
+Account page delivery address fixed width									
+
+
+To do
+
+footer alignment terms and conditions and privacy policy on one line		Done
+proceed to checkout not floating and end to end								Done
+Account page delivery address fixed width									Ask
+Made address format for account settings page								Done
+Account page start from top on small devices								Issue not showing again
+Side nav to left															Done
 
 
 
 Function not working :
 
 When (non logged in user) without a previous order adds item to cart it creates an order and adds it
-but the user is unable to add a second item without reloading the page
+but the user is unable to add a second item without reloading the page 									DONE
 
-cart number not changing as well cos of same issue

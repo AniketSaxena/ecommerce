@@ -1,9 +1,9 @@
-<ul class="list-group">
+<ul class="list-group" id="sideNavList">
 	<li class="list-group-item" ng-hide="loginChecker" ng-click="login()"><a>Login</a></li>
 	<li class="list-group-item" ng-show="loginChecker"><h4>{{name}}</h4></li>
-	<li class="list-group-item" ng-show="loginChecker" ng-click="close()"><a ui-sref="main.account">Account Settings</a></li>
 	<li class="list-group-item" ng-click="close()"><a ui-sref="main.home">Home</a></li>
 	<li class="list-group-item" ng-click="close()"><a ui-sref="main.shop">Shop</a></li>
 	<li class="list-group-item" ng-click="close()"><a ui-sref="main.cart">Cart</a></li>
+	<li class="list-group-item" ng-show="loginChecker" ng-click="close()"><a ui-sref="main.account">Account Settings</a></li>
 	<li class="list-group-item" ng-click="close()" ng-show="loginChecker"><a ng-click="logout()">Logout</a></li>
 </ul>

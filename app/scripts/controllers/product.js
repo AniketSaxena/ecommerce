@@ -93,6 +93,7 @@ angular.module('chocoholicsApp')
                         console.log(response);
                         // vm.product.adding = false;
                         console.log(vm.product.quantity);
+                        $scope.emit('add');
                     }).catch(function(error) {
                         console.log(error);
                         // vm.product.adding = false;
@@ -111,6 +112,7 @@ angular.module('chocoholicsApp')
                     })
                     .then(function(response) {
                         console.log(response);
+                        $scope.emit('add');
                         vm.product.adding = false;
                     })
                     .catch(function(error) {
@@ -137,6 +139,8 @@ angular.module('chocoholicsApp')
                             console.log(response);
                             // vm.product.adding = false;
                             console.log(vm.product.quantity);
+                        $scope.emit('add');
+
                         }).catch(function(error) {
                             console.log(error);
                             // vm.product.adding = false;
@@ -155,6 +159,8 @@ angular.module('chocoholicsApp')
                         })
                         .then(function(response) {
                             console.log(response);
+                        $scope.emit('add');
+
                             vm.product.adding = false;
                         })
                         .catch(function(error) {
@@ -179,6 +185,8 @@ angular.module('chocoholicsApp')
                         console.log(response);
                         console.log(vm.product.quantity);
                         $scope.totalQuantity = $scope.totalQuantity + 1;
+                        $scope.emit('add');
+                        
                         vm.product.adding = false;
                         // localStorageService.set('total',vm.total);
                     })

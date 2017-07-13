@@ -43,6 +43,10 @@ angular.module('chocoholicsApp')
             vm.cartChecker = true;
             // }
         });
+        //Listening for log out
+        $scope.$on('add', function(event) {
+            vm.total ++;    
+        });
         //Function for opening login modal
         this.open = function() {
             var modalInstance = $uibModal.open({
@@ -77,7 +81,7 @@ angular.module('chocoholicsApp')
             var asideInstance = $aside.open({
                 templateUrl: '/views/aside.html',
                 controller: 'AsideCtrl',
-                placement: 'right',
+                placement: 'left',
                 size: 'lg',
                 resolve: {
                     isLoggedIn: function(){
