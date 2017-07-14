@@ -5,30 +5,14 @@ testing functionality
 images
 
 
-issue or not?:
-When selecting category only shows items of that category but when reaching bottom loads all items from there
-
-
-Things left:
-
-images
-checkout
-address edit and remove
-order history details
-change password
 
 
 To ask list:
 
-address type eg home and work
+address type eg home and work and other 
 
-cart number in main not changing from product page
+If login register etc fail what to show and how?			use bs3 alerts
 
-If login register etc fail what to show and how?
-
-How to make sure user enters existing email.
-
-edit and remove address
 
 
 
@@ -40,54 +24,7 @@ Css issue quantity holder
 
 css issue + - button on cart page  
 
-Sidebar not very responsive on click (also how to set active)
 
 
 
-
-
-Functionality testing:
-
-user log in with incorrect password 				fail
-
-user checkout										not completed
-user clicks checkout and immediately closes browser	not completed
-
-
-
-
-
-
-
-
-
-User registers	   		  							success                                               
-User logs in 										success
-User add items login								success
-User add items logout 								success
-user increase and decrease item quantity logged in 	success
-user increase and decrease item quantity logged out success
-user removes item from cart logged in 				success
-user removes item from cart logged out				success
-user sets date and time	logged in 					success
-user sets date and time	logged out					success
-user adds new address 								success
-user selects address on cart						success
-user logs out										success
-
-
-To do
-
-footer alignment terms and conditions and privacy policy on one line		Done
-proceed to checkout not floating and end to end								Done
-Account page delivery address fixed width									Done
-Made address format for account settings page								Done
-Account page start from top on small devices								Issue not showing again
-Side nav to left															Done
-
-
-Function not working :
-
-When (non logged in user) without a previous order adds item to cart it creates an order and adds it
-but the user is unable to add a second item without reloading the page 									DONE
-
+{"success":true,"payment_request":{"id":"abd3e9e7fdd042fe8b8bee24670fdabe","phone":null,"email":null,"buyer_name":null,"amount":"3058.60","purpose":"Order OQK23ro2Gw","expires_at":null,"status":"Pending","send_sms":false,"send_email":false,"sms_status":null,"email_status":null,"shorturl":null,"longurl":"https://www.instamojo.com/@cheflery/abd3e9e7fdd042fe8b8bee24670fdabe","redirect_url":"https://www.google.com/","webhook":"https://requestb.in/1nu8aqv1","created_at":"2017-07-14T11:24:56.147061Z","modified_at":"2017-07-14T11:24:56.147085Z","allow_repeated_payments":true}}

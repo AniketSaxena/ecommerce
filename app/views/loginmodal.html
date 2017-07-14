@@ -28,6 +28,10 @@
                     <div ng-message="minlength" class="text-danger">This field must have atleast 8 characters</div>
 
                 </div>
+                <div class="alert" ng-show="error">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>Error logging in!</strong> {{error.data.message}}
+                </div>
                 <!-- modal footer -->
                 <div class="modal-footer">
                     <!-- buttons for login and cancel -->

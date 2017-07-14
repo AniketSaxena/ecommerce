@@ -1,9 +1,10 @@
 <ul class="list-group" id="sideNavList">
 	<li class="list-group-item" ng-hide="loginChecker" ng-click="login()"><a>Login</a></li>
-	<li class="list-group-item" ng-show="loginChecker"><h4>{{name}}</h4></li>
-	<li class="list-group-item" data-toggle="tab" ng-click="close()"><a ui-sref="main.home">Home</a></li>
-	<li class="list-group-item" data-toggle="tab" ng-click="close()"><a ui-sref="main.shop">Shop</a></li>
-	<li class="list-group-item" data-toggle="tab" ng-click="close()"><a ui-sref="main.cart">Cart</a></li>
-	<li class="list-group-item" data-toggle="tab" ng-show="loginChecker" ng-click="close()"><a ui-sref="main.account">Account Settings</a></li>
+	<li class="list-group-item" ng-show="loginChecker"><h4>{{name}}</h4>{{email}}</li>
+	<li class="list-group-item" data-toggle="tab" ng-click="close()"><a ui-sref="main.home"><i class="fa fa-home" aria-hidden="true"></i>
+ Home</a></li>
+	<li class="list-group-item" data-toggle="tab" ng-click="close()"><a ui-sref="main.shop"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Shop</a></li>
+	<li class="list-group-item" data-toggle="tab" ng-click="close()"><a ui-sref="main.cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart</a></li>
+	<li class="list-group-item" data-toggle="tab" ng-show="loginChecker" ng-click="close()"><a ui-sref="main.account"><i class="fa fa-cog" aria-hidden="true"></i> Account Settings</a></li>
 	<li class="list-group-item" ng-click="close()" ng-show="loginChecker"><a ng-click="logout()">Logout</a></li>
 </ul>

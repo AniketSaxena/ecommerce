@@ -18,7 +18,7 @@ angular.module('chocoholicsApp')
                 var deferred = $q.defer();
                 $http.post(ENV.serverURL + route + ENDPOINT + 'login/' + ENV.vendorKey, { phone: user.phone , password: user.password , brand:  ENV.brand, type: ENV.type})
                 .then(function(response){
-                    console.log(response.data.customer.objectId);
+                    console.log(response.data);
                     localStorageService.set('userId',response.data.customer.objectId);
                     localStorageService.set('token', response.data.token);
                     console.log(localStorageService.get('token'));

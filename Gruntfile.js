@@ -170,6 +170,7 @@ module.exports = function(grunt) {
                     ENV: {
                         serverURL: 'http://192.168.1.7:1337',
                         vendorKey: '1c2a216405e85c2d7d5ca244e5258ae2',
+                        myGovAPI: '210d0d0cbf2c9c3ede9bda8f25e89533',
                         owner: 'AS742HJVZK',
                         style: 'delivery',
                         mode: 'website',
