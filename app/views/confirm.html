@@ -1,12 +1,35 @@
-<!-- start of panel --> 
-<div class="panel panel-default">
-		<!-- Panel heading -->
-    <div class="panel-heading">
-        <legend>Order Successful</legend>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+      <div class="panel panel-success">
+        <!-- panel body -->
+        <div class="panel-body text-center">
+          <i class="fa fa-check-circle fa-4 text-success"></i>
+          <br>
+          <h3 class="text-success">Your payment was successful</h3>
+          <p>We should be confirming your order in a bit. In case of any issues, we will reach out to you on mail / phone.</p>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading">Order ID</h5>
+            <p class="list-group-item-text">{{confirm.order.id}}</p>
+          </div>
+          <div class="list-group-item" ng-show="confirm.order.paymentId && confirm.order.paymentId.length">
+            <h5 class="list-group-item-heading">Payment Mode</h5>
+            <p class="list-group-item-text">{{confirm.order.paymentId[0].name}}</p>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <button type="button" class="btn btn-default btn-block" ui-sref="main.account">Order History</button>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <button type="button" class="btn btn-primary btn-block" ui-sref="main.shop">Shop More</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- panel body -->
-    <div class="panel-body">
-        <h3>Total amount paid:{{confirm.total}}</h3>
-    </div>
+  </div>
 </div>
-<!-- end of panel

@@ -1,231 +1,220 @@
 <!-- Start of column for cart items -->
-<div class="col-xs-12 col-md-5 col-md-offset-1">
-  <div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading">
-      <h3 class="panel-title">
+<div class="container-fluid">
+<br>
+  <div class="row">
+    <div class="col-xs-12 col-md-5 col-md-offset-1">
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+          <h3 class="panel-title">
       <span  class="glyphicon glyphicon-shopping-cart">
-      </span>  Your Cart
+      </span>  {{cart.items.length}} Items in Your Cart
       
       </h3>
-    </div>
-    <!-- Table -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Quantity</th>
-          <th>Cost</th>
-        </tr>
-      </thead>
-      <tbody ng-repeat="item in cart.items">
-        <tr>
-          <td> <a id="productNameLabel" ui-sref="main.product({id:item.id})" class="text-capitalize">{{item.name}}</p><a class="text-danger" ng-click="cart.removeItem($index)">
-        Remove
-      </a></td>
-          <td>
-            <button id="minusButton" type="button" class="btn btn-default btn-xs" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
-              <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}">
-        </span>
-              <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
-            </button>
-            {{item.quantity}}
-            <button id="plusButton" type="button" class="btn btn-default btn-xs" ng-click="cart.increaseItem($index)" ng-disabled="item.changing">
-              <span ng-class="{ 'glyphicon glyphicon-plus' : !item.changing}">
-        </span>
-              <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true">
-        </i>
-            </button>
-          </td>
-          <td>{{item.cost*item.quantity | currency : "&#8377;"}}</td>
-        </tr>
-      </tbody>
-      <tbody>
-        <tr>
-          <td>Total:</td>
-          <td>{{totalQuantity}} Pc</td>
-          <td>{{cart.order.total | currency : "&#8377;"}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="panel panel-primary">
-    <!-- Start of panel header containing total amount -->
-    <div class="panel-heading">
-      <h3 id="panelHeadingLabel" class="panel-title"><span><i class="glyphicon glyphicon-time"></i></span>
+        </div>
+        <!-- Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th class="text-right">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in cart.items">
+              <td>
+                <h5 ui-sref="main.product({id:item.id})" class="text-capitalize">{{item.name}}
+          </h5>
+                <small><a class="text-danger" ng-click="cart.removeItem($index)"> Remove </a></small>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
+                  <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}"></span>
+                  <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
+                </button>
+                {{item.quantity}}
+                <button type="button" class="btn btn-success btn-xs" ng-click="cart.increaseItem($index)" ng-disabled="item.changing">
+                  <span ng-class="{ 'glyphicon glyphicon-plus' : !item.changing}"></span>
+                  <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
+                </button>
+              </td>
+              <td class="text-right">{{item.cost*item.quantity | currency : "&#8377;"}}</td>
+            </tr>
+            <tr ng-show="cart.order.deliveryCharge">
+              <td colspan="2">Delivery Charge for {{cart.selectedAddress.pincode}}</td>
+              <td class="text-right">{{cart.order.deliveryCharge | currency: "&#8377;"}}</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td class="text-center">{{totalQuantity}}</td>
+              <td class="text-right"><strong>{{cart.order.total | currency : "&#8377;"}}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel panel-primary">
+        <!-- Start of panel header containing total amount -->
+        <div class="panel-heading">
+          <h3 id="panelHeadingLabel" class="panel-title"><span><i class="glyphicon glyphicon-time"></i></span>
   {{cart.scheduled ? 'Delivery Date & Time':'Schedule Delivery'}}
   </h3>
-    </div>
-    <!-- End of panel header -->
-    <!-- panel body for unscheduled date and time -->
-    <div class="panel-body" ng-hide="cart.scheduled">
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <!-- Start of date picker -->
-        <p class="input-group">
-          <!-- input area -->
-          <input type="text" class="form-control" uib-datepicker-popup="{{cart.format}}" ng-model="cart.dt" is-open="cart.popup1.opened" datepicker-options="cart.options" ng-required="true" close-text="Close" alt-input-formats="cart.altInputFormats" id="dateSet" />
-          <!-- button for opening calendar -->
-          <span class="input-group-btn">
+        </div>
+        <!-- End of panel header -->
+        <!-- panel body for unscheduled date and time -->
+        <div class="panel-body" ng-hide="cart.scheduled">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <!-- Start of date picker -->
+            <p class="input-group datepicker">
+              <!-- input area -->
+              <input type="text" class="form-control" uib-datepicker-popup="{{cart.format}}" ng-model="cart.dt" is-open="cart.popup1.opened" datepicker-options="cart.options" ng-required="true" close-text="Close" alt-input-formats="cart.altInputFormats" id="dateSet" />
+              <!-- button for opening calendar -->
+              <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="cart.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
       </span>
-        </p>
-        <!-- End of date picker -->
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-        <!-- Start of time picker -->
-        <div uib-timepicker ng-model="cart.mytime" ng-change="cart.changed()" hour-step="cart.hstep" minute-step="cart.mstep" show-meridian="cart.ismeridian"></div>
-        <!-- End of time picker -->
-      </div>
-      <!-- button to set date and time -->
-      <button type="button" class="btn btn-default btn-sm pull-right" ng-click="cart.setTime()" ng-disabled="!cart.dt">Set</button>
-    </div>
-    <!-- end of panel for unscheduled date and time  -->
-    <!-- Start of panel for date and time scheduled -->
-    <div class="panel-body" ng-show="cart.scheduled">
-      <p>{{cart.dt | date:'longDate'}} by {{cart.mytime | date:'hh:mm a'}}</p>
-      <button type="button" class="btn btn-default btn-sm pull-right" ng-click="cart.resetTime()" >Reset</button>
-    </div>
-    <!-- End of panel for date and time scheduled -->
-  </div>
-</div>
-<!-- Start of column for address selection and checkout -->
-<div class="hidden-xs col-md-5">
-  <!-- Start of panel -->
-  <div class="content" id="checkoutCard">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title"><span><i class="glyphicon glyphicon-home"></i></span> Delivery Address</h3>
-      </div>
-      <!-- Start of panel body containing address selection if user is logged in-->
-      <div class="panel-body" ng-show="cart.checkLoggedIn">
-        <!-- Below div shown when address is selected -->
-        <div ng-show="cart.addressSelected">
-          <!-- List group containing address -->
-          <div class="list-group">
-            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-              {{cart.selectedAddress.flatBldgName}},{{cart.selectedAddress.street}},{{cart.selectedAddress.landmark}},{{cart.selectedAddress.city}}-{{cart.selectedAddress.pincode}}.
-            </div>
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-              <button type="button" class="btn btn-default pull-right btn-sm" ng-click="cart.change()">Change</button>
-            </div>
-          </div>
-          <!-- End of list group -->
-        </div>
-        <!-- End of div for selected address -->
-        <!-- Start of div for address not selected -->
-        <div ng-repeat="address in cart.addresses" ng-hide="cart.addressSelected">
-          <!-- Start of address selection list group -->
-          <div class="list-group" id="addressListGroup">
-            <p class="list-group-item-text">
-              <button type="button" class="btn btn-default pull-right btn-xs" ng-click="cart.selectAddress($index)">Select</button>
-              {{address.flatBldgName}}, {{address.street}},{{address.landmark}}, {{address.city}}, {{address.state}}- {{address.pincode}}.
             </p>
+            <!-- End of date picker -->
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <!-- Start of time picker -->
+            <div uib-timepicker ng-model="cart.mytime" ng-change="cart.changed()" hour-step="cart.hstep" minute-step="cart.mstep" show-meridian="cart.ismeridian"></div>
+            <!-- End of time picker -->
+          </div>
+          <!-- button to set date and time -->
+          <button type="button" class="btn btn-primary btn-block" ng-click="cart.setTime()" ng-disabled="!cart.dt">Set Delivery Date &amp; Time</button>
+        </div>
+        <!-- end of panel for unscheduled date and time  -->
+        <!-- Start of panel for date and time scheduled -->
+        <div class="panel-body" ng-show="cart.scheduled">
+          <p>
+            {{cart.dt | date:'longDate'}} by {{cart.mytime | date:'hh:mm a'}}
+            <button type="button" class="btn btn-default btn-sm" ng-click="cart.resetTime()"><i class="fa fa-repeat"></i> Reset</button>
+          </p>
+        </div>
+        <!-- End of panel for date and time scheduled -->
+      </div>
+    </div>
+    <!-- Start of column for address selection and checkout -->
+    <div class="hidden-xs col-md-5">
+      <!-- Start of panel -->
+      <div class="content" id="checkoutCard">
+        <div class="panel panel-primary text-capitalize">
+          <div class="panel-heading">
+            <h3 class="panel-title"><span><i class="glyphicon glyphicon-home"></i></span> Delivery Address</h3>
+          </div>
+          <!-- Start of panel body containing address selection if user is logged in-->
+          <div class="panel-body " ng-show="!cart.addresses.length && cart.checkLoggedIn">
+            <!-- Below div shown when address is selected -->
+            <!-- End of div for selected address -->
+            <div class="text-center">
+              <p class="text-muted"><i class="fa fa-info-circle"></i> No addresses found, add one to continue</p>
+              <button type="button" class="btn btn-default" ui-sref="main.account({back:'cart'})">Add address</button>
+            </div>
+          </div>
+          <!-- List group containing address -->
+          <div class="list-group" ng-show="cart.addressSelected && cart.checkLoggedIn">
+            <div class="list-group-item">
+              <button type="button" class="btn btn-default pull-right btn-sm" ng-click="cart.change()">Change</button>
+              <p>
+                {{cart.selectedAddress.flatBldgName}}, {{cart.selectedAddress.street}}, {{cart.selectedAddress.landmark}},{{cart.selectedAddress.city}} {{cart.selectedAddress.pincode}}
+              </p>
+            </div>
+          </div>
+          <!-- Start of div for address not selected -->
+          <!-- Start of address selection list group -->
+          <div class="list-group" id="addressListGroup" ng-show="!cart.addressSelected && cart.checkLoggedIn">
+            <div class="list-group-item" ng-repeat="address in cart.addresses">
+              <button type="button" class="btn btn-default pull-right btn-xs" ng-click="cart.selectAddress($index)">Select</button>
+              <p class="list-group-item-text text-capitalize">
+                <span class="label" ng-class="{
+            'label-success':address.type === 'home',
+            'label-info':address.type === 'work',
+            'label-warning':address.type === 'other'
+            }">{{address.type}}</span> {{address.flatBldgName}}, {{address.street}},{{address.landmark}}, {{address.city}}, {{address.state}} {{address.pincode}}
+              </p>
+            </div>
           </div>
           <!-- End of list group -->
+          <!-- End of div for address not selected -->
+          <!-- End of list group -->
+          <!-- End of panel body for logged in user-->
+          <!-- Start of panel body for logged out user -->
+          <div class="panel-body" ng-hide="cart.checkLoggedIn">
+            <div class="alert alert-warning">
+              <i class="fa fa-info-circle"></i> Please Login or Register to checkout
+            </div>
+          </div>
+          <!-- End of panel body for logged out user -->
+          <div class="panel-footer">
+            <!-- Button instead of link for instamojo -->
+            <button type="button" class="btn btn-primary btn-block" ng-disabled="((!cart.addressSelected) || (!cart.scheduled) || (cart.loading))" ng-click="cart.checkout()" ng-show="!cart.paymentLink && cart.checkLoggedIn"><i class="fa fa-circle-o-notch fa-spin" ng-show="cart.loading"></i> {{cart.loading ? 'Generating pay link': 'Confirm Order'}}</button>
+            <a role="button" class="btn btn-success btn-block" ng-href="{{cart.paymentLink}}" target="_blank" ng-show="cart.paymentLink && cart.checkLoggedIn">Proceed to Pay {{cart.order.total | currency : "&#8377;"}}</a>
+            <!-- End of span for logged in user -->
+            <button type="button" class="btn btn-success btn-block" ng-click="cart.login()" ng-hide="cart.checkLoggedIn">Login to checkout</button>
+          </div>
         </div>
-        <!-- End of div for address not selected -->
-        <div ng-hide="cart.addresses.length">
-        <p class="lead">No addresses found, add one to continue</p>
-        <button type="button" class="btn btn-default" ui-sref="main.account">Add address</button>
       </div>
-      </div>
-      <!-- End of panel body for logged in user-->
-      <!-- Start of panel body for logged out user -->
-      <div class="panel-body" ng-hide="cart.checkLoggedIn">
-        <div class="alert alert-info">Please Login or Register to checkout</div>
-      </div>
-      <!-- End of panel body for logged out user -->
+      <!-- End of panel -->
     </div>
-    <!-- Start of panel for checkout button -->
-    <div class="panel">
-      <!-- Span containing the checkout button for logged in user -->
-      <span class="input-group-btn" ng-show="cart.checkLoggedIn">
-    <!-- Button instead of link for instamojo -->
-    <button type="button" class="btn btn-default btn-block" ng-disabled="((!cart.addressSelected) || (!cart.scheduled) || (cart.loading))" ng-click="cart.checkout()" ng-hide="cart.paymentLink"><i class="fa fa-circle-o-notch fa-spin" ng-show="cart.loading"></i> {{cart.loading ? 'Generating pay link': 'Confirm To Checkout'+ cart.order.total | currency : "&#8377;"}}</button>
-    
-    <button type="button" class="btn btn-primary btn-block" ng-href="cart.paymentLink" ng-show="cart.paymentLink">Proceed to Pay {{cart.order.total | currency : "&#8377;"}}</button>
-  </span>
-      <!-- End of span for logged in user -->
-      <span id="checkoutButton" class="input-group-btn" ng-hide="cart.checkLoggedIn">
-    <button type="button" class="btn btn-primary btn-block" ng-click="cart.login()">Login to checkout</button>
-  </span>
+    <!-- Start of column for address selection and checkout for small devices -->
+    <div class="visible-xs col-xs-12">
+      <!-- Start of panel -->
+      <div class="panel panel-default" id="checkoutXSCard">
+        <!-- Start of panel header containing total amount -->
+        <div class="panel-heading">
+          <h3 class="panel-title"><span><i class="glyphicon glyphicon-home"></i></span> Delivery Address</h3>
+        </div>
+        <!-- End of panel header -->
+        <!-- Start of panel body containing address selection if user is logged in-->
+        <div class="panel-body" ng-show="cart.checkLoggedIn">
+          <!-- Below div shown when address is selected -->
+          <div ng-show="cart.addressSelected">
+            <!-- List group containing address -->
+            <div class="list-group">
+              <p class="list-group-item-text">
+                <button type="button" class="btn btn-default pull-right btn-xs" ng-click="cart.change()">Change</button>
+                {{cart.selectedAddress.flatBldgName}}, {{cart.selectedAddress.street}}, {{cart.selectedAddress.landmark}}, {{cart.selectedAddress.city}} -{{cart.selectedAddress.pincode}}.
+              </p>
+            </div>
+            <!-- End of list group -->
+          </div>
+          <!-- End of div for selected address -->
+          <!-- Start of div for address not selected -->
+          <div ng-repeat="address in cart.addresses" ng-hide="cart.addressSelected">
+            <!-- Start of address selection list group -->
+            <div class="list-group">
+              <p class="list-group-item-text">
+                <button type="button" class="btn btn-default pull-right btn-xs" ng-click="cart.selectAddress($index)">Select</button>
+                {{address.flatBldgName}}, {{address.street}}, {{address.landmark}}, {{address.city}}-{{address.pincode}}.
+              </p>
+            </div>
+            <!-- End of list group -->
+          </div>
+          <!-- End of div for address not selected -->
+          <div ng-hide="cart.addresses.length">
+            <p class="lead">No addresses found, add one to continue</p>
+            <button type="button" class="btn btn-default" ui-sref="main.account">Add address</button>
+          </div>
+        </div>
+        <!-- End of panel body for logged in user-->
+        <!-- Start of panel body for logged out user -->
+        <div class="panel-body" ng-hide="cart.checkLoggedIn">
+          <div class="alert alert-info">Please Login or register to checkout</div>
+        </div>
+        <!-- End of panel body for logged out user -->
+        <!-- Start of panel footer -->
+        <div class="panel-footer">
+          <!-- Button instead of link for instamojo -->
+          <button type="button" class="btn btn-primary btn-block" ng-disabled="((!cart.addressSelected) || (!cart.scheduled) || (cart.loading))" ng-click="cart.checkout()" ng-show="!cart.paymentLink && cart.checkLoggedIn"><i class="fa fa-circle-o-notch fa-spin" ng-show="cart.loading"></i> {{cart.loading ? 'Generating pay link': 'Confirm Order'}}</button>
+          <a role="button" class="btn btn-success btn-block" ng-href="{{cart.paymentLink}}" target="_blank" ng-show="cart.paymentLink && cart.checkLoggedIn">Proceed to Pay {{cart.order.total | currency : "&#8377;"}}</a>
+          <!-- End of span for logged in user -->
+          <button type="button" class="btn btn-success btn-block" ng-click="cart.login()" ng-hide="cart.checkLoggedIn">Login to checkout</button>
+        </div>
+        <!-- End of panel footer -->
+      </div>
+      <!-- End of panel -->
     </div>
-    <!-- End of panel for checkout button -->
   </div>
-  <!-- End of panel -->
 </div>
-<!-- End of column for address selection and checkout
-<!-- Start of column for address selection and checkout for small devices -->
-<div class="visible-xs col-xs-12">
-  <!-- Start of panel -->
-  <div class="panel panel-default" id="checkoutXSCard">
-    <!-- Start of panel header containing total amount -->
-    <div class="panel-heading">
-      <h3 class="panel-title"><span><i class="glyphicon glyphicon-home"></i></span> Delivery Address</h3>
-    </div>
-    <!-- End of panel header -->
-    <!-- Start of panel body containing address selection if user is logged in-->
-    <div class="panel-body" ng-show="cart.checkLoggedIn">
-      <!-- Below div shown when address is selected -->
-      <div ng-show="cart.addressSelected">
-        <!-- List group containing address -->
-        <div class="list-group">
-          <p class="list-group-item-text">
-            <button type="button" class="btn btn-default pull-right btn-xs" ng-click="cart.change()">Change</button>
-            {{cart.selectedAddress.flatBldgName}}, {{cart.selectedAddress.street}}, {{cart.selectedAddress.landmark}}, {{cart.selectedAddress.city}} -{{cart.selectedAddress.pincode}}.
-          </p>
-        </div>
-        <!-- End of list group -->
-      </div>
-      <!-- End of div for selected address -->
-      <!-- Start of div for address not selected -->
-      <div ng-repeat="address in cart.addresses" ng-hide="cart.addressSelected">
-        <!-- Start of address selection list group -->
-        <div class="list-group">
-          <p class="list-group-item-text">
-            <button type="button" class="btn btn-default pull-right btn-xs" ng-click="cart.selectAddress($index)">Select</button>
-            {{address.flatBldgName}}, {{address.street}}, {{address.landmark}}, {{address.city}}-{{address.pincode}}.
-          </p>
-        </div>
-        <!-- End of list group -->
-      </div>
-      <!-- End of div for address not selected -->
-      <div ng-hide="cart.addresses.length">
-        <p class="lead">No addresses found, add one to continue</p>
-        <button type="button" class="btn btn-default" ui-sref="main.account">Add address</button>
-      </div>
-    </div>
-    <!-- End of panel body for logged in user-->
-    <!-- Start of panel body for logged out user -->
-    <div class="panel-body" ng-hide="cart.checkLoggedIn">
-      <div class="alert alert-info">Please Login or register to checkout</div>
-    </div>
-    <!-- End of panel body for logged out user -->
-    <!-- Start of panel footer -->
-    <div class="panel-footer">
-      <!-- Span containing the checkout button for logged in user -->
-      <span class="hidden-xs" ng-show="cart.checkLoggedIn">
-    <!-- Button instead of link for instamojo -->
-    <button type="button" class="btn btn-default btn-block" ng-disabled="((!cart.addressSelected) || (!cart.scheduled))" ng-click="cart.checkout()">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</button>
-  </span>
-      <!-- End of span for logged in user -->
-      <span ng-hide="cart.checkLoggedIn" id="checkoutButton">
-    <button id="checkoutButton" type="button" class="btn btn-primary btn-block" ng-click="cart.login()">Login to checkout</button>
-  </span>
-    </div>
-    <div class="visible-xs" id="floatButton">
-      <span class="input-group-btn" ng-show="cart.checkLoggedIn">
-    <!-- Button instead of link for instamojo -->
-    <button type="button" class="btn btn-default btn-block" ng-disabled="((!cart.addressSelected) || (!cart.scheduled))" ng-click="cart.checkout()">Proceed To Checkout: {{cart.order.total | currency : "&#8377;"}}</button>
-    
-  </span>
-      <!-- End of span for logged in user -->
-      <span class="input-group-btn" ng-hide="cart.checkLoggedIn" id="checkoutButton">
-    <button id="checkoutButton" type="button" class="btn btn-primary btn-block" ng-click="cart.login()">Login to checkout</button>
-  </span>
-    </div>
-    <!-- End of panel footer -->
-  </div>
-  <!-- End of panel -->
-</div>
-<!-- End of csolumn for address selection and checkout

@@ -53,7 +53,7 @@ angular.module('chocoholicsApp')
 
         })
         .then(function(response) {
-          if (typeof(response) === "boolean") {
+          if (typeof(response) === 'boolean') {
             if (response.data && response.data.objectId) {
               localStorageService.set('id', response.data.objectId);
             }
@@ -76,7 +76,7 @@ angular.module('chocoholicsApp')
         .catch(function(error) {
           $scope.$emit('handleError', { error: error });
           vm.error = error;
-          console.log(vm.error);
+          console.error(error);
         });
     };
     this.checkUser = function() {
@@ -86,17 +86,16 @@ angular.module('chocoholicsApp')
             console.log(response);
             console.log(response.data.code);
             if (response.data.code === 668 || response.data.code === 1001) {
-              $uibModalInstance.dismiss('error 668');
-              vm.register(vm.user.phone);
+              $uibModalInstance.dismiss();
+              vm.register(vm.user.phone, response.data.code);
             }
           }).catch(function(error) {
             $scope.$emit('handleError', { error: error });
-
-            console.log(error);
+            console.error(error);
           });
       }
     };
-    this.register = function(phone) {
+    this.register = function(phone, code) {
       $uibModal.open({
         templateUrl: '/views/registermodal.html',
         size: 'sm',
@@ -105,6 +104,9 @@ angular.module('chocoholicsApp')
         resolve: {
           phone: function() {
             return phone;
+          },
+          code: function(){
+            return code;
           }
         }
       });
@@ -131,7 +133,7 @@ angular.module('chocoholicsApp')
         }).catch(function(error) {
           $scope.$emit('handleError', { error: error });
 
-          console.log(error);
+          console.error(error);
           deferred.reject(error.data);
         });
       return deferred.promise;

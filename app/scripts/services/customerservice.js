@@ -13,24 +13,53 @@ angular.module('chocoholicsApp')
     var route = '/customer';
     var addressRoute = '/address';
     // Public API here
+    // 
+    function newRegistration(user) {
+      return $http.post(ENV.serverURL + route + '/register/' + ENV.vendorKey, {
+        phone: user.phone,
+        password: user.password,
+        brand: ENV.brand,
+        email: user.email,
+        name: user.name
+      });
+    }
+
+    function updateUser(user) {
+      return $http.post(ENV.serverURL + route + '/update/' + ENV.vendorKey, {
+        phone: user.phone,
+        password: user.password,
+        brand: ENV.brand,
+        email: user.email,
+        name: user.name
+      });
+    }
+
     return {
       checkUser: function(phone) {
         return $http.get(ENV.serverURL + route + '/check/' + ENV.vendorKey + '?phone=' + phone);
       },
-      registerUser: function(user) {
+      registerUser: function(user, code) {
         var deferred = $q.defer();
-        $http.post(ENV.serverURL + route + '/register/' + ENV.vendorKey, {
-            phone: user.phone,
-            password: user.password,
-            brand: ENV.brand,
-            email: user.email,
-            name: user.name
-          })
-          .then(function(response) {
-            console.log('reached login');
+        var promises = [];
+
+        console.info(code);
+
+        if (code === 1001) {
+          // Update the user profile
+          promises.push(updateUser(user));
+        }
+
+        if (code === 668) {
+          // register the user
+          promises.push(newRegistration(user));
+        }
+
+        $q
+          .all(promises)
+          .then(function() {
             return loginService.loginUser(user);
           })
-          .then(function(response) {
+          .then(function() {
             console.log('reached orderService');
             localStorageService.set('name', user.name);
             localStorageService.set('phone', user.phone);
@@ -54,8 +83,6 @@ angular.module('chocoholicsApp')
             } else {
               return true;
             }
-            //from here
-            //till here
           })
           .then(function(response) {
             console.log(response);
@@ -74,23 +101,25 @@ angular.module('chocoholicsApp')
           customerId: customerId
         });
       },
-      updateAddress: function(newAddress, customerId) {
-        return $http.put(ENV.serverURL + addressRoute + '/update/' + ENV.vendorKey, {
-          address: newAddress,
-          customerId: customerId
+      updateAddress: function(addressId, newAddress) {
+        return $http.put(ENV.serverURL + addressRoute + '/update/' + addressId, {
+          newAddress: newAddress
         });
       },
       getAddresses: function(customerId) {
-        return $http.get(ENV.serverURL + addressRoute + '/all/' + ENV.vendorKey + '/' + customerId);
+        return $http.get(ENV.serverURL + addressRoute + '/all/' + ENV.vendorKey + '/' + customerId, { headers: { 'x-access-token': localStorageService.get('token') } });
       },
       removeAddress: function(addressId) {
         return $http.delete(ENV.serverURL + addressRoute + '/delete/' + addressId);
       },
-      // changePin: function(pincode) {
-      //     var base = "http://api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?format=json"
-      //     var key = "&api-key=" + ENV.myGovAPI;
-      //     var filter= "&filters[pincode]=" + pincode;
-      //     return $http.get(base + key + filter);
-      // }
+      createDummySession: function() {
+        return $http.post(ENV.serverURL + '/auth/createSession', { id: 'dummy' });
+      },
+      changePin: function(pincode) {
+        if (pincode && pincode.toString().length === 6) {
+          var base = '//api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?format=json&api-key=' + ENV.myGovAPI + '&filters[pincode]=' + pincode;
+          return $http.get(base, { cache: false, 'cache-control': 'none', 'Access-Control-Allow-Origin': '*' });
+        }
+      }
     };
   });

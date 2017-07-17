@@ -1,71 +1,64 @@
 <div class="container">
-    <div class="row">
-        <!-- col for image -->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <ol class="breadcrumb visible-xs">
-                    <li>
-                        <a ui-sref="main.home">Home</a>
-                    </li>
-                    <li>
-                        <a ui-sref="main.shop">Shop</a>
-                    </li>
-                    <li class="active">{{product.product.name}}</li>
-                </ol>
-            <img id="productImage" ng-src="{{product.product.smallImage}}" srcset="{{product.product.smallImage}} 1x,{{product.product.mediumImage}} 2x,{{product.product.largeImage}} 3x">
-            <!-- FOR IMAGES -->
-            <!--   <img src="{{product.product.images}}">
-        -->
-
-            <label id="quantityLabelProduct" ng-show="product.product.quantity">
-                <strong>
-                    <span class="glyphicon glyphicon-shopping-cart" ></span> 
-                     {{product.product.quantity}} added
-                </strong>
-            </label>
-        </div>
-        <!-- col for basic details -->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <div>
-                <ol class="breadcrumb hidden-xs">
-                    <li>
-                        <a ui-sref="main.home">Home</a>
-                    </li>
-                    <li>
-                        <a ui-sref="main.shop">Shop</a>
-                    </li>
-                    <li class="active">{{product.product.name}}</li>
-                </ol>
-                <h2 id="product-name"><b>{{product.product.name}}</b></h2>
-                <h3>{{product.product.subtitle}}</h3>
-                <span class="label label-info">{{product.product.category}}</span>
-                <h2>{{product.product.rate | currency : "&#8377;"}}</h2>
-            </div>
-            <div>
-                <!--  <button type="button" class="btn btn-primary btn-lg" ng-click="product.addItem()" ng-disabled="product.product.adding">Add to cart</button> -->
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <!-- for logged in used -->
-            <button id="addToCartButton" type="button" class="btn btn-primary" ng-click="product.addItem()" ng-show="product.checker" ng-disabled="product.product.adding">
-                <span class="glyphicon glyphicon-plus"></span>Add to Cart</button>
-                <!-- for non logged in user -->
-            <button id="addToCartButton" type="button" class="btn btn-primary" ng-click="product.addItemLoggedOut()" ng-hide="product.checker" ng-disabled="product.product.adding">
-                <span class="glyphicon glyphicon-plus"></span>Add to Cart</button>
-                <a id="checkoutButton" type="button" class="btn btn-default pull-right" ui-sref="main.cart">Proceed To Checkout</a>
-                <br />
-                <br />
-                <br />
-
-            <div>
-                <h4>Product description:</h4>
-                <br />
-                <p>{{product.product.description}}</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus tincidunt ligula, egestas sollicitudin enim tempus vel. Nunc quis egestas libero. Nullam lobortis eget lorem eu faucibus. Curabitur vel vestibulum arcu. Donec a ex quis nisl molestie porttitor cursus at nibh. Maecenas sit amet ultricies diam. Cras vitae imperdiet odio. Cras vitae augue urna.
-
-Aliquam egestas lectus ex, sodales efficitur lacus feugiat in. Suspendisse eleifend, magna vitae gravida accumsan, nibh ligula aliquam massa, vitae vehicula dolor felis sit amet libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque quam turpis, iaculis sed turpis vitae, fringilla pharetra ex. Curabitur maximus magna tristique aliquet eleifend. Vestibulum vel convallis orci. Aenean venenatis dui quis dolor iaculis, sit amet pharetra massa ultricies. Sed metus tellus, porta in mollis sit amet, pulvinar ut est. Cras pharetra et turpis vel maximus. Quisque hendrerit ultrices molestie.</p>
-            </div>
-        </div>
+  <br>
+  <div class="row">
+    <!-- col for image -->
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <ol class="breadcrumb visible-xs">
+        <li>
+          <a ui-sref="main.home">Home</a>
+        </li>
+        <li>
+          <a ui-sref="main.shop">Shop</a>
+        </li>
+        <li class="active text-capitalize">
+          {{product.product.name}} (in {{product.product.category}})
+        </li>
+      </ol>
+      <div afkl-lazy-image="{{product.images[0].retina}} 480w, {{product.images[0].retina}} 768w, {{product.images[0].hires}}" class="product-image afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="product.imageOptions" ng-class="{'loading':!afklLazyImageLoaded, 'animated fadeOut':afklLazyImageLoaded}">
+      </div>
     </div>
+    <!-- col for basic details -->
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div>
+        <ol class="breadcrumb hidden-xs">
+          <li>
+            <a ui-sref="main.home">Home</a>
+          </li>
+          <li>
+            <a ui-sref="main.shop">Shop</a>
+          </li>
+          <li class="active text-capitalize">
+            {{product.product.name}} (in {{product.product.category}})
+          </li>
+        </ol>
+        <h2 class="text-capitalize">
+                <span class="pull-right">{{product.product.rate | currency : "&#8377;"}}</span>
+                {{product.product.name}}
+                <br><small>{{product.product.subtitle}}</small></h2>
+        <h2></h2>
+      </div>
+      <div>
+        <!--  <button type="button" class="btn btn-primary btn-lg" ng-click="product.addItem()" ng-disabled="product.product.adding">Add to cart</button> -->
+      </div>
+      <br />
+      <hr />
+      <!-- for logged in used -->
+      <button id="addToCartButton" type="button" class="btn btn-primary" ng-click="product.addItem()" ng-show="product.checker" ng-disabled="product.product.adding">
+        <span class="glyphicon glyphicon-plus"></span>Add to Cart</button>
+      <!-- for non logged in user -->
+      <button id="addToCartButton" type="button" class="btn btn-primary" ng-click="product.addItemLoggedOut()" ng-hide="product.checker" ng-disabled="product.product.adding">
+        <span class="glyphicon glyphicon-plus"></span>Add to Cart</button>
+      <button type="button" class="btn btn-default" ng-show="product.product.quantity">
+        <span class="glyphicon glyphicon-shopping-cart"></span> {{product.product.quantity}} in your cart
+      </button>
+      <a id="checkoutButton" type="button" class="btn btn-default pull-right" ui-sref="main.cart">Proceed To Checkout</a>
+      <hr />
+      <div>
+        <h4>About this Product</h4>
+        <p>{{product.product.description}}</p>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
 </div>

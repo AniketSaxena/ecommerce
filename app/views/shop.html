@@ -1,74 +1,57 @@
-<!-- Upper navigation for categories -->
-<!--  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <ul class="nav nav-pills nav-justified">
-            <li role="presentation">
-                <a ui-sref="#" ui-sref-active="active">All</a>
-            </li>
-            <li role="presentation">
-                <a ui-sref="#" ui-sref-active="active">Beverages</a>
-            </li>
-            <li role="presentation">
-                <a ui-sref="#" ui-sref-active="active">Dishes</a>
-            </li>
-        </ul>
-    </div>
-</div> -->
-<!-- End of navigation categories -->
-<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="navPillDivCol">
+<div class="container-fluid">
+  <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="navPillDivCol">
     <div class="visible-xs">
-        <div id="navPillDiv">     
-            <ul class="nav nav-pills nav-stacked text-capitalize" id="categoryNav">
-                <li role="presentation" data-toggle="tab"><a ng-click="shop.showCategory()">All</a></li>
-                <li role="presentation" data-toggle="tab" ng-repeat="category in shop.categories"><a ng-click="shop.showCategory(category)">{{category}}</a></li>
-            </ul>
-        </div>
+      <div id="navPillDiv">
+        <ul class="nav nav-pills nav-stacked text-capitalize" id="categoryNav">
+          <li role="presentation" data-toggle="tab"><a ng-click="shop.showCategory()">All</a></li>
+          <li role="presentation" data-toggle="tab" ng-repeat="category in shop.categories"><a ng-click="shop.showCategory(category)">{{category}}</a></li>
+        </ul>
+      </div>
     </div>
     <div class="content hidden-xs" id="pillAffix">
-        <h6 id="categoryHeading"><strong>Categories</strong></h6>
-        <div id="navPillDiv-Big">     
-            <ul class="nav nav-pills nav-stacked text-capitalize" id="categoryNav-Big">
-                <li role="presentation" data-toggle="tab"><a ng-click="shop.showCategory()">All</a></li>
-                <li role="presentation" data-toggle="tab" ng-repeat="category in shop.categories"><a ng-click="shop.showCategory(category)">{{category}}</a></li>
-            </ul>
-        </div>
+      <h5 id="categoryHeading"><strong>Categories</strong></h5>
+      <div id="navPillDiv-Big">
+        <ul class="nav nav-pills nav-stacked text-capitalize" id="categoryNav-Big">
+          <li role="presentation" data-toggle="tab"><a ng-click="shop.showCategory()">All</a></li>
+          <li role="presentation" data-toggle="tab" ng-repeat="category in shop.categories"><a ng-click="shop.showCategory(category)">{{category}}</a></li>
+        </ul>
+      </div>
     </div>
-</div>
-<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10" id="shopItems">
+  </div>
+  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10" id="shopItems">
     <div class="row" id="item">
-        <div infinite-scroll="shop.loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="busy" infinite-scroll-use-document-bottom="true">
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in shop.products">
-                <div class="panel panel-default product-preview-panel" id="productCard">
-                    <div class="panel-header">
-                        <div class="productQuantity" ng-show="product.quantity">
-                            <span  class="glyphicon glyphicon-shopping-cart">
-                        </span> {{product.quantity}} added
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="pull-right" id="productCost">
-                        <h5><strong>{{product.rate | currency : "&#8377; "}}</strong></h5>
-                        <div class="cost-holder">
-                            <!-- Button for when used logged in -->
-                            <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding" ng-show="shop.loggedIn">
-                                <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
-                                <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span> Buy
-                            </button>
-                            <!-- Button for when user logged out -->
-                            <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItemLoggedOut($index)" ng-disabled="product.adding" ng-hide="shop.loggedIn">
-                                <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
-                                <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span> Buy
-                            </button>
-                        </div>
-                    </div>
-                        <a ui-sref="main.product({id:product.id})">
-                    <label id="productNameLabel" class="text-capitalize">{{product.name}}</label>
-                    <br />
-                    </a> {{product.subtitle}}
-                    </div>
-                </div>
+      <div infinite-scroll="shop.loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="busy" infinite-scroll-use-document-bottom="true">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in shop.products">
+          <div class="panel panel-default product-preview-panel" id="productCard">
+            <div afkl-lazy-image="{{product.image.retina}} 480w, {{product.image.retina}} 768w, {{product.image.hires}}" class="panel-header afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="shop.imageOptions" ng-class="{'loading':!afklLazyImageLoaded, 'animated fadeOut':afklLazyImageLoaded}">
+              <span class="productQuantity" ng-show="product.quantity">
+              <span class="glyphicon glyphicon-shopping-cart"></span> {{product.quantity}} added
+              </span>
             </div>
-            <!-- Pager Start -->
+            <div class="panel-body">
+              <div class="pull-right productCost">
+                <h5 class="text-right cost">{{product.rate | currency : "&#8377; "}}</h5>
+                <div class="cost-holder">
+                  <!-- Button for when used logged in -->
+                  <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding" ng-show="shop.loggedIn">
+                    <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
+                    <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span>
+                  </button>
+                  <!-- Button for when user logged out -->
+                  <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItemLoggedOut($index)" ng-disabled="product.adding" ng-hide="shop.loggedIn">
+                    <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
+                    <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </div>
+              <h5 ui-sref="main.product({id:product.id})" class="text-capitalize name">{{product.name}}
+                <br><small>{{product.subtitle}}</small>
+            </h5>
+            </div>
+          </div>
         </div>
+        <!-- Pager Start -->
+      </div>
     </div>
+  </div>
 </div>

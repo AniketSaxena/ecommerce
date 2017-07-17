@@ -21,8 +21,7 @@ angular.module('chocoholicsApp')
                     console.log(response.data);
                     localStorageService.set('userId',response.data.customer.objectId);
                     localStorageService.set('token', response.data.token);
-                    console.log(localStorageService.get('token'));
-                    $http.defaults.headers.common['x-access-token'] = response.data.token;
+                    // $http.defaults.headers.common['x-access-token'] = response.data.token;
                     $http.defaults.headers.post['x-access-token'] = response.data.token;
                     $http.defaults.headers.put['x-access-token'] = response.data.token;
                     deferred.resolve(response);

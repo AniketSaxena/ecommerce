@@ -11,6 +11,7 @@ angular.module('chocoholicsApp')
     //List of variables
     var vm = this;
     var orderId;
+    this.checkLoggedIn = false;
     var totalQuantity;
     var currentYear = new Date().getFullYear(); // variable storing current year
     var currentDate = new Date().getDate(); // variable storing current date
@@ -25,12 +26,7 @@ angular.module('chocoholicsApp')
     this.popup1 = {};
     //for managing checkout button based on date and time
     this.scheduled = false;
-    //for checking if user is logged in
-    if (localStorageService.get('name')) {
-      vm.checkLoggedIn = true;
-    } else {
-      vm.checkLoggedIn = false;
-    }
+
     $scope.totalQuantity = 0;
     // for address
     this.addressExist = false;
@@ -47,34 +43,42 @@ angular.module('chocoholicsApp')
     this.mytime = new Date(currentYear, currentMonth, currentDate, currentHours, 0, 0, 0); // var to get current time for time picker
     this.ismeridian = true;
     this.selectedAddress = localStorageService.get('selectedAddress');
+
     //Checking if address alreadu selected or not
     if (localStorageService.get('selectedAddress')) {
       vm.addressSelected = true;
     } else {
       vm.addressSelected = false;
     }
+
     // Affixing checkout and address selection card
     $('#checkoutCard').affix({
       offset: {
         top: 10,
       }
     });
+
     //Setting width of card on affix to value before affix
     $(document).on('affix.bs.affix', '.content', function() {
       $(this).width($(this).width());
     });
+
     // for fixing affix's position
     $('#checkoutCard').affix('checkPosition');
+
     //Watcher for total amount
     $scope.$watch('totalQuantity', function(newValue) {
       vm.calculateTotal(vm.items);
       $scope.$emit('totalQuantity', newValue);
     });
+
+
     //function for change in time picker
     this.changed = function() {
       $log.log('Time changed to: ' + vm.mytime);
     };
-    //end of function for change in time picker
+
+
     // Function to load items
     this.loadItems = function() {
       console.log('show the loader');
@@ -173,7 +177,12 @@ angular.module('chocoholicsApp')
           vm.items[index].changing = false;
         });
     };
-    // Checkout function logic for instamojo
+
+
+    /**
+     * Function to generate IM payment link
+     * @return {void}
+     */
     this.checkout = function() {
       vm.loading = true;
       var data = {
@@ -193,12 +202,17 @@ angular.module('chocoholicsApp')
         })
         .catch(function(error) {
           vm.loading = false;
-          $scope.$emit('handleError', { error: error });
-          console.log(error);
+          $scope.$emit('handleError', { error: error.data });
+          console.error(error);
         });
     };
-    // Function to Calculate sum of all costs
+
+    /**
+     * Function to calculate totals
+     * @return {void} 
+     */
     this.sum = function() {
+      vm.loading = true;
       vm.addOnTaxes = [];
       // service to get add on taxes
       accountService.getTaxes()
@@ -215,7 +229,7 @@ angular.module('chocoholicsApp')
           });
           console.log('addOnTax:' + taxAmount + ' delivery:' + vm.order.deliveryCharge + ' tax:' + vm.order.tax);
           // now we add all the values
-          vm.order.total =
+          var total =
             parseFloat(vm.order.subtotal) +
             parseFloat(vm.order.tax) +
             parseFloat(taxAmount) +
@@ -228,27 +242,34 @@ angular.module('chocoholicsApp')
             discount: vm.order.discount,
             roundOff: 0,
             subtotal: vm.order.subtotal,
-            total: vm.order.total,
+            total: total,
             deliveryCharge: vm.order.deliveryCharge,
             addOnTax: vm.order.addOnTax,
             owner: ENV.owner
           };
           // service to update information
-          return orderService.updateCost(cost);
+          if (vm.order.total !== total) {
+            vm.order.total = total;
+            return orderService.updateCost(cost);
+          } else {
+            return true;
+          }
+
         })
-        .then(function(response) {
-          console.log(response.data.id);
+        .then(function() {
+          vm.loading = false;
         })
         .catch(function(error) {
           $scope.$emit('handleError', { error: error });
-          console.log(error);
+          console.error(error);
         });
     };
+
     //Function to calculate the total amount
     this.calculateTotal = function(items) {
       console.log('calculating total...');
       // initialize the below values as 0 for use
-      vm.order.total = vm.order.subtotal = vm.order.tax = vm.order.discount = vm.order.deliveryCharge = 0;
+      vm.order.subtotal = 0;
       // also initialize add on taxes as empty object
       vm.order.addOnTax = {};
       _.each(items, function(item) {
@@ -264,27 +285,26 @@ angular.module('chocoholicsApp')
         if (item.tax) {
           vm.order.tax += (item.quantity * item.tax);
         }
-        // if delivery charge exists calculate it
-        if (item.deliveryCharge) {
-          vm.order.deliveryCharge += (item.quantity * item.deliveryCharge);
-        }
         // now find sum of all
         vm.sum();
       });
     };
+
     //Function to get order details
     this.getOrderDetails = function(orderId) {
       // service to get order of the user
       orderService.getOrder(orderId)
         .then(function(response) {
           // response contains the order
-          console.log(response);
+          vm.order = response.data;
+          vm.loadItems();
         })
         .catch(function(error) {
           $scope.$emit('handleError', { error: error });
           console.log(error);
         });
     };
+
     // Function to get user's address
     this.getUserAddresses = function() {
       // Use service to get address from server
@@ -298,12 +318,17 @@ angular.module('chocoholicsApp')
           } else {
             // otherwise user has an address on server
             vm.addressExist = true;
+            if(vm.order.addressId){
+              var selectedIndex = _.findIndex(vm.addresses, {id: vm.order.addressId});
+              vm.selectAddress(selectedIndex);
+            }
           }
         }).catch(function(error) {
           $scope.$emit('handleError', { error: error });
           console.log(error);
         });
     };
+
     // Function to change address
     this.change = function() {
       // Since no address is selected now we set selected address as false
@@ -311,6 +336,7 @@ angular.module('chocoholicsApp')
       // Also remove address from local storage
       localStorageService.remove('selectedAddress');
     };
+
     // Function to select address
     this.selectAddress = function(index) {
       vm.selectedAddress = vm.addresses[index];
@@ -327,20 +353,31 @@ angular.module('chocoholicsApp')
       orderService.updateInfo(info)
         .then(function(response) {
           console.log(response);
+          return accountService.getPincodes();
+        })
+        .then(function(response) {
+          var pincodes = response.data;
+          console.log(pincodes);
+          var matchedPin = _.where(pincodes, { pincode: vm.selectedAddress.pincode });
+          vm.order.deliveryCharge = matchedPin[0].charges;
+          vm.sum();
         })
         .catch(function(error) {
           $scope.$emit('handleError', { error: error });
           console.log(error);
         });
     };
+
     //function for opening the date picker
     this.open1 = function() {
       vm.popup1.opened = true;
     };
+
     //Function to login a user
     this.login = function() {
       $scope.$emit('login');
     };
+
     // function to set time and date
     this.setTime = function() {
       // to show time and date is set
@@ -368,18 +405,36 @@ angular.module('chocoholicsApp')
           console.log(error);
         });
     };
+
     this.resetTime = function() {
       vm.scheduled = false;
     };
-    // Options for datepicker
-    this.options = {
-      minDate: new Date(),
-      showWeeks: false,
+
+    this.pre = function() {
+
+      // Options for datepicker
+      vm.options = {
+        minDate: new Date(),
+        showWeeks: false,
+      };
+
+
+      //Below functions are called on page loading
+      vm.getUserAddresses(); // tp get user addresses
+      if (orderId) {
+        vm.getOrderDetails(orderId); // to get details of the order
+      }
+
+      //for checking if user is logged in
+      if (localStorageService.get('name')) {
+        vm.checkLoggedIn = true;
+      } else {
+        vm.checkLoggedIn = false;
+      }
+
     };
-    //Below functions are called on page loading
-    this.getUserAddresses(); // tp get user addresses
-    if(orderId){
-      this.loadItems(); // to get order items
-      this.getOrderDetails(orderId); // to get details of the order
-    }
+
+    this.pre();
+
+
   });

@@ -14,38 +14,22 @@ angular.module('chocoholicsApp')
       'Karma'
     ];
     var vm = this;
-    this.product = {};
-    this.product.smallImage = "https://placeholdit.co//i/400x400?&text=Random";
-    this.product.mediumImage = "https://placeholdit.co//i/800x800?&text=Random";
-    this.product.largeImage = "https://placeholdit.co//i/1200x1200?&text=Random";
-    this.id = $stateParams.id;
-    this.checker = false;
-    $scope.totalQuantity = 0;
-    // for stating page from top
-    $(document).ready(function() {
-      $(this).scrollTop(0);
-    });
-    // to check login
-    if (localStorageService.get('name')) {
-      vm.checker = true;
-    }
-    // to check and set order id
-    if (localStorageService.get('id')) {
-      this.orderId = localStorageService.get('id');
-    }
+
     // for cart counter
     $scope.$watch('totalQuantity', function(newValue) {
       $scope.$emit('totalQuantity', newValue);
     });
+
     this.loadProduct = function(id) {
       productService.getProduct(id)
         .then(function(response) {
           vm.product = response.data;
-          console.log(vm.product);
-          //  FOR IMAGES
-          //vm.loadImages(vm.product.images);
+          if (vm.product.images && vm.product.images.length) {
+            vm.loadImages(vm.product.images);
+          }
         });
     };
+
     // function to get order items
     this.getItems = function(orderId) {
       orderService.getOrderItems(orderId)
@@ -69,16 +53,15 @@ angular.module('chocoholicsApp')
           console.log(vm.product.quantity);
         }).catch(function(error) {
           $scope.$emit('handleError', { error: error });
-
-          console.log(error);
+          console.error(error);
         });
     };
+
     // FOR IMAGES
     this.loadImages = function(images) {
       angular.forEach(images, function(image) {
-        console.log(image.id);
         productService
-          .getImages(image.id)
+          .getImages(image.objectId)
           .then(function(image) {
             console.log(image);
             vm.images.push(image);
@@ -87,6 +70,7 @@ angular.module('chocoholicsApp')
           });
       });
     };
+
     this.addItem = function() {
       // on clicking add item
       vm.product.adding = true;
@@ -138,6 +122,7 @@ angular.module('chocoholicsApp')
           });
       }
     };
+
     this.addItemLoggedOut = function() {
       // on clicking add item
       vm.product.adding = true;
@@ -217,6 +202,42 @@ angular.module('chocoholicsApp')
           });
       }
     };
-    this.loadProduct(this.id);
-    this.getItems(this.orderId);
+
+    this.pre = function() {
+
+      vm.imageOptions = {
+        nolazy: true,
+        background: true,
+        imgAttrs: [{
+          class: 'img-responsive animated fadeIn'
+        }]
+      };
+
+      vm.product = {};
+      vm.images = [];
+      vm.id = $stateParams.id;
+      vm.checker = false;
+      $scope.totalQuantity = 0;
+      // for stating page from top
+      $(document).ready(function() {
+        $(vm).scrollTop(0);
+      });
+      // to check login
+      if (localStorageService.get('name')) {
+        vm.checker = true;
+      }
+      // to check and set order id
+      if (localStorageService.get('id')) {
+        vm.orderId = localStorageService.get('id');
+      }
+
+      vm.loadProduct($stateParams.id);
+      if (vm.orderId) {
+        vm.getItems(vm.orderId);
+      }
+    };
+
+    this.pre();
+
+
   });

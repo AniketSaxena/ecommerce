@@ -41,6 +41,7 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/less/dist/less.js',
       'bower_components/angular-aside/dist/js/angular-aside.js',
+      'bower_components/ng-directive-lazy-image/dist/lazy-image.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

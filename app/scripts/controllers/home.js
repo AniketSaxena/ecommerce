@@ -10,16 +10,29 @@ angular.module('chocoholicsApp')
   .controller('HomeCtrl', function($scope, productService) {
     var vm = this;
     this.products = [];
-    // To show top of page when page loads
-    $(document).ready(function() {
-      $(this).scrollTop(0);
-    });
+
+
+
+    this.loadImages = function(images, index) {
+      productService.getImages(images[0].objectId).then(function(image) {
+          vm.products[index].image = image;
+          console.log(vm.products[index]);
+        })
+        .catch(function(error) {
+          console.error(error);
+          $scope.$emit('handleError', { error: error });
+        });
+    };
+
+
     this.getTopProducts = function() {
       productService.getProducts(0, 4, 'updatedAt', null)
         .then(function(response) {
-          // console.log(response.data);
-          angular.forEach(response.data, function(element) {
+          angular.forEach(response.data, function(element, index) {
             vm.products.push(element);
+            if (element.images && element.images.length) {
+              vm.loadImages(element.images, index);
+            }
           });
         })
         .catch(function(error) {
@@ -28,15 +41,26 @@ angular.module('chocoholicsApp')
           console.log(error);
         });
     };
-    // FOR IMAGES OF TOP 3 PRODUCTS
-    // this.loadImages = function() {
-    //     productService.getImages(imageId)
-    //         .then(function(image) {
-    //             console.log(image);
-    //         }).catch(function(error) {
-    //             console.log(error);
-    //         });
-    // };
-    //this.loadImages();
-    this.getTopProducts();
+
+
+    this.pre = function() {
+
+      // To show top of page when page loads
+      $(document).ready(function() {
+        $(this).scrollTop(0);
+      });
+      
+      vm.imageOptions = {
+        nolazy: true,
+        background: true,
+        imgAttrs: [{
+          class: 'img-responsive animated fadeIn'
+        }]
+      };
+
+      vm.getTopProducts();
+    };
+
+    this.pre();
+
   });

@@ -1,64 +1,58 @@
 <!-- jumbotron starts here -->
-<div class="jumbotron">
-    <div class="container">
-        <h1>Hello ,world!</h1>
-        <p>Contents ... </p>
-        <!-- button for entering shop -->
-        <p>
-            <a class="btn btn-primary" ui-sref="main.shop">Shop now</a>
-        </p>
-    </div>
+<div class="jumbotron hero-image">
+  <div class="container text-left">
+    <h1>The World of Chocohollics</h1>
+    <p>If you can't break your addiction, eat it!</p>
+    <!-- button for entering shop -->
+    <p>
+      <a class="btn btn-primary" ui-sref="main.shop">Shop now</a>
+    </p>
+  </div>
 </div>
 <!-- jumbotron ends here -->
 <!-- Section for bestselling products -->
-<div class="row">
+<div class="container-fluid">
+  <div class="row">
     <div class="col-xs-12  col-md-10 col-md-offset-1">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in home.products">
-                <!-- start of panel -->
-                <div class="panel panel-default product-preview-panel" id="productCard">
-                    <!-- start of panel header -->
-                    <div class="panel-header">
-                    </div>
-                    <!-- end of panel header -->
-                    <!-- start of panel body -->
-                    <div class="panel-body" id="homePanelBody">
-                        <!-- contains product details -->
-                        <div class="pull-right" id="productCost">
-                            <p> {{product.rate | currency : "&#8377;"}}</p>
-                        <div class="cost-holder pull-right" name="cost-holder">
-                            <!-- Button to show top product details -->
-                            <button type="button" class="btn btn-default btn-sm" title="Buy" ui-sref="main.product({id: product.id})">
-                                <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span> Buy
-                            </button>
-                        </div>
-                        </div>
-                        <a ui-sref="main.product({id:product.id})" id="productNameLabel" class="text-capitalize">
-                            {{product.name}}
-                        </a>
-                        <p id="productNameSubtitle">{{product.subtitle}}</p>
-                        <!-- <div>
-                            <p>{{quantityAmount}}</p>
-                        </div> -->
-                    </div>
-                    <!-- end of panel body -->
-                </div>
-                <!-- end of panel -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in home.products">
+          <!-- start of panel -->
+          <div class="panel panel-default product-preview-panel" id="productCard">
+            <!-- start of panel header -->
+            <div afkl-lazy-image="{{product.image.retina}} 480w, {{product.image.retina}} 768w, {{product.image.hires}}" class="panel-header afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="home.imageOptions" ng-class="{'loading':!afklLazyImageLoaded, 'animated fadeOut':afklLazyImageLoaded}">
             </div>
+            <!-- end of panel header -->
+            <!-- start of panel body -->
+            <div class="panel-body">
+              <div class="cost-holder pull-right">
+                <!-- Button for when used logged in -->
+                <button type="button" class="btn btn-default btn-sm" title="Buy" ui-sref="main.product({id:product.id})">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+              </div>
+              <h4 ui-sref="main.product({id:product.id})" class="text-capitalize">
+                {{product.name}}
+            </h4>
+              <h5>{{product.rate | currency : "&#8377; "}}</h5>
+            </div>
+            <!-- end of panel body -->
+          </div>
+          <!-- end of panel -->
         </div>
+      </div>
     </div>
-</div>
-<!-- Best Selling products ends here -->
-<!-- Start of about us section -->
-<div class="row">
+  </div>
+  <!-- Best Selling products ends here -->
+  <!-- Start of about us section -->
+  <div class="row">
     <div class="col-xs-12 col-sm-5 col-sm-offset-6">
-        <div class="about">
-            <h3>About us</h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et fermentum lorem, sed pellentesque odio. Integer congue pharetra ultrices. Etiam et nibh semper, maximus urna a, tempor quam. Donec id ultricies leo, non maximus velit. Curabitur lobortis eros a leo faucibus, sit amet bibendum quam tincidunt. Vestibulum sagittis volutpat eros vel malesuada. Morbi eget nunc urna. Suspendisse sollicitudin commodo enim, eget porta nisl sagittis a. Proin laoreet purus sit amet leo ullamcorper porttitor. Sed sagittis tortor vel nisl convallis, vitae tempor massa hendrerit. Sed viverra accumsan orci vel congue. Nullam dapibus massa at tempus luctus. Suspendisse sed dui nulla. Sed at vulputate nibh, nec interdum leo. Integer in tincidunt leo.
-            </p>
-        </div>
+      <div class="about">
+        <h3>About us</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et fermentum lorem, sed pellentesque odio. Integer congue pharetra ultrices. Etiam et nibh semper, maximus urna a, tempor quam. Donec id ultricies leo, non maximus velit. Curabitur lobortis eros a leo faucibus, sit amet bibendum quam tincidunt. Vestibulum sagittis volutpat eros vel malesuada. Morbi eget nunc urna. Suspendisse sollicitudin commodo enim, eget porta nisl sagittis a. Proin laoreet purus sit amet leo ullamcorper porttitor. Sed sagittis tortor vel nisl convallis, vitae tempor massa hendrerit. Sed viverra accumsan orci vel congue. Nullam dapibus massa at tempus luctus. Suspendisse sed dui nulla. Sed at vulputate nibh, nec interdum leo. Integer in tincidunt leo.
+        </p>
+      </div>
     </div>
-</div>
-<!-- End of about us section -->
+  </div>
+  <!-- End of about us section -->
 </div>

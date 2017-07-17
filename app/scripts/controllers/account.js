@@ -7,21 +7,11 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-  .controller('AccountCtrl', function(ENV, $state, $scope, localStorageService, orderService, customerService) {
-    //Variable Definition
-    $scope.newAddress = {};
-    $scope.orders = [];
-    $scope.customerId = localStorageService.get('userId');
-    $scope.name = localStorageService.get('name');
-    $scope.phone = localStorageService.get('phone');
-    $scope.email = localStorageService.get('email');
-    $scope.checker = false;
-    $scope.isInitiated = false;
-    // To show top of page when page loads
-    $(document).ready(function() {
-      $(this).scrollTop(0);
-    });
-    //Function to get user address
+  .controller('AccountCtrl', function(ENV, $state, $scope, localStorageService, orderService, customerService, $location) {
+    /**
+     * Function to get the list of addresses for this user
+     * @return {void} 
+     */
     $scope.getUserAddresses = function() {
       customerService.getAddresses($scope.customerId)
         .then(function(response) {
@@ -46,24 +36,53 @@ angular.module('chocoholicsApp')
           //             $scope.$emit('error', error.message);
         });
     };
-    //Function to save address
+
+    /**
+     * Function to save the address to user profile
+     * @return {[type]} [description]
+     */
     $scope.saveAddress = function() {
-      console.log($scope.newAddress);
-      console.log($scope.customerId);
       //service to add address to server
-      customerService
-        .addAddress($scope.newAddress, $scope.customerId)
-        .then(function(address) {
-          console.log(address);
-          // $state.reload();
-          $scope.getUserAddresses();
-        }).catch(function(error) {
-          $scope.$emit('handleError', { error: error });
-          console.log(error);
-          //             $scope.$emit('error', error.message);
-        });
+      if (!$scope.newAddress.id) {
+        // Save a new address
+        customerService
+          .addAddress($scope.newAddress, $scope.customerId)
+          .then(function(address) {
+            console.log(address);
+            $scope.$emit('handleError', { error: { message: 'Address added!' }, title: 'Information Updated' });
+            // $state.reload();
+            if ($location.search() && $location.search().back) {
+              $state.go('main.cart');
+            } else {
+              $scope.getUserAddresses();
+            }
+          }).catch(function(error) {
+            $scope.$emit('handleError', { error: error });
+            console.error(error);
+          });
+      } else {
+        customerService
+          .updateAddress($scope.newAddress.id, $scope.newAddress)
+          .then(function(address) {
+            console.log(address);
+            // $state.reload();
+            $scope.$emit('handleError', { error: { message: 'Address updated!' }, title: 'Information Updated' });
+            $scope.getUserAddresses();
+          }).catch(function(error) {
+            $scope.$emit('handleError', { error: error });
+            console.error(error);
+          });
+      }
+
     };
-    //Function to get Order History
+
+    /**
+     * Function to get the order history
+     * @param  {Integer} skip  Page number
+     * @param  {Integer} limit Page size
+     * @param  {String} user  ID of the user
+     * @return {void}       
+     */
     $scope.getOrderHistory = function(skip, limit, user) {
       //service to get orders of the user from the server
       orderService.getOrders(skip, limit, user, 'createdAt')
@@ -81,6 +100,13 @@ angular.module('chocoholicsApp')
           console.log(error);
         });
     };
+
+    /**
+     * Function to remove an existing address
+     * @param  {Object} address Address selected
+     * @param  {Integer} index   Index in the list of addresses
+     * @return {void}         
+     */
     $scope.removeAddress = function(address, index) {
       customerService.removeAddress(address.id)
         .then(function(response) {
@@ -91,24 +117,76 @@ angular.module('chocoholicsApp')
           console.log(error);
         });
     };
-    //Function to add more addresses
+
+
+    $scope.editAddress = function(address) {
+      $scope.checker = false;
+      $scope.newAddress = address;
+    };
+
+    /**
+     * [addMore description]
+     */
     $scope.addMore = function() {
       $scope.checker = false;
     };
+
+    /**
+     * [goBack description]
+     * @return {[type]} [description]
+     */
     $scope.goBack = function() {
       $scope.checker = true;
     };
-    // $scope.changePin = function(){
-    //     customerService.changePin($scope.newAddress.pincode)
-    //     .then(function(response){
-    //         console.log(response);
-    //     })
-    //     .catch(function(error){
-    //         console.log(error);
-    //     });
-    // };
-    // these functions to be called on page load
-    $scope.getOrderHistory(0, 10, $scope.customerId);
-    $scope.getUserAddresses();
-    console.log(this.checker);
+
+    /**
+     * Function to get city and state based on pincode
+     * @return {void} 
+     */
+    $scope.changePin = function() {
+      if ($scope.newAddress.pincode && $scope.newAddress.pincode.toString().length === 6) {
+        customerService.changePin($scope.newAddress.pincode)
+          .then(function(response) {
+            console.log(response);
+            var pinData = response.data;
+            $scope.newAddress.city = pinData.records[0].regionname;
+            $scope.newAddress.state = pinData.records[0].statename;
+          })
+          .catch(function(error) {
+            console.error(error);
+            $scope.$emit('handleError', { error: error });
+          });
+      }
+    };
+
+    $scope.pre = function() {
+
+      // these functions to be called on page load
+
+      //Variable Definition
+      $scope.newAddress = {};
+      $scope.orders = [];
+      $scope.customerId = localStorageService.get('userId');
+      $scope.name = localStorageService.get('name');
+      $scope.phone = localStorageService.get('phone');
+      $scope.email = localStorageService.get('email');
+      $scope.checker = false;
+      $scope.isInitiated = false;
+      // To show top of page when page loads
+      $(document).ready(function() {
+        $(this).scrollTop(0);
+      });
+
+      if ($scope.customerId) {
+        $scope.getOrderHistory(0, 10, $scope.customerId);
+        $scope.getUserAddresses();
+      } else {
+        $scope.$emit('login');
+        $state.go('main.home');
+      }
+
+    };
+
+    $scope.pre();
+
   });

@@ -7,19 +7,21 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-  .controller('RegistermodalCtrl', function($scope, $state, $uibModalInstance, phone, customerService) {
+  .controller('RegistermodalCtrl', function($scope, $state, $uibModalInstance, phone, customerService, code, localStorageService) {
     $scope.user = {};
     if (phone) {
       $scope.user.phone = phone;
     }
     $scope.register = function() {
-      customerService.registerUser($scope.user)
+      localStorageService.remove('selectedAddress');
+      customerService.registerUser($scope.user, code)
         .then(function() {
           $uibModalInstance.close();
           $state.reload();
-        }).catch(function(error) {
+        })
+        .catch(function(error) {
           $scope.$emit('handleError', { error: error });
-          console.log(error);
+          console.error(error);
           $uibModalInstance.dismiss();
         });
     };

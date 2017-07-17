@@ -1,120 +1,122 @@
-Top Navigation Contents start here -->
 <!-- start of header -->
 <div class="header">
-    <!-- navbar starts here  -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="navHeader">
-        <div class="container">
-            <!-- navbar header starts here -->
-            <div class="navbar-header">
-                <a class="navbar-brand" ui-sref="main.home">chocohollics</a>
-                <ul class="nav navbar-nav hidden-xs">
-                    <li><a ui-sref="main.home">Home</a></li>
-                    <li><a ui-sref="main.shop">Shop</a></li>
-                </ul>
-            </div>
-
-                <!-- navbar button  -->
-                <button id="menu-button" type="button" ng-click="main.openAside()" class="visible-xs pull-left navbar-btn btn-default">
-                    <!-- data-toggle="collapse" data-target=".navbar-ex1-collapse" -->
-                    <span class="sr-only">Menu</span>
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-
-                </button>
-            <!-- On collapse after clicking button -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <!-- navbar contents -->
-                <!-- navbar right side contents -->
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <button type="button" class="btn btn-default navbar-btn btn-sm hidden-xs" id="mainCart">
-                            <a ui-sref="main.cart">
+  <!-- navbar starts here  -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="navHeader">
+    <div class="container-fluid">
+      <!-- navbar header starts here -->
+      <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="main.home">chocohollics</a>
+        <ul class="nav navbar-nav hidden-xs">
+          <li><a ui-sref="main.home">Home</a></li>
+          <li><a ui-sref="main.shop">Shop</a></li>
+        </ul>
+      </div>
+      <!-- navbar button  -->
+      <button id="menu-button" type="button" ng-click="main.openAside()" class="visible-xs pull-left navbar-btn btn-default">
+        <!-- data-toggle="collapse" data-target=".navbar-ex1-collapse" -->
+        <span class="sr-only">Menu</span>
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+      <!-- On collapse after clicking button -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <!-- navbar contents -->
+        <!-- navbar right side contents -->
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <button type="button" class="btn btn-default navbar-btn btn-sm hidden-xs" id="mainCart">
+              <a ui-sref="main.cart">
                                 <span class="glyphicon glyphicon-shopping-cart">
                             </span> Cart
-                                <span ng-show="main.cartChecker">
-                                ({{main.total}})
-                            </span>
+                                <span class="badge" ng-show="main.cartChecker">{{main.total}}</span>
                             </a>
-                        </button>
-                    </li>
-                    <li>
-                        <button id="loginButton" type="button" class="btn btn-primary navbar-btn btn-sm" id="login-button" ng-click="main.open('sm')" ng-hide="main.isLoggedIn">Login</button>
-                        <!-- Single button -->
-                        <div class="btn-group navbar-btn" uib-dropdown is-open="status.isopen">
-                            <button id="single-button" type="button" class="btn btn-primary btn-sm" uib-dropdown-toggle ng-disabled="disabled" ng-show="main.isLoggedIn">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{main.customerName}} <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                <li role="menuitem"><a>{{main.customerName}}</a></li>
-                                <li role="menuitem"><a>{{main.customerEmail}}</a></li>
-                                <li role="menuitem"><a ui-sref="main.account">Account Settings</a></li>
-                                <li class="divider"></li>
-                                <li role="menuitem"><a ng-click="main.logout()">Log Out</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+            </button>
+          </li>
+          <li>
+            <button id="loginButton" type="button" class="btn btn-primary navbar-btn btn-sm" id="login-button" ng-click="main.open('sm')" ng-hide="main.isLoggedIn">Login</button>
+            <!-- Single button -->
+            <div class="btn-group navbar-btn" uib-dropdown is-open="status.isopen">
+              <button id="single-button" type="button" class="btn btn-primary btn-sm" uib-dropdown-toggle ng-disabled="disabled" ng-show="main.isLoggedIn">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{main.customerName}} <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                <li role="menuitem"><a>{{main.customerName}}<br><small>{{main.customerEmail}}</small></a></li>
+                <li role="menuitem"><a ui-sref="main.account">Account Settings</a></li>
+                <li class="divider"></li>
+                <li role="menuitem"><a ng-click="main.logout()">Log Out</a></li>
+              </ul>
             </div>
-        </div>
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
 </div>
 <!-- end of header -->
 <!-- Top navigation contents end here -->
 <!-- Modal Definition -->
 <!-- End of modal -->
 <!-- start of container for the content -->
-<div class="container-fluid content-wrapper">
-    <ui-view></ui-view>
+<div class="content-wrapper">
+  <ui-view></ui-view>
 </div>
 <!-- end of container -->
 <!-- Start of footer -->
 <footer>
-    <!-- start of container -->
-    <div class="container">
-            <ul class="list-inline pull-right">
-            <li>
-                <span>
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
-                </span>
-            </li>
-            <li>
-                <span>
-                    <i class="fa fa-google" aria-hidden="true"></i>
-                </span>
-            </li>
+  <!-- start of container -->
+  <div class="container">
+    <ul class="list-inline icon-list pull-right hidden-xs">
+      <li>
+        <i class="fa fa-facebook-official" aria-hidden="true"></i>
+      </li>
+      <li>
+        <i class="fa fa-twitter" aria-hidden="true"></i>
+      </li>
+      <li>
+        <i class="fa fa-instagram" aria-hidden="true"></i>
+      </li>
+      <li>
+        <i class="fa fa-google" aria-hidden="true"></i>
+      </li>
+    </ul>
+    <ul class="list-inline hidden-xs">
+      <li>
+        <a><strong>Chocohollics</strong></a>
+      </li>
+      <li>
+        <a href="">Terms &amp; Conditions</a>
+      </li>
+      <li>
+        <a href="">Privacy Policy</a>
+      </li>
+    </ul>
+    <ul class="list-unstyled text-center visible-xs">
+      <li>
+        <a href="/"><strong>Chocohollics</strong></a>
+      </li>
+      <li>
+        <a href="">Terms &amp; Conditions</a>
+      </li>
+      <li>
+        <a href="">Privacy Policy</a>
+      </li>
+      <li>
+        <ul class="list-inline icon-list">
+          <li>
+            <i class="fa fa-facebook-official" aria-hidden="true"></i>
+          </li>
+          <li>
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+          </li>
+          <li>
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+          </li>
+          <li>
+            <i class="fa fa-google" aria-hidden="true"></i>
+          </li>
         </ul>
-        <ul class="list-inline hidden-xs">
-            <li>
-                <a><strong>Chocohollics</strong></a>
-            </li>
-            <li>
-                <a href="">Terms & Conditions</a>
-            </li>
-            <li>
-                <a href="">Privacy Policy</a>
-            </li>
-        </ul>
-        <ul class="list visible-xs" style="list-style-type: none">
-            <div>
-                <a><strong>Chocohollics</strong></a>
-            </div>
-            <li>
-                <a href="">Terms & Conditions</a>
-            </li>
-            <li>
-                <a href="">Privacy Policy</a>
-            </li>
-        </ul>
-    </div>
-    <!-- end of container -->
+      </li>
+    </ul>
+  </div>
+  <!-- end of container -->
 </footer>
 <!-- End of footer

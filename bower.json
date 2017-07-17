@@ -21,7 +21,8 @@
     "parse": "^1.9.2",
     "moment": "^2.18.1",
     "less": "^2.7.2",
-    "angular-aside": "^1.4.0"
+    "angular-aside": "^1.4.0",
+    "ng-directive-lazy-image": "afkl-lazy-image#^0.3.4"
   },
   "devDependencies": {
     "angular-mocks": "^1.6.0"
@@ -38,6 +39,7 @@
     }
   },
   "resolutions": {
-    "angular": "1.6.4"
+    "angular": "^1.6.0",
+    "angular-sanitize": "^1.6.0"
   }
 }

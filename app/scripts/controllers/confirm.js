@@ -7,8 +7,10 @@ angular.module('chocoholicsApp')
     this.getTotalAmount = function() {
       orderService.getOrder(orderId)
         .then(function(response) {
-          console.log(response);
-          vm.total = response.data.total;
+          vm.order = response.data;
+          if (vm.order.paymentId && vm.order.paymentId.length) {
+            localStorageService.remove('id');
+          }
         })
         .catch(function(error) {
           $scope.$emit('handleError', { error: error });

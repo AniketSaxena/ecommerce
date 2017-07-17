@@ -28,6 +28,8 @@ angular.module('chocoholicsApp')
                 if(category){
                     queryParams.category = category;
                 }
+
+                queryParams.activeOnly = true;
                 var queryData = commonService.serialize(queryParams);
                 console.log(queryData);
                 if (queryData) {
