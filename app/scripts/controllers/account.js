@@ -42,12 +42,15 @@ angular.module('chocoholicsApp')
      * @return {[type]} [description]
      */
     $scope.saveAddress = function() {
+      $scope.loading = true;
       //service to add address to server
       if (!$scope.newAddress.id) {
         // Save a new address
         customerService
           .addAddress($scope.newAddress, $scope.customerId)
           .then(function(address) {
+            $scope.loading = false;
+
             console.log(address);
             $scope.$emit('handleError', { error: { message: 'Address added!' }, title: 'Information Updated' });
             // $state.reload();
@@ -57,20 +60,26 @@ angular.module('chocoholicsApp')
               $scope.getUserAddresses();
             }
           }).catch(function(error) {
-            $scope.$emit('handleError', { error: error });
+            $scope.loading = false;
+
+            $scope.$emit('handleError', { error: error.data });
             console.error(error);
           });
       } else {
         customerService
           .updateAddress($scope.newAddress.id, $scope.newAddress)
           .then(function(address) {
+            $scope.loading = false;
+
             console.log(address);
             // $state.reload();
             $scope.$emit('handleError', { error: { message: 'Address updated!' }, title: 'Information Updated' });
             $scope.getUserAddresses();
           }).catch(function(error) {
-            $scope.$emit('handleError', { error: error });
+            $scope.$emit('handleError', { error: error.data });
             console.error(error);
+            $scope.loading = false;
+
           });
       }
 
@@ -188,5 +197,9 @@ angular.module('chocoholicsApp')
     };
 
     $scope.pre();
+
+    $scope.changePassword = function() {
+      $scope.$emit('reset-password', { phone: $scope.phone, email: $scope.email, customerId: $scope.customerId });
+    };
 
   });

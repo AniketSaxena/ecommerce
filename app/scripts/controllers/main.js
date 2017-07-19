@@ -28,6 +28,14 @@ angular.module('chocoholicsApp')
       vm.open();
     });
 
+    $scope.$on('reset-password', function(event, args) {
+      if (args) {
+        vm.openReset(args.phone, args.email, args.customerId);
+      } else {
+        vm.openReset();
+      }
+    });
+
     //Listening for log out
     $scope.$on('logout', function() {
       vm.logout();
@@ -67,8 +75,11 @@ angular.module('chocoholicsApp')
         size: 'sm',
         controller: 'LoginmodalCtrl',
         controllerAs: 'login'
-      }).result.then(function() {
+      }).result.then(function(message) {
         vm.checkLoggedIn();
+        if (message === 'open-reset') {
+          $scope.$emit('reset-password');
+        }
       }).catch(function(error) {
         if (error) {
           $scope.$emit('handleError', { error: error });
@@ -81,6 +92,8 @@ angular.module('chocoholicsApp')
      * @return {void} 
      */
     this.logout = function() {
+      vm.cartChecker = false;
+      vm.total = 0;
       //This function removes the following items from local storage
       localStorageService.remove('name');
       localStorageService.remove('phone');
@@ -150,6 +163,39 @@ angular.module('chocoholicsApp')
             return title;
           }
         }
+      });
+    };
+
+    /**
+     * Function to handle the error, globally
+     * @param  {Object} error Object containing error message and code
+     * @return {void}       
+     */
+    this.openReset = function(phone, email, customerId) {
+      $uibModal.open({
+        templateUrl: '/views/changemodal.html',
+        size: 'sm',
+        controller: 'ChangeModalCtrl',
+        resolve: {
+          phone: function() {
+            return phone;
+          },
+          email: function() {
+            return email;
+          },
+          customerId: function() {
+            return customerId;
+          }
+        }
+      }).result.then(function(result) {
+        if (result === 'logout') {
+          $scope.$emit('logout');
+        } else {
+          $state.go('main.home');
+        }
+      })
+      .catch(function(error) {
+        console.error(error);
       });
     };
 

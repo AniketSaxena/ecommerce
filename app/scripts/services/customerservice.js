@@ -95,6 +95,10 @@ angular.module('chocoholicsApp')
         return deferred.promise;
       },
 
+      updateProfile: function(id, password) {
+        return $http.put(ENV.serverURL + route + '/updateProfile/' + ENV.vendorKey + '/' + id, { password: password, brand: ENV.brand }, { headers: { 'x-access-token': localStorageService.get('token') } });
+      },
+
       addAddress: function(address, customerId) {
         return $http.post(ENV.serverURL + addressRoute + '/add/' + ENV.vendorKey, {
           newAddress: address,
@@ -117,9 +121,12 @@ angular.module('chocoholicsApp')
       },
       changePin: function(pincode) {
         if (pincode && pincode.toString().length === 6) {
-          var base = '//api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?format=json&api-key=' + ENV.myGovAPI + '&filters[pincode]=' + pincode;
+          var base = ENV.myGovURL + ENV.myGovAPI + '&filters[pincode]=' + pincode;
           return $http.get(base, { cache: false, 'cache-control': 'none', 'Access-Control-Allow-Origin': '*' });
         }
+      },
+      getEmail: function(phone) {
+        return $http.get(ENV.serverURL + route + '/getdata/' + ENV.brand + '?phone=' + phone);
       }
     };
   });

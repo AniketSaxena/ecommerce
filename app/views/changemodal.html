@@ -1,0 +1,35 @@
+<div class="modal-fade" tabindex="-1" role="dialog" id="modal-register">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-header">
+      <button type="button" class="btn btn-default pull-right btn-xs" ng-click="$dismiss()">
+        <i class="fa fa-times"></i>
+      </button>
+      <h3 class="modal-title">Change Password?</h3>
+    </div>
+    <div class="modal-body">
+      <p ng-hide="phone && !error">
+        Enter your registered phone number, if we have it on records, you will get a mail with the reset instructions
+      </p>
+      <p ng-show="phone && email">
+        We will email a reset link to <strong>{{email}}</strong>. You can follow the instructions there to reset your password. Click the button below to continue. If you are already logged in, we will also log you out.
+      </p>
+      <form name="myForm" ng-hide="phone && !error">
+        <input class="form-control" type="tel" placeholder="Enter your phone number" ng-model="phone" name="myPhone" minlength="10" maxlength="10" required>
+        <div ng-messages="myForm.myPhone.$error" role="alert" ng-if="myForm.myPhone.$dirty">
+          <div ng-message="required" class="text-danger">This field is required.</div>
+          <div ng-message="minlength" class="text-danger">This field must have 10 digits</div>
+          <div ng-message="maxlength" class="text-danger">This field must have 10 digits</div>
+        </div>
+      </form>
+      <div class="alert alert-danger" ng-show="error">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Error!</strong> {{error}}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary btn-block" ng-click="changePassword()" ng-disabled="!(phone && email && customerId) || loading">
+        <i class="fa fa-circle-o-notch fa-spin" ng-show="loading"></i> {{loading ? 'Loading...' :'Confirm Reset'}}
+      </button>
+    </div>
+  </div>
+</div>

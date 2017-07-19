@@ -183,7 +183,8 @@ module.exports = function(grunt) {
             webhookURL: 'https://requestb.in/1nu8aqv1',
             successURL: 'http://localhost:9001/#/confirm',
             build: 'development',
-            vendorId: '8Wm0DoBfqA'
+            vendorId: '8Wm0DoBfqA',
+            myGovURL: '//api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?format=json&api-key='
           }
         }
       },
@@ -205,7 +206,8 @@ module.exports = function(grunt) {
             webhookURL: 'https://requestb.in/1nu8aqv1',
             successURL: 'http://localhost:9001/#/confirm',
             build: 'production',
-            vendorId: '8Wm0DoBfqA'
+            vendorId: '8Wm0DoBfqA',
+            myGovURL: '//api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?format=json&api-key='
           }
         }
       }

@@ -33,7 +33,10 @@
             
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary pull-right" ng-click="register()" ng-disabled="myForm.$invalid">Register</button>
+            <button type="button" class="btn btn-primary pull-right" ng-click="register()" ng-disabled="myForm.$invalid || loading">
+                <i class="fa fa-circle-o-notch fa-loading" ng-show="loading"></i>
+                {{loading ? 'Loading...': 'Register'}}
+            </button>
             <button type="button" class="btn btn-default pull-left" ng-click="$dismiss()">Cancel</button>
         </div>
         <div>

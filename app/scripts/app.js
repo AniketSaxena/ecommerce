@@ -62,8 +62,8 @@ angular
             controllerAs: 'account'
         };
         var passwordChangeState = {
-            name: 'passwordChange',
-            url: '/passwordChange',
+            name: 'main.passwordChange',
+            url: '/passwordChange?pass&id',
             templateUrl: '/views/passwordChange.html',
             controller: 'PasswordchangeCtrl',
             controllerAs: 'passwordChange'

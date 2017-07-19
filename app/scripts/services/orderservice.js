@@ -18,7 +18,7 @@ angular.module('chocoholicsApp')
         var body = {
           mode: ENV.mode,
           style: ENV.style,
-          type: ENV.type,
+          type: 'food & beverage',
           owner: ENV.owner
         };
         console.log('creating online order');
