@@ -21,11 +21,10 @@ module.exports = function(config) {
     files: [
       // bower:js
       'bower_components/jquery/dist/jquery.js',
-      'bower_components/angular/angular.js',
       'bower_components/bootstrap/dist/js/bootstrap.js',
+      'bower_components/angular/angular.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-aria/angular-aria.js',
-      'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-route/angular-route.js',
@@ -39,7 +38,6 @@ module.exports = function(config) {
       'bower_components/underscore/underscore.js',
       'bower_components/parse/parse.js',
       'bower_components/moment/moment.js',
-      'bower_components/less/dist/less.js',
       'bower_components/angular-aside/dist/js/angular-aside.js',
       'bower_components/ng-directive-lazy-image/dist/lazy-image.js',
       'bower_components/angular-mocks/angular-mocks.js',

@@ -105,7 +105,7 @@ angular.module('chocoholicsApp')
 
     $scope.register = function(phone, code) {
       $uibModal.open({
-        templateUrl: '/views/registermodal.html',
+        templateUrl: 'views/registermodal.html',
         size: 'sm',
         controller: 'RegistermodalCtrl',
         ControllerAs: 'register',

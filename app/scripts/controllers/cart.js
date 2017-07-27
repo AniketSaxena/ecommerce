@@ -190,7 +190,7 @@ angular.module('chocoholicsApp')
         name: vm.name,
         email: vm.email,
         phone: vm.phone,
-        successUrl: 'https://www.google.com/',
+        successUrl: ENV.successURL,
         webhookUrl: ENV.webhookURL
       };
       console.log(data);

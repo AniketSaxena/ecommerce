@@ -2,11 +2,10 @@
   "name": "chocoholics",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^1.6.0",
     "bootstrap": "^3.2.0",
+    "angular": "^1.6.0",
     "angular-animate": "^1.6.0",
     "angular-aria": "^1.6.0",
-    "angular-cookies": "^1.6.0",
     "angular-messages": "^1.6.0",
     "angular-resource": "^1.6.0",
     "angular-route": "^1.6.0",
@@ -20,9 +19,9 @@
     "underscore": "^1.8.3",
     "parse": "^1.9.2",
     "moment": "^2.18.1",
-    "less": "^2.7.2",
     "angular-aside": "^1.4.0",
-    "ng-directive-lazy-image": "afkl-lazy-image#^0.3.4"
+    "ng-directive-lazy-image": "afkl-lazy-image#^0.3.4",
+    "components-font-awesome":"latest"
   },
   "devDependencies": {
     "angular-mocks": "^1.6.0"
@@ -32,7 +31,6 @@
   "overrides": {
     "bootstrap": {
       "main": [
-        "less/bootstrap.less",
         "dist/css/bootstrap.css",
         "dist/js/bootstrap.js"
       ]

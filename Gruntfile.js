@@ -21,6 +21,7 @@ module.exports = function(grunt) {
   };
   // Define the configuration for all the tasks
   grunt.initConfig({
+    aws: grunt.file.readJSON('aws-credentials.json'),
     // Project settings
     yeoman: appConfig,
     // Watches files for changes and runs tasks based on the changed files
@@ -181,7 +182,7 @@ module.exports = function(grunt) {
             parseJsKey: 'bdKP5OkzKFPQt4RKURwhK7blDLTr6xScCxNuSPwY',
             parsePath: '/parse',
             webhookURL: 'https://requestb.in/1nu8aqv1',
-            successURL: 'http://localhost:9001/#/confirm',
+            successURL: 'http://localhost:9001/#/main/confirm',
             build: 'development',
             vendorId: '8Wm0DoBfqA',
             myGovURL: '//api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?format=json&api-key='
@@ -191,10 +192,10 @@ module.exports = function(grunt) {
       production: {
         constants: {
           ENV: {
-            serverURL: 'http://localhost:1337',
+            serverURL: 'https://use.proplco.com',
             vendorKey: '12fcacee2d11a158c4ac6dcf12bc71eb',
             myGovAPI: '210d0d0cbf2c9c3ede9bda8f25e89533',
-            owner: 'AS742HJVZK',
+            owner: '8PmVIkY5sK',
             style: 'delivery',
             mode: 'website',
             type: 'local',
@@ -203,8 +204,8 @@ module.exports = function(grunt) {
             parseAPIKey: 'MbAe6hoy43d3uInM0TISC1dBePxocl4eLL4B0Tig',
             parseJsKey: 'bdKP5OkzKFPQt4RKURwhK7blDLTr6xScCxNuSPwY',
             parsePath: '/parse',
-            webhookURL: 'https://requestb.in/1nu8aqv1',
-            successURL: 'http://localhost:9001/#/confirm',
+            webhookURL: 'https://use.proplco.com/pay/update',
+            successURL: 'http://chocohollics.com/#/main/confirm',
             build: 'production',
             vendorId: '8Wm0DoBfqA',
             myGovURL: '//api.data.gov.in/resource/6176ee09-3d56-4a3b-8115-21841576b2f6?format=json&api-key='
@@ -286,7 +287,27 @@ module.exports = function(grunt) {
               js: ['concat', 'uglifyjs'],
               css: ['cssmin']
             },
-            post: {}
+            // post: {
+            //   js: [{
+            //     name: 'concat',
+            //     createConfig: function(context, block) {
+            //       context.options.generated.options = {
+            //         sourceMap: true
+            //       };
+            //     }
+            //   }, {
+            //     name: 'uglify',
+            //     createConfig: function(context, block) {
+            //       context.options.generated.options = {
+            //         sourceMapIn: '.dist/scripts/' + block.dest.replace('.js', '.js.map'),
+            //         mangle: false,
+            //         beautify: {
+            //           beautify: true
+            //         }
+            //       };
+            //     }
+            //   }]
+            // }
           }
         }
       }
@@ -314,6 +335,9 @@ module.exports = function(grunt) {
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
     // cssmin: {
+    //   options: {
+    //     sourceMap: true
+    //   },
     //   dist: {
     //     files: {
     //       '<%= yeoman.dist %>/styles/main.css': [
@@ -323,18 +347,19 @@ module.exports = function(grunt) {
     //   }
     // },
     // uglify: {
+    //   options: {
+    //     sourceMap: true
+    //   },
     //   dist: {
     //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
+    //       '<%= yeoman.dist %>/scripts/scripts.js': ['build/scripts/*.js']
     //     }
     //   }
-    // },   
+    // },
     concat: {
-      css: {
-        src: 'app/styles/*.css',
-        dest: 'build/css/concat.css'
+      js: {
+        src: ['.tmp/concat/scripts/scripts.js','.tmp/*.js'],
+        dest: '.tmp/concat/scripts/scripts.js'
       }
     },
     imagemin: {
@@ -393,7 +418,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: '.tmp/concat/scripts',
           src: '*.js',
-          dest: 'build/scripts'
+          dest: '.tmp/concat/scripts'
         }]
       }
     },
@@ -456,6 +481,58 @@ module.exports = function(grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+    aws_s3: {
+      options: {
+        accessKeyId: '<%= aws.accessKeyId %>', // Use the variables
+        secretAccessKey: '<%= aws.secretAccessKey %>', // You can also use env variables
+        uploadConcurrency: 5, // 5 simultaneous uploads
+        downloadConcurrency: 5 // 5 simultaneous downloads
+      },
+      production: {
+        options: {
+          bucket: 'chocohollics.com',
+          region: 'ap-south-1',
+          /*params: {
+              ContentEncoding: 'gzip' // applies to all the files!
+          },*/
+          gzipRename: 'ext', // when uploading a gz file, keep the original extension
+          differential: true
+        },
+        files: [
+          { expand: true, cwd: 'public/', src: ['**'], dest: '/', params: { ContentEncoding: 'gzip', CacheControl: 'max-age=3600' } }
+        ]
+      },
+      clean_production: {
+        options: {
+          bucket: 'chocohollics.com',
+          debug: false // Doesn't actually delete but shows log
+        },
+        files: [
+          { dest: '/', action: 'delete' }
+        ]
+      },
+      download_production: {
+        options: {
+          bucket: 'chocohollics.com'
+        },
+        files: [
+          { dest: '/', cwd: 'backup/', action: 'download' } // Downloads the content of app/ to backup/
+        ]
+      }
+    },
+    compress: {
+      main: {
+        options: {
+          pretty: true,
+          mode: 'gzip',
+          level: 9
+        },
+        expand: true,
+        cwd: 'dist/',
+        src: ['**/*'],
+        dest: 'public/'
+      }
     }
   });
   grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
@@ -486,21 +563,25 @@ module.exports = function(grunt) {
   ]);
   grunt.registerTask('build', [
     'clean:dist',
-    'wiredep',
+    'ngconstant:production',
+    'ngtemplates',
     'useminPrepare',
     'concurrent:dist',
     'postcss',
-    'concat',
+    'concat:generated',
     'ngAnnotate',
-    'ngtemplates',
-    'concurrentat',
+    'concat:js',
     'copy:dist',
-    'cdnify',
+    // 'cdnify',
     'cssmin',
     'uglify',
     'filerev',
     'usemin',
     'htmlmin'
+  ]);
+  grunt.registerTask('deploy', [
+    'compress',
+    'aws_s3:production'
   ]);
   grunt.registerTask('default', 'concat cssmin', [
     'newer:jshint',

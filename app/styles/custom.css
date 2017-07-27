@@ -510,7 +510,7 @@ footer a:hover {
 }
 
 .panel-header {
-  height: 210px; // background-image: url("/images/download.jpg");
+  height: 210px;
   background-size: cover;
   background-color: #ccc;
   border-top-left-radius: 4px;

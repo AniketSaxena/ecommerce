@@ -3,7 +3,6 @@ angular
     .module('chocoholicsApp', [
         'ngAnimate',
         'ngAria',
-        'ngCookies',
         'ngMessages',
         'ngResource',
         'ngRoute',
@@ -22,21 +21,21 @@ angular
         var mainState = {
             name: 'main',
             url: '/main',
-            templateUrl: '/views/main.html',
+            templateUrl: 'views/main.html',
             controller: 'MainCtrl',
             controllerAs: 'main'
         };
         var homeState = {
             name: 'main.home',
             url: '/home',
-            templateUrl: '/views/home.html',
+            templateUrl: 'views/home.html',
             controller: 'HomeCtrl',
             controllerAs: 'home'
         };
         var shopState = {
             name: 'main.shop',
             url: '/shop',
-            templateUrl: '/views/shop.html',
+            templateUrl: 'views/shop.html',
             controller: 'ShopCtrl',
             controllerAs: 'shop'
         };
@@ -45,33 +44,33 @@ angular
             url: '/main/product/:id',
             controller: 'ProductCtrl',
             controllerAs: 'product',
-            templateUrl: '/views/product.html'
+            templateUrl: 'views/product.html'
         };
         var cartState = {
             name: 'main.cart',
             url: '/cart',
-            templateUrl: '/views/cart.html',
+            templateUrl: 'views/cart.html',
             controller: 'CartCtrl',
             controllerAs: 'cart'
         };
         var accountState = {
             name: 'main.account',
             url: '/account?back',
-            templateUrl: '/views/account.html',
+            templateUrl: 'views/account.html',
             controller: 'AccountCtrl',
             controllerAs: 'account'
         };
         var passwordChangeState = {
             name: 'main.passwordChange',
             url: '/passwordChange?pass&id',
-            templateUrl: '/views/passwordChange.html',
+            templateUrl: 'views/passwordChange.html',
             controller: 'PasswordchangeCtrl',
             controllerAs: 'passwordChange'
         };
         var confirmState = {
             name: 'main.confirm',
             url: '/confirm',
-            templateUrl: '/views/confirm.html',
+            templateUrl: 'views/confirm.html',
             controller: 'ConfirmCtrl',
             controllerAs: 'confirm'
         };

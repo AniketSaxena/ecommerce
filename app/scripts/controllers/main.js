@@ -71,7 +71,7 @@ angular.module('chocoholicsApp')
      */
     this.open = function() {
       $uibModal.open({
-        templateUrl: '/views/loginmodal.html',
+        templateUrl: 'views/loginmodal.html',
         size: 'sm',
         controller: 'LoginmodalCtrl',
         controllerAs: 'login'
@@ -132,7 +132,7 @@ angular.module('chocoholicsApp')
      */
     this.openAside = function() {
       $aside.open({
-        templateUrl: '/views/aside.html',
+        templateUrl: 'views/aside.html',
         controller: 'AsideCtrl',
         placement: 'left',
         size: 'lg',
@@ -152,7 +152,7 @@ angular.module('chocoholicsApp')
      */
     this.handleError = function(error, title) {
       $uibModal.open({
-        templateUrl: '/views/errorModal.html',
+        templateUrl: 'views/errorModal.html',
         size: 'sm',
         controller: 'ErrormodalCtrl',
         resolve: {
@@ -173,7 +173,7 @@ angular.module('chocoholicsApp')
      */
     this.openReset = function(phone, email, customerId) {
       $uibModal.open({
-        templateUrl: '/views/changemodal.html',
+        templateUrl: 'views/changemodal.html',
         size: 'sm',
         controller: 'ChangeModalCtrl',
         resolve: {
