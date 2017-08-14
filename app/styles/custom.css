@@ -145,9 +145,29 @@ footer a:hover {
   text-transform: uppercase;
 }
 
-#item {
-  margin: 20px;
-}
+
+
+
+
+/*.product-row {
+  margin-top: 16px;
+  padding-top: 16px;
+  -moz-column-width: 15em;
+  -webkit-column-width: 15em;
+  -moz-column-gap: .5em;
+  -webkit-column-gap: .5em;
+  padding-left: 8px;
+  padding-right: 8px;
+  overflow: scroll;
+}*/
+
+
+/*.product-row>.product-container {
+  display: inline-block;
+  padding: .33rem;
+  width: 100%;
+  float: none;
+}*/
 
 #addToCartButton {
   border: solid;
@@ -336,7 +356,18 @@ footer a:hover {
 
 #navPillDiv-Big::-webkit-scrollbar-thumb {
   border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#navPillDiv-Big::-webkit-scrollbar-thumb:hover {
+  border-radius: 4px;
   background-color: #F90;
+  transition: all 200ms;
+}
+
+.selected {
+  color: #F90!important;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 #menu-button {
@@ -400,10 +431,18 @@ footer a:hover {
 }
 
 .jumbotron.hero-image {
+  height: 90vw;
   background-image: url('../images/cover@3x.jpg');
   background-size: cover;
-  height: 45vw;
 }
+
+@media screen and (min-width:768px) {
+  .jumbotron.hero-image {
+    height: 45vw;
+  }
+}
+
+
 
 .close {
   color: red;
@@ -512,9 +551,10 @@ footer a:hover {
 .panel-header {
   height: 210px;
   background-size: cover;
-  background-color: #ccc;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  background-position-y: 50%;
+  background-repeat: no-repeat;
 }
 
 .panel-body {
@@ -524,14 +564,37 @@ footer a:hover {
 }
 
 .product-preview-panel {
-  min-height: 240px;
   overflow: hidden;
-  margin-bottom: 36px;
+  position: relative;
+  width: 98%;
+  margin: .5em;
+  padding: 0;
+  cursor: pointer;
+  min-height: 282px;
+  user-select: none;
+  margin-bottom: 16px;
+}
+
+.panel-header>img {
+  width: 100%;
+  height: 100%;
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
 }
 
 .product-preview-panel .panel-body h5.name {
-  max-width: 60%;
+  width: 150px;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.product-preview-panel .panel-body h5.name>small {
+  width: 100px!important;
+  max-width: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .cost-holder {
@@ -638,6 +701,33 @@ h5.cost {
   border: 1px solid rgba(0, 0, 0, 0.1);
   background-size: cover;
 }
+
+
+.post-header {
+  transform: translateZ(0);
+}
+
+.post-header-enhanced {
+  animation: sharpen .5s both;
+}
+
+@keyframes sharpen {
+  from {
+    -webkit-filter: blur(10px));
+    filter: blur(10px));
+  }
+  to {
+    -webkit-filter: blur(0px));
+    filter: blur(0px));
+  }
+}
+
+
+
+
+
+
+
 
 
 

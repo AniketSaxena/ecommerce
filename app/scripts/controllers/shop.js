@@ -37,7 +37,9 @@ angular.module('chocoholicsApp')
 
     this.loadImages = function(images, index) {
       productService.getImages(images[0].objectId).then(function(image) {
+          vm.products[index].style = null;
           vm.products[index].image = image;
+          vm.products[index].loadingClass = null;
           console.log(vm.products[index]);
         })
         .catch(function(error) {
@@ -55,20 +57,47 @@ angular.module('chocoholicsApp')
       if (vm.busy) {
         return;
       }
+
       vm.busy = true;
-      productService.getProducts(vm.counter, 12, null, category)
+      vm.total = 0;
+
+      productService.getCount(category)
+        .then(function(count) {
+          vm.total = count;
+          if (count > vm.products.length) {
+            vm.showLoadMore = true;
+
+            return productService.getProducts(vm.counter, 12, null, category);
+          } else {
+            vm.showLoadMore = false;
+          }
+        })
         .then(function(response) {
-          // console.log(response.data);
-          angular.forEach(response.data, function(element, index) {
-            element.quantity = 0;
-            vm.products.push(element);
-            if (element.images && element.images.length) {
-              vm.loadImages(element.images, index);
-            }
+          if (response && response.data) {
+            angular.forEach(response.data, function(element) {
+              element.quantity = 0;
+              vm.products.push(element);
+            });
+
             vm.busy = false;
-          });
-          if (orderId) {
-            return orderService.getOrderItems(orderId);
+
+            angular.forEach(vm.products, function(product, index) {
+
+              var url;
+              if (product.thumb) {
+                url = product.thumb.replace(/^http:\/\//i, 'https://');
+              }
+
+              vm.products[index].loadingClass = true;
+
+              if (product.images && product.images.length) {
+                vm.loadImages(product.images, index);
+              }
+            });
+
+            if (orderId) {
+              return orderService.getOrderItems(orderId);
+            }
           }
         })
         .then(function(response) {
@@ -80,8 +109,6 @@ angular.module('chocoholicsApp')
                   product.quantity = item.quantity;
                   product.addedId = item.id;
                   console.log('itemid' + product.addedId);
-                  // FOR IMAGES
-                  // vm.loadImages(vm.product.images);
                 }
               });
             });
@@ -91,8 +118,14 @@ angular.module('chocoholicsApp')
         .catch(function(error) {
           $scope.$emit('handleError', { error: error.data });
           console.error(error);
+        })
+        .finally(function() {
+          vm.counter++;
+
+          if (category) {
+            vm.selectedCategory = category;
+          }
         });
-      vm.counter++;
       // console.log('entering page number ' + vm.counter);
     };
 
@@ -236,7 +269,12 @@ angular.module('chocoholicsApp')
     this.showCategory = function(category) {
       vm.products = [];
       vm.counter = 0;
-      vm.loadMore(category);
+
+      if (vm.selectedCategory === category) {
+        vm.loadMore();
+      } else {
+        vm.loadMore(category);
+      }
     };
 
     this.getCategory = function() {
@@ -258,7 +296,7 @@ angular.module('chocoholicsApp')
     this.pre = function() {
 
       vm.imageOptions = {
-        nolazy: true,
+        nolazy: false,
         background: true,
         imgAttrs: [{
           class: 'img-responsive animated fadeIn'

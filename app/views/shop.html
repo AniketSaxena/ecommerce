@@ -12,45 +12,53 @@
       <h5 id="categoryHeading"><strong>Categories</strong></h5>
       <div id="navPillDiv-Big">
         <ul class="nav nav-pills nav-stacked text-capitalize" id="categoryNav-Big">
-          <li role="presentation" data-toggle="tab"><a ng-click="shop.showCategory()">All</a></li>
-          <li role="presentation" data-toggle="tab" ng-repeat="category in shop.categories"><a ng-click="shop.showCategory(category)">{{category}}</a></li>
+          <!-- <li role="presentation" data-toggle="tab"><a ng-click="shop.showCategory()">All</a></li> -->
+          <li role="presentation" ng-repeat="category in shop.categories"><a ng-click="shop.showCategory(category)" ng-class="{'selected':category === shop.selectedCategory}">{{category}}</a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10" id="shopItems">
-    <div class="row" id="item">
-      <div infinite-scroll="shop.loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="busy" infinite-scroll-use-document-bottom="true">
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in shop.products">
-          <div class="panel panel-default product-preview-panel" id="productCard">
-            <div afkl-lazy-image="{{product.image.retina}} 480w, {{product.image.retina}} 768w, {{product.image.hires}}" class="panel-header afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="shop.imageOptions" ng-class="{'loading':!afklLazyImageLoaded, 'animated fadeOut':afklLazyImageLoaded}">
-              <span class="productQuantity" ng-show="product.quantity">
+    <div class="row">
+      <!-- <div infinite-scroll="shop.loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="busy" infinite-scroll-use-document-bottom="true"> -->
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 product-container" ng-repeat="product in shop.products">
+        <div class="panel panel-default product-preview-panel" id="productCard" ui-sref="main.product({id:product.id})">
+          <div afkl-lazy-image="{{product.image.retina}} 480w, {{product.image.retina}} 768w, {{product.image.hires}}" class="panel-header afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="shop.imageOptions" ng-class="{'loading':!afklLazyImageLoaded, 'animated fadeIn':afklLazyImageLoaded}" ng-show="!product.loadingClass">
+            <img ng-src="{{product.thumb}}" class="loading-image animated" ng-show="product.loadingClass">
+            <span class="productQuantity" ng-show="product.quantity">
               <span class="glyphicon glyphicon-shopping-cart"></span> {{product.quantity}} added
-              </span>
-            </div>
-            <div class="panel-body">
-              <div class="pull-right productCost">
-                <h5 class="text-right cost">{{product.rate | currency : "&#8377; "}}</h5>
-                <div class="cost-holder">
-                  <!-- Button for when used logged in -->
-                  <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding" ng-show="shop.loggedIn">
-                    <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
-                    <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span>
-                  </button>
-                  <!-- Button for when user logged out -->
-                  <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItemLoggedOut($index)" ng-disabled="product.adding" ng-hide="shop.loggedIn">
-                    <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
-                    <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span>
-                  </button>
-                </div>
+            </span>
+          </div>
+          <div class="panel-body">
+            <div class="pull-right productCost">
+              <h5 class="text-right cost">{{product.rate | currency : "&#8377; "}}</h5>
+              <div class="cost-holder">
+                <!-- Button for when used logged in -->
+                <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItem($index)" ng-disabled="product.adding" ng-show="shop.loggedIn">
+                  <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
+                  <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span>
+                </button>
+                <!-- Button for when user logged out -->
+                <button type="button" class="btn btn-default btn-sm pull-right" title="Buy" ng-click="shop.addItemLoggedOut($index)" ng-disabled="product.adding" ng-hide="shop.loggedIn">
+                  <i ng-class="{ 'fa fa-spinner fa-spin' : product.adding}" aria-hidden="true"></i>
+                  <span ng-class="{ 'glyphicon glyphicon-plus' : !product.adding}" aria-hidden="true"></span>
+                </button>
               </div>
-              <h5 ui-sref="main.product({id:product.id})" class="text-capitalize name">{{product.name}}
+            </div>
+            <h5 ui-sref="main.product({id:product.id})" class="text-capitalize name">{{product.name}}
                 <br><small>{{product.subtitle}}</small>
             </h5>
-            </div>
           </div>
         </div>
-        <!-- Pager Start -->
+      </div>
+      <!-- Pager Start -->
+      <!-- </div> -->
+    </div>
+    <div class="row" ng-show="shop.showLoadMore">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <hr>
+        <button type="button" class="btn btn-default center-block" ng-click="shop.loadMore()">Load More</button>
+        <br>
       </div>
     </div>
   </div>

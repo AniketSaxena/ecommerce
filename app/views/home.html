@@ -14,10 +14,15 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12  col-md-10 col-md-offset-1">
+      <button type="button" class="btn btn-default btn-sm pull-right">See all</button>
+      <h2>Trending Right Now</h2>
+      <hr>
+    </div>
+    <div class="col-xs-12  col-md-10 col-md-offset-1">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-repeat="product in home.products">
           <!-- start of panel -->
-          <div class="panel panel-default product-preview-panel" id="productCard">
+          <div class="panel panel-default product-preview-panel" id="productCard" ui-sref="main.product({id:product.id})" href="#">
             <!-- start of panel header -->
             <div afkl-lazy-image="{{product.image.retina}} 480w, {{product.image.retina}} 768w, {{product.image.hires}}" class="panel-header afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="home.imageOptions" ng-class="{'loading':!afklLazyImageLoaded, 'animated fadeOut':afklLazyImageLoaded}">
             </div>
@@ -25,15 +30,11 @@
             <!-- start of panel body -->
             <div class="panel-body">
               <div class="cost-holder pull-right">
-                <!-- Button for when used logged in -->
-                <button type="button" class="btn btn-default btn-sm" title="Buy" ui-sref="main.product({id:product.id})">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </button>
+                <h5>{{product.rate | currency : "&#8377; "}}</h5>
               </div>
-              <h4 ui-sref="main.product({id:product.id})" class="text-capitalize">
+              <h5 class="text-capitalize">
                 {{product.name}}
-            </h4>
-              <h5>{{product.rate | currency : "&#8377; "}}</h5>
+            </h5>
             </div>
             <!-- end of panel body -->
           </div>
@@ -42,6 +43,7 @@
       </div>
     </div>
   </div>
+  <hr>
   <!-- Best Selling products ends here -->
   <!-- Start of about us section -->
   <div class="row">
