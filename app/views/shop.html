@@ -3,8 +3,9 @@
     <div class="visible-xs">
       <div id="navPillDiv">
         <ul class="nav nav-pills nav-stacked text-capitalize" id="categoryNav">
-          <li role="presentation" data-toggle="tab"><a ng-click="shop.showCategory()">All</a></li>
-          <li role="presentation" data-toggle="tab" ng-repeat="category in shop.categories"><a ng-click="shop.showCategory(category)">{{category}}</a></li>
+          <li role="presentation" data-toggle="tab" ng-repeat="category in shop.categories">
+            <a ng-click="shop.showCategory(category)" ng-class="{'selected':category === shop.selectedCategory}">{{category}}</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -23,9 +24,8 @@
       <!-- <div infinite-scroll="shop.loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="busy" infinite-scroll-use-document-bottom="true"> -->
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 product-container" ng-repeat="product in shop.products">
         <div class="panel panel-default product-preview-panel" id="productCard" ui-sref="main.product({id:product.id})">
-          <div afkl-lazy-image="{{product.image.retina}} 480w, {{product.image.retina}} 768w, {{product.image.hires}}" class="panel-header afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="shop.imageOptions" img-loading>
-            <img ng-src="{{product.thumb}}" class="loading-image animated" >
-            {{product.afklLaxyImageLoaded}}
+          <div afkl-lazy-image="{{product.image.normal}} 1x, {{product.image.retina}} 2x, {{product.image.hires}} 3x" class="panel-header afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="shop.imageOptions" img-loading>
+            <img ng-src="{{product.thumb}}" class="loading-image animated"> {{product.afklLaxyImageLoaded}}
             <span class="productQuantity" ng-show="product.quantity">
               <span class="glyphicon glyphicon-shopping-cart"></span> {{product.quantity}} added
             </span>
@@ -47,7 +47,7 @@
                 </button>
               </div>
             </div>
-            <h5 ui-sref="main.product({id:product.id})" class="text-capitalize name">{{product.name}}
+            <h5 ui-sref="main.product({id:product.id})" class="text-capitalize name text-nowrap">{{product.name}}
                 <br><small ng-hide="product.variants && product.variants.length">{{product.subtitle}}</small>
                 <span class="label label-success" ng-show="product.variants && product.variants.length">{{product.variants.length + 1}} Variants</span>
             </h5>

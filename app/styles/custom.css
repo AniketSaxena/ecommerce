@@ -41,11 +41,15 @@ footer a:hover {
   }
   #navPillDiv {
     /*width: 430%;*/
-    margin-bottom: 36px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
   #navPillDiv li::-webkit-scrollbar {
     display: none;
   }
+
   #navPillDiv li {
     width: 72px;
     height: 24px;
@@ -53,21 +57,59 @@ footer a:hover {
     padding-bottom: 24px;
     display: inline-block;
   }
+
+  /** New */
   #navPillDiv li a {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  #navPillDiv li a:hover {
+    color: rgba(0, 0, 0, 1);
+  }
+
+  #navPillDiv li a:active,
+  #navPillDiv li a:focus,
+  {
+    color: white;
+  }
+
+  #navPillDiv::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 4px;
+    box-shadow: none;
+  }
+
+  #navPillDiv::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+  }
+
+  #navPillDiv::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  #navPillDiv::-webkit-scrollbar-thumb:hover {
+    border-radius: 4px;
+    background-color: #F90;
+    transition: all 200ms;
+  }
+
+  /** End */
+  /**#navPillDiv li a {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.8);
     text-align: center;
     vertical-align: middle;
-    padding: 16px;
-    padding-bottom: 24px;
+    padding: 8px;
     width: 100%;
   }
 
   #navPillDiv li a:active,
   #navPillDiv li a:hover {
     color: rgba(0, 0, 0, 1);
-  }
-
+  }**/
   #navPillDivCol {
     overflow-y: hidden;
   }
@@ -82,7 +124,6 @@ footer a:hover {
   }
 
   .productCost {
-    width: 58%;
     float: right;
     text-align: right;
   }
@@ -101,7 +142,6 @@ footer a:hover {
   }
 
   .product-image {
-    height: 500px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-position: -80px;
     background-repeat: no-repeat;
@@ -144,6 +184,9 @@ footer a:hover {
 #product-name {
   text-transform: uppercase;
 }
+
+
+
 
 
 
@@ -431,14 +474,29 @@ footer a:hover {
 }
 
 .jumbotron.hero-image {
-  height: 90vw;
-  background-image: url('../images/cover@3x.jpg');
+  height: 90%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2),
+  rgba(0, 0, 0, 0.6)),
+  url('../images/cover@3x.jpg');
   background-size: cover;
+  background-position: 50%;
+  text-align: center!important;
+  text-shadow:0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-@media screen and (min-width:768px) {
+.jumbotron h1 {
+  width: auto;
+}
+
+@media screen and (min-width:480px) {
   .jumbotron.hero-image {
     height: 45vw;
+    background-image: url('../images/cover@3x.jpg');
+    text-align: left!important;
+  }
+
+  .jumbotron h1{
+    width: 50%;
   }
 }
 
@@ -555,7 +613,7 @@ footer a:hover {
   overflow: hidden;
 }
 
-.panel-header > .label{
+.panel-header>.label {
   z-index: 1001;
   position: absolute;
   margin-top: 8px;
@@ -563,8 +621,8 @@ footer a:hover {
   background: rgba(0, 0, 0, 0.5);
   font-weight: bold;
   font-size: 11px;
-  border:1px solid rgba(0, 0, 0, 0.6);
-  padding:4px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  padding: 4px;
 }
 
 .panel-body {
@@ -576,11 +634,9 @@ footer a:hover {
 .product-preview-panel {
   overflow: hidden;
   position: relative;
-  width: 98%;
-  margin: .5em;
   padding: 0;
   cursor: pointer;
-  min-height: 282px;
+  min-height: 300px;
   user-select: none;
   margin-bottom: 16px;
 }
@@ -594,11 +650,10 @@ footer a:hover {
 }
 
 .panel-header>img.img-responsive {
-  margin-top:-30px;
+  margin-top: -30px;
 }
 
 .product-preview-panel .panel-body h5.name {
-  width: 150px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -610,7 +665,7 @@ footer a:hover {
   font-size: 90%;
   text-overflow: ellipsis;
   overflow: hidden;
-  margin-top:8px;
+  margin-top: 8px;
   white-space: nowrap;
   display: inline-block;
 }
@@ -674,11 +729,14 @@ footer a:hover {
   padding-bottom: 64px;
 }
 
-.nav-pills>li.active>a,
+.nav-pills>li.active>a {
+  color: black;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 .nav-pills>li.active>a:hover,
 .nav-pills>li.active>a:focus {
-  color: white !important;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .ng-aside .modal-dialog .modal-content {
@@ -718,8 +776,6 @@ h5.cost {
 
 
 .product-image {
-  min-height: 555px;
-  max-height: 50vw;
   background-repeat: no-repeat;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background-size: cover;
@@ -741,15 +797,35 @@ h5.cost {
 }
 
 
+
+
+
 /* Animation for nghide and show */
+
+
 /* when hiding the picture */
-.ng-hide-add         { animation:0.5s fadeOut ease; }
+
+.ng-hide-add {
+  animation: 0.5s fadeOut ease;
+}
+
+
+
 
 /* when showing the picture */
-.ng-hide-remove      { animation:0.5s fadeIn ease; }
+
+.ng-hide-remove {
+  animation: 0.5s fadeIn ease;
+}
+
+
+
 
 /* ANIMATIONS (FROM ANIMATE.CSS) ======================== */
+
+
 /* fade out */
+
 @-webkit-keyframes fadeOut {
   from {
     opacity: 1;
@@ -770,7 +846,11 @@ h5.cost {
   }
 }
 
+
+
+
 /* fadeIn */
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
@@ -791,13 +871,18 @@ h5.cost {
   }
 }
 
-.dropdown-menu > li > a{
-  padding:8px;
+.dropdown-menu>li>a {
+  padding: 8px;
   margin-bottom: 4px;
 }
 
-p.description::first-letter{
+p.description::first-letter {
   text-transform: uppercase;
+}
+
+
+.breadcrumb.visible-xs {
+  font-size: 0.8em;
 }
 
 

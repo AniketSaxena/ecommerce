@@ -37,7 +37,6 @@ angular.module('chocoholicsApp')
 
     this.loadImages = function(images, index) {
       productService.getImages(images[0].objectId).then(function(image) {
-          vm.products[index].style = null;
           vm.products[index].image = image;
           vm.products[index].loadingClass = null;
           console.log(vm.products[index]);

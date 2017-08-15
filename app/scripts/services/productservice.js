@@ -48,14 +48,27 @@ angular.module('chocoholicsApp')
         var query = new Parse.Query('ProductImages');
         if (id) {
           query.get(id).then(function(image) {
-            deferred.resolve({
-              id: image.id,
+
+            var imgObject = {
               thumbnail: image.get('thumbnail').url(),
               normal: image.get('normal').url(),
               retina: image.get('retina').url(),
               hires: image.get('hires').url()
+            };
+
+            _.each(imgObject, function(value, key) {
+              imgObject[key] = value.replace(/^http:\/\//i, 'https://');
+            });
+
+            deferred.resolve({
+              id: image.id,
+              thumbnail: imgObject.thumbnail,
+              normal: imgObject.normal,
+              retina: imgObject.retina,
+              hires: imgObject.hires
             });
           }, function(error) {
+            console.error(error);
             deferred.reject(error);
           });
         }
