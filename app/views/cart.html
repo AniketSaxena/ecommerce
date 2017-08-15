@@ -2,7 +2,7 @@
 <div class="container-fluid">
 <br>
   <div class="row">
-    <div class="col-xs-12 col-md-5 col-md-offset-1">
+    <div class="col-xs-12 col-sm-6 col-md-5 col-md-offset-1">
       <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">
@@ -17,7 +17,7 @@
           <thead>
             <tr>
               <th>Item</th>
-              <th>Quantity</th>
+              <th class="text-center">Quantity</th>
               <th class="text-right">Cost</th>
             </tr>
           </thead>
@@ -28,7 +28,7 @@
           </h5>
                 <small><a class="text-danger" ng-click="cart.removeItem($index)"> Remove </a></small>
               </td>
-              <td>
+              <td class="text-center">
                 <button type="button" class="btn btn-danger btn-xs" ng-click="cart.decreaseItem($index)" ng-disabled="item.changing || item.min">
                   <span ng-class="{ 'glyphicon glyphicon-minus' : !item.changing}"></span>
                   <i ng-class="{ 'fa fa-spinner fa-spin' : item.changing}" aria-hidden="true"></i>
@@ -49,7 +49,7 @@
           <tbody>
             <tr>
               <td><strong>Total</strong></td>
-              <td class="text-center">{{totalQuantity}}</td>
+              <td class="text-center">{{totalQuantity}} {{totalQuantity === 1 ? 'item' : 'items'}}</td>
               <td class="text-right"><strong>{{cart.order.total | currency : "&#8377;"}}</strong></td>
             </tr>
           </tbody>
@@ -97,7 +97,7 @@
       </div>
     </div>
     <!-- Start of column for address selection and checkout -->
-    <div class="hidden-xs col-md-5">
+    <div class="hidden-xs col-md-5 col-sm-6">
       <!-- Start of panel -->
       <div class="content" id="checkoutCard">
         <div class="panel panel-primary text-capitalize">

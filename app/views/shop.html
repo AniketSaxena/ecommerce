@@ -23,8 +23,8 @@
     <div class="row" afkl-image-container>
       <!-- <div infinite-scroll="shop.loadMore()" infinite-scroll-distance="0" infinite-scroll-disabled="busy" infinite-scroll-use-document-bottom="true"> -->
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 product-container" ng-repeat="product in shop.products">
-        <div class="panel panel-default product-preview-panel" id="productCard" ui-sref="main.product({id:product.id})">
-          <div afkl-lazy-image="{{product.image.normal}} 1x, {{product.image.retina}} 2x, {{product.image.hires}} 3x" class="panel-header afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="shop.imageOptions" img-loading>
+        <div class="panel panel-default product-preview-panel" id="productCard">
+          <div afkl-lazy-image="{{product.image.normal}} 1x, {{product.image.retina}} 2x, {{product.image.hires}} 3x" class="panel-header afkl-lazy-wrapper afkl-img-ratio-1-1 image-holder" afkl-lazy-image-options="shop.imageOptions" img-loading ui-sref="main.product({id:product.id})">
             <img ng-src="{{product.thumb}}" class="loading-image animated"> {{product.afklLaxyImageLoaded}}
             <span class="productQuantity" ng-show="product.quantity">
               <span class="glyphicon glyphicon-shopping-cart"></span> {{product.quantity}} added

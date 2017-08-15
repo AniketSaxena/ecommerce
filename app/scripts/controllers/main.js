@@ -47,10 +47,16 @@ angular.module('chocoholicsApp')
     });
 
     //Listening for getting total items
-    $scope.$on('totalQuantity', function(totalQuantity) {
-      console.log(totalQuantity.targetScope.totalQuantity);
-      vm.total = totalQuantity.targetScope.totalQuantity;
-      vm.cartChecker = true;
+    // $scope.$on('totalQuantity', function(totalQuantity) {
+    //   console.log(totalQuantity.targetScope.totalQuantity);
+    //   vm.total = totalQuantity.targetScope.totalQuantity;
+    // });
+    $scope.$on('LocalStorageModule.notification.setitem', function(event, args) {
+      console.log(args);
+      if (args.key === 'cart') {
+        vm.total = parseFloat(args.newvalue);
+      }
+      // vm.total = args.count;
     });
 
     // Listening for any error
@@ -62,6 +68,8 @@ angular.module('chocoholicsApp')
     $scope.$on('add', function() {
       vm.total++;
     });
+
+    this.total = parseFloat(localStorageService.get('cart'));
 
     /*=====  End of Events & Listeners  ======*/
 
@@ -173,30 +181,30 @@ angular.module('chocoholicsApp')
      */
     this.openReset = function(phone, email, customerId) {
       $uibModal.open({
-        templateUrl: 'views/changemodal.html',
-        size: 'sm',
-        controller: 'ChangeModalCtrl',
-        resolve: {
-          phone: function() {
-            return phone;
-          },
-          email: function() {
-            return email;
-          },
-          customerId: function() {
-            return customerId;
+          templateUrl: 'views/changemodal.html',
+          size: 'sm',
+          controller: 'ChangeModalCtrl',
+          resolve: {
+            phone: function() {
+              return phone;
+            },
+            email: function() {
+              return email;
+            },
+            customerId: function() {
+              return customerId;
+            }
           }
-        }
-      }).result.then(function(result) {
-        if (result === 'logout') {
-          $scope.$emit('logout');
-        } else {
-          $state.go('main.home');
-        }
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
+        }).result.then(function(result) {
+          if (result === 'logout') {
+            $scope.$emit('logout');
+          } else {
+            $state.go('main.home');
+          }
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
     };
 
     // During init, check if the user is logged in

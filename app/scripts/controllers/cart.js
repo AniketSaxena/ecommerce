@@ -69,7 +69,9 @@ angular.module('chocoholicsApp')
     //Watcher for total amount
     $scope.$watch('totalQuantity', function(newValue) {
       vm.calculateTotal(vm.items);
-      $scope.$emit('totalQuantity', newValue);
+      if (newValue) {
+        localStorageService.set('cart', newValue);
+      }
     });
 
 
@@ -318,8 +320,8 @@ angular.module('chocoholicsApp')
           } else {
             // otherwise user has an address on server
             vm.addressExist = true;
-            if(vm.order.addressId){
-              var selectedIndex = _.findIndex(vm.addresses, {id: vm.order.addressId});
+            if (vm.order.addressId) {
+              var selectedIndex = _.findIndex(vm.addresses, { id: vm.order.addressId });
               vm.selectAddress(selectedIndex);
             }
           }

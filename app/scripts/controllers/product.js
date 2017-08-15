@@ -120,7 +120,7 @@ angular.module('chocoholicsApp')
             console.log(response);
             // vm.product.adding = false;
             console.log(vm.product.quantity);
-            $scope.totalQuantity = $scope.totalQuantity + 1;
+            orderService.changeQuantity('add', 1);
             vm.product.adding = false;
           }).catch(function(error) {
             $scope.$emit('handleError', { error: error });
@@ -142,7 +142,7 @@ angular.module('chocoholicsApp')
           })
           .then(function(response) {
             console.log(response);
-            $scope.totalQuantity = $scope.totalQuantity + 1;
+            orderService.changeQuantity('add', 1);
             vm.product.adding = false;
           })
           .catch(function(error) {
@@ -172,7 +172,7 @@ angular.module('chocoholicsApp')
               console.log(response);
               // vm.product.adding = false;
               console.log(vm.product.quantity);
-              $scope.totalQuantity = $scope.totalQuantity + 1;
+              orderService.changeQuantity('add', 1);
               vm.product.adding = false;
             }).catch(function(error) {
               $scope.$emit('handleError', { error: error });
@@ -194,7 +194,7 @@ angular.module('chocoholicsApp')
             })
             .then(function(response) {
               console.log(response);
-              $scope.totalQuantity = $scope.totalQuantity + 1;
+              orderService.changeQuantity('add', 1);
               vm.product.adding = false;
             })
             .catch(function(error) {
@@ -219,9 +219,8 @@ angular.module('chocoholicsApp')
           })
           .then(function(response) {
             console.log(response);
+            orderService.changeQuantity('add', 1);
             console.log(vm.product.quantity);
-            $scope.totalQuantity = $scope.totalQuantity + 1;
-            $scope.totalQuantity = $scope.totalQuantity + 1;
             vm.product.adding = false;
             // localStorageService.set('total',vm.total);
           })

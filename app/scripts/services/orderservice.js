@@ -109,6 +109,26 @@ angular.module('chocoholicsApp')
       },
       updateCost: function(cost) {
         return $http.post(ENV.serverURL + ENDPOINT + 'updateCost', cost);
+      },
+      changeQuantity: function(mode, quantity) {
+        var localCart = parseFloat(localStorageService.get('cart'));
+        console.log('Mode is ' + mode + ' Quantity is ' + quantity);
+        var newQuantity = 0;
+        if (localCart) {
+          newQuantity = localCart + quantity;
+        } else {
+          newQuantity = quantity;
+        }
+
+        switch (mode) {
+          case 'new':
+            localStorageService.set('cart', quantity);
+            break;
+          case 'add':
+            localStorageService.set('cart', newQuantity);
+            break;
+        }
+
       }
     };
   });

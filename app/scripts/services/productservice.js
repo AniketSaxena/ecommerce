@@ -36,10 +36,10 @@ angular.module('chocoholicsApp')
           url = url + '?' + queryData;
           console.log(url);
         }
-        return $http.get(url);
+        return $http.get(url, { cache: true });
       },
       getProduct: function(id) {
-        return $http.get(ENV.serverURL + route + '/product/' + id);
+        return $http.get(ENV.serverURL + route + '/product/' + id, { cache: true });
       },
       // FOR IMAGES
       getImages: function(id) {

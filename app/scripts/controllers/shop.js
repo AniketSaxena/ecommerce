@@ -13,7 +13,6 @@ angular.module('chocoholicsApp')
     var items = [];
     var orderItemId;
     var orderId;
-    var totalQuantity;
     //variable definitions
     this.characters = 0;
     // to get div lenght
@@ -129,6 +128,8 @@ angular.module('chocoholicsApp')
       // console.log('entering page number ' + vm.counter);
     };
 
+    
+
     var modifyItem = function(index) {
       if (vm.products[index].quantity !== 0) {
         //  increment the item count
@@ -138,8 +139,10 @@ angular.module('chocoholicsApp')
             console.log(response);
             console.log(vm.products[index].quantity);
             $scope.totalQuantity = $scope.totalQuantity + 1;
-            localStorageService.set('total', vm.total);
+            // localStorageService.set('total', vm.total);
             vm.products[index].adding = false;
+            orderService.changeQuantity('add', 1);
+
           }).catch(function(error) {
             $scope.$emit('handleError', { error: error });
             console.log(error);
@@ -156,9 +159,10 @@ angular.module('chocoholicsApp')
           })
           .then(function(response) {
             console.log(response);
-            $scope.totalQuantity = $scope.totalQuantity + 1;
+            // $scope.totalQuantity = $scope.totalQuantity + 1;
             vm.products[index].adding = false;
             // localStorageService.set('total',vm.total);
+            orderService.changeQuantity('add', 1);
           })
           .catch(function(error) {
             $scope.$emit('handleError', { error: error });
@@ -193,6 +197,8 @@ angular.module('chocoholicsApp')
 
     };
 
+
+
     /**
      * function to get the order items if an order exists
      * @param  {String} orderId Order ID stored in the localStorage
@@ -211,7 +217,7 @@ angular.module('chocoholicsApp')
               vm.showQuantity = true;
             }
           });
-          $scope.$emit('totalQuantity', totalQuantity);
+          orderService.changeQuantity('new', parseFloat($scope.totalQuantity));
         }).catch(function(error) {
           $scope.$emit('handleError', { error: error });
           console.log(error);
@@ -253,8 +259,9 @@ angular.module('chocoholicsApp')
           .then(function(response) {
             console.log('link order');
             console.log(response);
-            $scope.totalQuantity = $scope.totalQuantity + 1;
+            // $scope.totalQuantity = $scope.totalQuantity + 1;
             vm.products[index].adding = false;
+            orderService.changeQuantity('add', 1);
             // localStorageService.set('total',vm.total);
           })
           .catch(function(error) {

@@ -186,31 +186,10 @@ footer a:hover {
 }
 
 
-
-
-
-
-
-
-/*.product-row {
-  margin-top: 16px;
+#shopItems {
   padding-top: 16px;
-  -moz-column-width: 15em;
-  -webkit-column-width: 15em;
-  -moz-column-gap: .5em;
-  -webkit-column-gap: .5em;
-  padding-left: 8px;
-  padding-right: 8px;
-  overflow: scroll;
-}*/
+}
 
-
-/*.product-row>.product-container {
-  display: inline-block;
-  padding: .33rem;
-  width: 100%;
-  float: none;
-}*/
 
 #addToCartButton {
   border: solid;
@@ -481,7 +460,7 @@ footer a:hover {
   background-size: cover;
   background-position: 50%;
   text-align: center!important;
-  text-shadow:0 1px 1px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .jumbotron h1 {
@@ -495,7 +474,7 @@ footer a:hover {
     text-align: left!important;
   }
 
-  .jumbotron h1{
+  .jumbotron h1 {
     width: 50%;
   }
 }
@@ -667,6 +646,7 @@ footer a:hover {
   overflow: hidden;
   margin-top: 8px;
   white-space: nowrap;
+  height: auto;
   display: inline-block;
 }
 
@@ -800,6 +780,7 @@ h5.cost {
 
 
 
+
 /* Animation for nghide and show */
 
 
@@ -812,11 +793,13 @@ h5.cost {
 
 
 
+
 /* when showing the picture */
 
 .ng-hide-remove {
   animation: 0.5s fadeIn ease;
 }
+
 
 
 
@@ -845,6 +828,7 @@ h5.cost {
     opacity: 0;
   }
 }
+
 
 
 
@@ -884,6 +868,11 @@ p.description::first-letter {
 .breadcrumb.visible-xs {
   font-size: 0.8em;
 }
+
+.uib-datepicker-popup.dropdown-menu {
+  z-index:100001;
+}
+
 
 
 
