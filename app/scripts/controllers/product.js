@@ -7,27 +7,58 @@
  * Controller of the chocoholicsApp
  */
 angular.module('chocoholicsApp')
-  .controller('ProductCtrl', function($scope, $stateParams, productService, orderService, localStorageService) {
+  .controller('ProductCtrl', function($scope, $stateParams, productService, orderService, localStorageService, $q, $state) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
     var vm = this;
+    this.variants = [];
 
     // for cart counter
     $scope.$watch('totalQuantity', function(newValue) {
       $scope.$emit('totalQuantity', newValue);
     });
 
+    this.loadVariants = function(id) {
+      return productService.getProduct(id).then(function(response) {
+        if (response && response.data) {
+          return response.data;
+        }
+      });
+    };
+
     this.loadProduct = function(id) {
+      var variantPromises = [];
       productService.getProduct(id)
         .then(function(response) {
           vm.product = response.data;
           if (vm.product.images && vm.product.images.length) {
             vm.loadImages(vm.product.images);
           }
+
+          if (vm.product.variants && vm.product.variants.length) {
+            _.each(vm.product.variants, function(v) {
+              variantPromises.push(vm.loadVariants(v));
+            });
+          }
+
+          return $q.all(variantPromises);
+        })
+        .then(function(result) {
+          _.each(result, function(p) {
+            vm.variants.push({ id: p.id, name: p.name, subtitle: p.subtitle, rate: p.rate });
+          });
+        })
+        .catch(function(error) {
+          $scope.$emit('handleError', { error: error });
+          console.error(error);
         });
+    };
+
+    this.selectVariant = function(variant) {
+      $state.go('main.product', { id: variant.id });
     };
 
     // function to get order items
@@ -230,6 +261,10 @@ angular.module('chocoholicsApp')
       if (localStorageService.get('id')) {
         vm.orderId = localStorageService.get('id');
       }
+
+      vm.status = {
+        isopen: false
+      };
 
       vm.loadProduct($stateParams.id);
       if (vm.orderId) {

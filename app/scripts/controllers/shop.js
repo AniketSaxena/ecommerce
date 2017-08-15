@@ -54,6 +54,7 @@ angular.module('chocoholicsApp')
      * @return {void}          
      */
     this.loadMore = function(category) {
+      console.log('Selecting ' + category);
       if (vm.busy) {
         return;
       }
@@ -79,7 +80,6 @@ angular.module('chocoholicsApp')
               vm.products.push(element);
             });
 
-            vm.busy = false;
 
             angular.forEach(vm.products, function(product, index) {
 
@@ -121,6 +121,7 @@ angular.module('chocoholicsApp')
         })
         .finally(function() {
           vm.counter++;
+          vm.busy = false;
 
           if (category) {
             vm.selectedCategory = category;
@@ -272,6 +273,7 @@ angular.module('chocoholicsApp')
 
       if (vm.selectedCategory === category) {
         vm.loadMore();
+        vm.selectedCategory = null;
       } else {
         vm.loadMore(category);
       }
@@ -296,10 +298,10 @@ angular.module('chocoholicsApp')
     this.pre = function() {
 
       vm.imageOptions = {
-        nolazy: false,
-        background: true,
+        nolazy: true,
+        background: false,
         imgAttrs: [{
-          class: 'img-responsive animated fadeIn'
+          class: 'img-responsive'
         }]
       };
 

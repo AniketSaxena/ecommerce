@@ -52,9 +52,9 @@ angular.module('chocoholicsApp')
       
       vm.imageOptions = {
         nolazy: true,
-        background: true,
+        background: false,
         imgAttrs: [{
-          class: 'img-responsive animated fadeIn'
+          class: 'img-responsive animated fadeInBig'
         }]
       };
 
