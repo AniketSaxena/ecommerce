@@ -585,11 +585,19 @@ footer a:hover {
   margin-bottom: 15px;
 }
 
+
+
 .panel-header {
-  height: 210px;
+  height: 360px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   overflow: hidden;
+}
+
+@media screen and (min-width:768px){
+  .panel-header{
+    height: 210px;
+  }
 }
 
 .panel-header>.label {

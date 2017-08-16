@@ -83,8 +83,8 @@
       <!-- <hr class="visible-xs" ng-show="product.variants.length > 0">
       
       <hr class="visible-xs" ng-show="product.variants.length > 0"> -->
-      <button type="button" class="btn btn-default" ng-show="product.product.quantity">
-        <span class="glyphicon glyphicon-shopping-cart"></span> {{product.product.quantity}} in your cart
+      <button type="button" class="btn btn-default" ng-show="product.product.quantity" ui-sref="main.cart">
+        <span class="glyphicon glyphicon-shopping-cart"></span> {{product.product.quantity}} in cart
       </button>
       <a id="checkoutButton" type="button" class="btn btn-default pull-right" ui-sref="main.cart">Proceed To Checkout</a>
       <hr />
