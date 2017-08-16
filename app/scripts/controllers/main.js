@@ -12,7 +12,7 @@ angular.module('chocoholicsApp')
     var vm = this;
     var items;
     this.checker = true;
-    this.tatal = 0;
+    this.total = 0;
     this.cartChecker = false;
 
 
