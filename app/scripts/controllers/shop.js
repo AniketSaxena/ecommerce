@@ -66,7 +66,7 @@ angular.module('chocoholicsApp')
           if (count > vm.products.length) {
             vm.showLoadMore = true;
 
-            return productService.getProducts(vm.counter, 12, null, category);
+            return productService.getProducts(vm.counter, 12, null, category || vm.selectedCategory);
           } else {
             vm.showLoadMore = false;
           }
